@@ -5,8 +5,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour{
     
     public float speed = 1f;
+    public float distanceToWaypoint = 0f;
 
-    private Transform target;
+    public Transform target;
     private int waypointIndex = 0;
 
     void Start(){
@@ -17,7 +18,9 @@ public class Enemy : MonoBehaviour{
         Vector3 movement = target.position - transform.position;
         transform.Translate(movement.normalized * speed * Time.deltaTime, Space.World);
 
-        if (Vector3.Distance(transform.position, target.position) < 0.1){
+        distanceToWaypoint = Vector3.Distance(transform.position, target.position);
+
+        if (Vector3.Distance(transform.position, target.position) < 0.01){
             if (waypointIndex >= Waypoints.points.Length - 1){
                 Destroy(gameObject);
                 return;
