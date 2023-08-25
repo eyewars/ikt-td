@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour{
     
-    float timer = 199f;
-    float maxTimer = 200f;
+    float timer = 0f;
+    float maxTimer = 2f;
     public GameObject enemy;
 
-    void Start(){
-        
-    }
+    public static List<GameObject> enemies = new List<GameObject>();
 
     void spawnEnemy(){
-        Instantiate(enemy, new Vector3(0, 1, 1), Quaternion.identity);
+        enemies.Add((GameObject)Instantiate(enemy, this.transform));
+        enemies[enemies.Count - 1].transform.position = new Vector3(0, 1, 1); 
     }
 
     void Update(){

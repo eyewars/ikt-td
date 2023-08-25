@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour{
     public float speed = 1f;
     public float distanceToWaypoint = 0f;
 
+    public float health = 2f;
+
     public Transform target;
     private int waypointIndex = 0;
 

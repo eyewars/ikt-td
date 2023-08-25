@@ -6,19 +6,32 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour{
 
+    // TYPE OF BULLET TO SHOOT
     public GameObject bullet;
+
+    // LIST OF BULLETS THAT THE TOWER SHOT
+    public static List<GameObject> bullets = new List<GameObject>();
+
     public string enemyTag = "Enemy";
 
     public Transform enemyTarget = null;
 
-    void Start(){
-        
-    }
+    public float damage = 1f;
 
+    public GameObject bulletHolder;
+    void Start(){
+        bulletHolder = GameObject.Find("Bullets");
+    }
+    
+    // INSTANTIATES BULLETS AND ADDS TO LIST
+    // FINDS THE DIRECTION FROM THE BULLET THAT WAS JUST MADE TO THE TARGET, AND ADDS THAT VALUE TO THE myDir VARIABLE
     void shoot(){
-        Instantiate(bullet, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
-        //bullet.GetComponent<Bullet>().myDir = enemyTarget.position - transform.position;
-        bullet.GetComponent<Bullet>().towerIndex = Towers.towers.IndexOf(gameObject);
+        bullets.Add((GameObject)Instantiate(bullet, bulletHolder.transform));
+        bullets[bullets.Count - 1].transform.position = transform.position;
+        
+        bullets[bullets.Count - 1].GetComponent<Bullet>().myDir = enemyTarget.position - transform.position;
+
+        bullets[bullets.Count - 1].GetComponent<Bullet>().myTower = gameObject;
     }
 
     void findEnemy(){

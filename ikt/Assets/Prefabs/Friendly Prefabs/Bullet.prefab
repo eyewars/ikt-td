@@ -118,3 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d7828bdc43652445b97f2dc640af7eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myDir: {x: 0, y: 0, z: 0}
+  myTower: {fileID: 0}
+  bulletSpeed: 1
