@@ -9,10 +9,16 @@ public class Tower : MonoBehaviour{
     public GameObject bullet;
     public string enemyTag = "Enemy";
 
-    Transform enemyTarget = null;
+    public Transform enemyTarget = null;
 
     void Start(){
         
+    }
+
+    void shoot(){
+        Instantiate(bullet, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+        //bullet.GetComponent<Bullet>().myDir = enemyTarget.position - transform.position;
+        bullet.GetComponent<Bullet>().towerIndex = Towers.towers.IndexOf(gameObject);
     }
 
     void findEnemy(){
@@ -55,7 +61,8 @@ public class Tower : MonoBehaviour{
         transform.rotation = Quaternion.Euler(0f, turnRotation.y, 0f);
 
         if (Input.GetKeyUp("space")){
-            Instantiate(bullet, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            shoot();
         }
+
     }
 }
