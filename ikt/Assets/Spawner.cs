@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour{
     
     float timer = 0f;
-    float maxTimer = 2f;
+    float maxTimer = 1f;
     public GameObject enemy;
 
     public static List<GameObject> enemies = new List<GameObject>();

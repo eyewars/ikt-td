@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class Tower : MonoBehaviour{
     // TYPE OF BULLET TO SHOOT
     public GameObject bullet;
 
+    public float shootTimer;
+
     // LIST OF BULLETS THAT THE TOWER SHOT
     public static List<GameObject> bullets = new List<GameObject>();
 
@@ -16,11 +19,35 @@ public class Tower : MonoBehaviour{
 
     public Transform enemyTarget = null;
 
-    public float damage = 1f;
+    public string type = "Laser Shooter";
+
+    public float damage;
+    public float range;
+    public float attackSpeed;
+    public float projectileSpeed;
+
+    void Awake(){
+        if (type == "Laser Shooter"){
+            damage = 1f;
+            range = 3.8f;
+            attackSpeed = 0.8f;
+            projectileSpeed = 20f;
+        }
+        else if (type == "Plasma Canon"){
+            damage = 2f;
+            range = 3.2f;
+            attackSpeed = 1.5f;
+            projectileSpeed = 12f;
+        }
+
+        shootTimer = attackSpeed;
+    }
 
     public GameObject bulletHolder;
     void Start(){
         bulletHolder = GameObject.Find("Bullets");
+
+        CreatePoints(100);
     }
     
     // INSTANTIATES BULLETS AND ADDS TO LIST
@@ -28,10 +55,10 @@ public class Tower : MonoBehaviour{
     void shoot(){
         bullets.Add((GameObject)Instantiate(bullet, bulletHolder.transform));
         bullets[bullets.Count - 1].transform.position = transform.position;
-        
+            
         bullets[bullets.Count - 1].GetComponent<Bullet>().myDir = enemyTarget.position - transform.position;
 
-        bullets[bullets.Count - 1].GetComponent<Bullet>().myTower = gameObject;
+        bullets[bullets.Count - 1].GetComponent<Bullet>().myTower = this;   
     }
 
     void findEnemy(){
@@ -44,6 +71,12 @@ public class Tower : MonoBehaviour{
             Transform targetOfEnemy = enemies[i].GetComponent<Enemy>().target;
             int tempWaypointNum = System.Array.IndexOf(Waypoints.points, targetOfEnemy);
 
+            float distanceToEnemy = (enemies[i].transform.position - transform.position).magnitude;
+
+            if (distanceToEnemy > range){
+                continue;
+            }
+
             if (enemyNearestEnd == null){
                 enemyNearestEnd = enemies[i];
                 nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
@@ -55,6 +88,7 @@ public class Tower : MonoBehaviour{
             }
         }
 
+        enemyTarget = null;
         if (enemyNearestEnd != null){
             enemyTarget = enemyNearestEnd.transform;
         }
@@ -73,9 +107,61 @@ public class Tower : MonoBehaviour{
 
         transform.rotation = Quaternion.Euler(0f, turnRotation.y, 0f);
 
-        if (Input.GetKeyUp("space")){
+        if (shootTimer >= attackSpeed){
             shoot();
+            shootTimer -= attackSpeed;
+        }
+        
+        shootTimer += 1 * Time.deltaTime;
+    }
+
+    public float getDamage(){
+        return damage;
+    }
+
+    public float getRange(){
+        return range;
+    }
+
+    public float getAttackSpeed(){
+        return attackSpeed;
+    }
+
+    public float getProjectileSpeed(){
+        return projectileSpeed;
+    }
+
+    [SerializeField] LineRenderer line;
+
+    public void CreatePoints(int steps){
+        line.enabled = false;
+        line.widthMultiplier = 0.05f;
+        line.useWorldSpace = false;
+        line.positionCount = steps + 1;
+
+        float x;
+        float y;
+
+        var points = new Vector3[steps + 1];
+        for (int currentStep = 0; currentStep < steps + 1; currentStep++){
+            float circumferenceProgress = (float)currentStep/steps;
+
+            float currentRadian = circumferenceProgress * 2 * Mathf.PI;
+
+            x = Mathf.Cos(currentRadian) * range * 2;
+            y = Mathf.Sin(currentRadian) * range * 2;
+
+            points[currentStep] = new Vector3(x, 0f, y);
         }
 
+        line.SetPositions(points);
+    }
+
+    void OnMouseEnter(){
+        line.enabled = true;
+    }
+
+    void OnMouseExit(){
+        line.enabled = false;
     }
 }
