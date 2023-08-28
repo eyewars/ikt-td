@@ -120,4 +120,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myDir: {x: 0, y: 0, z: 0}
   myTower: {fileID: 0}
-  bulletSpeed: 1
+  bulletSpeed: 20

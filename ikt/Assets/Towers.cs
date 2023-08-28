@@ -16,4 +16,8 @@ public class Towers : MonoBehaviour{
             towers[towers.Count - 1].transform.position = new Vector3(towers.Count + 1, 1, 3); 
         } 
     }
+
+    void Update(){
+
+    }
 }
