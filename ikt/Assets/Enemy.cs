@@ -25,6 +25,8 @@ public class Enemy : MonoBehaviour{
         if (Vector3.Distance(transform.position, target.position) < 0.01){
             if (waypointIndex >= Waypoints.points.Length - 1){
                 Destroy(gameObject);
+                StatTracker.instance.takeDamage(1);
+                StatTracker.instance.updateText();
                 return;
             }
 
