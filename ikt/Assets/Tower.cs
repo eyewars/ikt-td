@@ -25,19 +25,22 @@ public class Tower : MonoBehaviour{
     public float range;
     public float attackSpeed;
     public float projectileSpeed;
+    public int cost;
 
     void Awake(){
         if (type == "Laser Shooter"){
-            damage = 1f;
-            range = 3.8f;
-            attackSpeed = 0.8f;
-            projectileSpeed = 20f;
+            damage = StatTracker.instance.getDamage(0);
+            range = StatTracker.instance.getRange(0);
+            attackSpeed = StatTracker.instance.getAttackSpeed(0);
+            projectileSpeed = StatTracker.instance.getProjectileSpeed(0);
+            cost = StatTracker.instance.getCost(0);
         }
         else if (type == "Plasma Canon"){
-            damage = 2f;
-            range = 3.2f;
-            attackSpeed = 1.5f;
-            projectileSpeed = 12f;
+            damage = StatTracker.instance.getDamage(1);
+            range = StatTracker.instance.getRange(1);
+            attackSpeed = StatTracker.instance.getAttackSpeed(1);
+            projectileSpeed = StatTracker.instance.getProjectileSpeed(1);
+            cost = StatTracker.instance.getCost(1);
         }
 
         shootTimer = attackSpeed;
@@ -129,6 +132,10 @@ public class Tower : MonoBehaviour{
 
     public float getProjectileSpeed(){
         return projectileSpeed;
+    }
+
+    public int getCost(){
+        return cost;
     }
 
     [SerializeField] LineRenderer line;

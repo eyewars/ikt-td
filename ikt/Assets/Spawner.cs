@@ -16,6 +16,7 @@ public class Spawner : MonoBehaviour{
         enemies.Add((GameObject)Instantiate(enemy, this.transform));
         enemies[enemies.Count - 1].transform.position = new Vector3(0, 1, 1);
         enemies[enemies.Count - 1].GetComponent<Enemy>().health = StatTracker.instance.getWave();
+        enemies[enemies.Count - 1].GetComponent<Enemy>().tokenIncrease = StatTracker.instance.getWave() * 2;
 
         numberOfEnemiesSent++;
     }

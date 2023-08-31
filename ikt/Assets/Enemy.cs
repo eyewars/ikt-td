@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour{
 
     public float health = 2f;
 
+    public int tokenIncrease = 2;
+
     public Transform target;
     private int waypointIndex = 0;
 

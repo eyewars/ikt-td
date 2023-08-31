@@ -26,16 +26,19 @@ public class Bullet : MonoBehaviour{
     }
 
     void OnTriggerEnter(Collider thing){
-        Destroy(gameObject);
-
-        //Debug.Log(thing.gameObject);
         int enemyIndex = Spawner.enemies.IndexOf(thing.gameObject);
-        
-        Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.getDamage();
 
-        if (Spawner.enemies[enemyIndex].GetComponent<Enemy>().health <= 0){
-            Destroy(Spawner.enemies[enemyIndex]);
-            Spawner.enemies.Remove(Spawner.enemies[enemyIndex]);
-        }
+        if (enemyIndex >= 0){
+            Destroy(gameObject);
+
+            Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.getDamage(); 
+
+            if (Spawner.enemies[enemyIndex].GetComponent<Enemy>().health <= 0){
+                StatTracker.instance.changeTokens(Spawner.enemies[enemyIndex].GetComponent<Enemy>().tokenIncrease);
+                Destroy(Spawner.enemies[enemyIndex]);
+                Spawner.enemies.Remove(Spawner.enemies[enemyIndex]);
+                StatTracker.instance.updateText();
+            }  
+        }      
     }
 }

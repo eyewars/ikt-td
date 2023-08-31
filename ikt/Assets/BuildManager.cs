@@ -19,6 +19,17 @@ public class BuildManager : MonoBehaviour{
 
     private GameObject towerToBuild;
 
+    public void setTowerToBuild(int index){
+        switch (index){
+            case 0:
+                towerToBuild = laserShooterPrefab;
+                break;
+            case 1:
+                towerToBuild = plasmaCanonPrefab;
+                break;
+        }
+    }
+
     void Start(){
         towerToBuild = laserShooterPrefab;
     }

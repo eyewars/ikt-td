@@ -16,7 +16,7 @@ public class Tile : MonoBehaviour{
         startColor = rend.material.color;
     }
 
-    void OnMouseDown(){
+    void buildTower(){
         if (tower != null){
             Debug.Log("BROR DET ER NOE DER LOL");
             return;
@@ -26,6 +26,18 @@ public class Tile : MonoBehaviour{
         Vector3 tempPos = transform.position;
         tempPos.y += 1;
         tower = (GameObject)Instantiate(towerToBuild, tempPos, transform.rotation);
+
+        if (StatTracker.instance.getTokens() < tower.GetComponent<Tower>().getCost()){
+            Destroy(tower);
+            return;
+        }   
+
+        StatTracker.instance.changeTokens(-tower.GetComponent<Tower>().getCost());
+        StatTracker.instance.updateText();
+    }
+
+    void OnMouseDown(){
+        buildTower();
     }
 
     void OnMouseEnter(){
