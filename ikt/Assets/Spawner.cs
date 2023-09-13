@@ -1,16 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+//using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Spawner : MonoBehaviour{
     
     float timer = 0f;
     float maxTimer = 1f;
+    float sendWaveTimer = 0f;
+    float maxSendWaveTimer = 10f;
     int numberOfEnemies = 0;
     int numberOfEnemiesSent = 0;
     public GameObject enemy;
 
     public static List<GameObject> enemies = new List<GameObject>();
+
+    [SerializeField] private Image roundTimerImg;
+    [SerializeField] private TextMeshProUGUI roundTimerText;
 
     void spawnEnemy(){
         enemies.Add((GameObject)Instantiate(enemy, this.transform));
@@ -24,7 +33,18 @@ public class Spawner : MonoBehaviour{
     void sendWave(int wave){
         numberOfEnemiesSent = 0;
         numberOfEnemies = wave * 2;
-        timer = -2f;
+        timer = 1f;
+        sendWaveTimer = 0f;
+    }
+
+    void startWave(){
+        StatTracker.instance.increaseWave();
+        sendWave(StatTracker.instance.getWave());
+        StatTracker.instance.updateText();
+    }
+
+    void Start(){
+        
     }
 
     void Update(){
@@ -34,12 +54,24 @@ public class Spawner : MonoBehaviour{
                 timer -= maxTimer;
             }
 
-            timer += 1 * Time.deltaTime;   
+            timer += 1 * Time.deltaTime;
         }
         else{
-            StatTracker.instance.increaseWave();
-            sendWave(StatTracker.instance.getWave());
-            StatTracker.instance.updateText();
+            if (sendWaveTimer < maxSendWaveTimer){
+                sendWaveTimer += 1 * Time.deltaTime;
+            }
+            else{
+                startWave();
+            }
+
+            roundTimerImg.fillAmount = sendWaveTimer / maxSendWaveTimer;
+        }
+
+        if (roundTimerImg.fillAmount == 0){
+            roundTimerText.enabled = false;
+        }
+        else {
+            roundTimerText.enabled = true;
         }
     }
 }
