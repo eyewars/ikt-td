@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8871609599083282895
 MeshFilter:
@@ -126,11 +126,13 @@ MonoBehaviour:
   shootTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
+  partToRotate: {fileID: 326088488928485543}
   type: Laser Shooter
   damage: 0
   range: 0
   attackSpeed: 0
   projectileSpeed: 0
+  cost: 0
   bulletHolder: {fileID: 0}
   line: {fileID: 2560932514076232631}
 --- !u!114 &2646998955600529617

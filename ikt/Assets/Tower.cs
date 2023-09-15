@@ -19,6 +19,8 @@ public class Tower : MonoBehaviour{
 
     public Transform enemyTarget = null;
 
+    public GameObject partToRotate;
+
     public string type = "Laser Shooter";
 
     public float damage;
@@ -49,6 +51,11 @@ public class Tower : MonoBehaviour{
     public GameObject bulletHolder;
     void Start(){
         bulletHolder = GameObject.Find("Bullets");
+
+        // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // FJERN DENNE LINJA NÅR DU FÅR MODELL SHITTET TIL Å FUNGERE ELLER NOE SÅNN !!!!!!!!!!!!!!!!!!!!!!!!!! 
+        // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 
         CreatePoints(100);
     }
@@ -107,8 +114,8 @@ public class Tower : MonoBehaviour{
         Vector3 direction = enemyTarget.position - transform.position;
         Quaternion turnDirection = Quaternion.LookRotation(direction);
         Vector3 turnRotation = turnDirection.eulerAngles;
-
-        transform.rotation = Quaternion.Euler(0f, turnRotation.y, 0f);
+        
+        partToRotate.transform.rotation = Quaternion.Euler(0f, turnRotation.y, 0f);
 
         if (shootTimer >= attackSpeed){
             shoot();
@@ -140,11 +147,17 @@ public class Tower : MonoBehaviour{
 
     [SerializeField] LineRenderer line;
 
+
+    // HUSK Å KJØRE DENNE PÅ NYTT HVIS DU OPPDATERER RANGE (DEN KJØRER NÅ KUN EN GANG I START)
     public void CreatePoints(int steps){
         line.enabled = false;
         line.widthMultiplier = 0.05f;
         line.useWorldSpace = false;
         line.positionCount = steps + 1;
+        
+        float scaleValue = 1 / transform.localScale.x;
+
+        //Debug.Log(scaleValue);
 
         float x;
         float y;
@@ -155,8 +168,8 @@ public class Tower : MonoBehaviour{
 
             float currentRadian = circumferenceProgress * 2 * Mathf.PI;
 
-            x = Mathf.Cos(currentRadian) * range * 2;
-            y = Mathf.Sin(currentRadian) * range * 2;
+            x = Mathf.Cos(currentRadian) * range * scaleValue;
+            y = Mathf.Sin(currentRadian) * range * scaleValue;
 
             points[currentStep] = new Vector3(x, 0f, y);
         }

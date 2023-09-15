@@ -37,7 +37,10 @@ public class Spawner : MonoBehaviour{
         sendWaveTimer = 0f;
     }
 
-    void startWave(){
+    public void startWave(){
+        int tokenAmount = (int)Math.Round((10 - sendWaveTimer) * 10);
+        StatTracker.instance.changeTokens(tokenAmount);
+
         StatTracker.instance.increaseWave();
         sendWave(StatTracker.instance.getWave());
         StatTracker.instance.updateText();
@@ -63,9 +66,9 @@ public class Spawner : MonoBehaviour{
             else{
                 startWave();
             }
-
-            roundTimerImg.fillAmount = sendWaveTimer / maxSendWaveTimer;
         }
+
+        roundTimerImg.fillAmount = sendWaveTimer / maxSendWaveTimer;
 
         if (roundTimerImg.fillAmount == 0){
             roundTimerText.enabled = false;

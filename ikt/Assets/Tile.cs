@@ -24,7 +24,7 @@ public class Tile : MonoBehaviour{
         
         GameObject towerToBuild = BuildManager.instance.GetTowerToBuild();
         Vector3 tempPos = transform.position;
-        tempPos.y += 1;
+        tempPos.y += 0.6f;
         tower = (GameObject)Instantiate(towerToBuild, tempPos, transform.rotation);
 
         if (StatTracker.instance.getTokens() < tower.GetComponent<Tower>().getCost()){
