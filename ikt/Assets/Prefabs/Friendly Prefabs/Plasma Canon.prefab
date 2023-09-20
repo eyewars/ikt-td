@@ -126,11 +126,14 @@ MonoBehaviour:
   shootTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
+  partToRotate: {fileID: 0}
   type: Plasma Canon
   damage: 0
   range: 0
   attackSpeed: 0
   projectileSpeed: 0
+  cost: 0
+  upgradePanel: {fileID: 2384827274650208657, guid: c2a0bacc6d1094045893dc6544b7bfa7, type: 3}
   bulletHolder: {fileID: 0}
   line: {fileID: 8651350456653347156}
 --- !u!114 &5767828890441277699

@@ -119,6 +119,7 @@ MonoBehaviour:
   attackSpeed: 0
   projectileSpeed: 0
   cost: 0
+  upgradePanel: {fileID: 2384827274650208657, guid: c2a0bacc6d1094045893dc6544b7bfa7, type: 3}
   bulletHolder: {fileID: 0}
   line: {fileID: -3658486390157186984}
 --- !u!120 &-3658486390157186984

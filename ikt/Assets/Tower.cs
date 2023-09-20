@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
+using TMPro;
 
 public class Tower : MonoBehaviour{
 
@@ -28,6 +29,13 @@ public class Tower : MonoBehaviour{
     public float attackSpeed;
     public float projectileSpeed;
     public int cost;
+
+    // upgradePanel er en UI Prefab vi dro inn i Unity editoren
+    // panel er instancen (som blir lagd senere)
+    public GameObject upgradePanel;
+    private GameObject panel;
+    private GameObject description;
+    private TextMeshProUGUI descriptionText;
 
     void Awake(){
         if (type == "Laser Shooter"){
@@ -171,7 +179,7 @@ public class Tower : MonoBehaviour{
             x = Mathf.Cos(currentRadian) * range * scaleValue;
             y = Mathf.Sin(currentRadian) * range * scaleValue;
 
-            points[currentStep] = new Vector3(x, 0f, y);
+            points[currentStep] = new Vector3(x, y, 0f);
         }
 
         line.SetPositions(points);
@@ -183,5 +191,25 @@ public class Tower : MonoBehaviour{
 
     void OnMouseExit(){
         line.enabled = false;
+
+        Destroy(panel);
+    }
+
+    public void createUpgradePanelUI(){
+        if (panel != null){
+            Destroy(panel);
+        }
+
+        //Vi lager en instance av upgradePanel inni panel, så setter vi panel til å være en parent av Canvas
+        panel = (GameObject)Instantiate(upgradePanel);
+        panel.transform.SetParent(CanvasManager.instance.transform, false);
+
+        description = panel.transform.Find("UpgradeButton/UpgradeDescription").gameObject;
+        descriptionText = description.GetComponentInChildren<TextMeshProUGUI>(true);
+        descriptionText.text = "Testtttt";
+    }
+
+    void OnMouseDown(){
+        createUpgradePanelUI();
     }
 }
