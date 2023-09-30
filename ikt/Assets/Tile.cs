@@ -33,6 +33,10 @@ public class Tile : MonoBehaviour{
         }   
 
         StatTracker.instance.changeTokens(-tower.GetComponent<Tower>().getCost());
+    
+        tower.GetComponent<Tower>().totalMoneySpent += tower.GetComponent<Tower>().getCost();
+        tower.GetComponent<Tower>().updateSellValue();
+
         StatTracker.instance.updateText();
     }
 

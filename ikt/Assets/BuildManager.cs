@@ -19,6 +19,8 @@ public class BuildManager : MonoBehaviour{
 
     private GameObject towerToBuild;
 
+    public GameObject upgradePanel;
+
     public void setTowerToBuild(int index){
         switch (index){
             case 0:

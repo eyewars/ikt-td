@@ -29,12 +29,14 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] float attackSpeedLS = 0.8f;
     [SerializeField] float projectileSpeedLS = 20f;
     [SerializeField] int costLS = 100;
+    [SerializeField] int[] upgradeCostsLS = {100, 200, 300, 400};
 
     [SerializeField] float damagePC = 2f;
     [SerializeField] float rangePC = 2.8f;
     [SerializeField] float attackSpeedPC = 1.5f;
     [SerializeField] float projectileSpeedPC = 12f;
     [SerializeField] int costPC = 150;
+    [SerializeField] int[] upgradeCostsPC = {150, 250, 350, 450};
 
 
     void Start(){
@@ -42,8 +44,8 @@ public class StatTracker : MonoBehaviour{
     }
 
     public void updateText(){
-        tokenText.text = "Tokens: " + tokens.ToString();
-        healthText.text = "Health: " + playerHealth.ToString();
+        tokenText.text = tokens.ToString();
+        healthText.text = playerHealth.ToString();
         waveText.text = "Round: " + wave.ToString();
     }
 
@@ -127,6 +129,28 @@ public class StatTracker : MonoBehaviour{
                 return costPC;
             default: 
                 return costLS;
+        }
+    }
+
+    public string getDescription(int index){
+        switch (index){
+            case 0:
+                return "Basic tower that shoots laser.";
+            case 1: 
+                return "Slow tower that shoots plasma.";
+            default: 
+                return "DEFAULT, DU ADDA IKKE INDEX";
+        }
+    }
+
+    public int[] getUpgradeCost(int index){
+        switch (index){
+            case 0:
+                return upgradeCostsLS;
+            case 1: 
+                return upgradeCostsPC;
+            default: 
+                return upgradeCostsLS;
         }
     }
 }

@@ -29,13 +29,20 @@ public class Tower : MonoBehaviour{
     public float attackSpeed;
     public float projectileSpeed;
     public int cost;
+    public int[] upgradeCosts;
+    public int totalMoneySpent = 0;
+    private int sellValue = 0;
 
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
     // panel er instancen (som blir lagd senere)
-    public GameObject upgradePanel;
+    private GameObject upgradePanel;
     private GameObject panel;
-    private GameObject description;
-    private TextMeshProUGUI descriptionText;
+    private GameObject descriptionPanel;
+    private TextMeshProUGUI descriptionPanelText;
+    private TextMeshProUGUI upgradeCostText;
+    private TextMeshProUGUI sellValueText;
+
+    private string descriptionText;
 
     void Awake(){
         if (type == "Laser Shooter"){
@@ -44,6 +51,10 @@ public class Tower : MonoBehaviour{
             attackSpeed = StatTracker.instance.getAttackSpeed(0);
             projectileSpeed = StatTracker.instance.getProjectileSpeed(0);
             cost = StatTracker.instance.getCost(0);
+
+            upgradeCosts = StatTracker.instance.getUpgradeCost(0);
+
+            descriptionText = StatTracker.instance.getDescription(0);
         }
         else if (type == "Plasma Canon"){
             damage = StatTracker.instance.getDamage(1);
@@ -51,6 +62,10 @@ public class Tower : MonoBehaviour{
             attackSpeed = StatTracker.instance.getAttackSpeed(1);
             projectileSpeed = StatTracker.instance.getProjectileSpeed(1);
             cost = StatTracker.instance.getCost(1);
+
+            upgradeCosts = StatTracker.instance.getUpgradeCost(1);
+
+            descriptionText = StatTracker.instance.getDescription(1);
         }
 
         shootTimer = attackSpeed;
@@ -58,6 +73,7 @@ public class Tower : MonoBehaviour{
 
     public GameObject bulletHolder;
     void Start(){
+        upgradePanel = BuildManager.instance.upgradePanel;
         bulletHolder = GameObject.Find("Bullets");
 
         // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -153,9 +169,12 @@ public class Tower : MonoBehaviour{
         return cost;
     }
 
+    public void updateSellValue(){
+        sellValue = (int)(totalMoneySpent * 0.8);
+    }
+
+
     [SerializeField] LineRenderer line;
-
-
     // HUSK Å KJØRE DENNE PÅ NYTT HVIS DU OPPDATERER RANGE (DEN KJØRER NÅ KUN EN GANG I START)
     public void CreatePoints(int steps){
         line.enabled = false;
@@ -204,9 +223,15 @@ public class Tower : MonoBehaviour{
         panel = (GameObject)Instantiate(upgradePanel);
         panel.transform.SetParent(CanvasManager.instance.transform, false);
 
-        description = panel.transform.Find("UpgradeButton/UpgradeDescription").gameObject;
-        descriptionText = description.GetComponentInChildren<TextMeshProUGUI>(true);
-        descriptionText.text = "Testtttt";
+        descriptionPanel = panel.transform.Find("UpgradeButton/UpgradeDescription").gameObject;
+        descriptionPanelText = descriptionPanel.GetComponentInChildren<TextMeshProUGUI>(true);
+        descriptionPanelText.text = descriptionText;
+
+        upgradeCostText = panel.transform.Find("UpgradeCostText").GetComponent<TextMeshProUGUI>();
+        upgradeCostText.text = upgradeCosts[0].ToString();
+
+        sellValueText = panel.transform.Find("SellValueText").GetComponent<TextMeshProUGUI>();
+        sellValueText.text = sellValue.ToString();
     }
 
     void OnMouseDown(){
