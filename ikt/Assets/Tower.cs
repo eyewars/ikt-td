@@ -248,9 +248,7 @@ public class Tower : MonoBehaviour{
     }
 
     public void createUpgradePanelUI(){
-        if (panel != null){
-            Destroy(panel);
-        }
+        Destroy(GameObject.FindGameObjectWithTag("UpgradePanelTag"));
 
         //Når UIen blir lagd så settes currentTileHoldingTowerUI til å være dette tårnet sin tile
         //Når UIen blir slettet, så blir ikke den variabelen resatt, så være forsiktig med det + husk å slette
