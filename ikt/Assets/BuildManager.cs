@@ -39,4 +39,6 @@ public class BuildManager : MonoBehaviour{
     public GameObject GetTowerToBuild(){
         return towerToBuild;
     }
+
+    public Tile currentTileHoldingTowerUI;
 }

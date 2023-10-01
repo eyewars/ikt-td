@@ -8,6 +8,8 @@ using TMPro;
 
 public class Tower : MonoBehaviour{
 
+    public Tile myTile;
+
     // TYPE OF BULLET TO SHOOT
     public GameObject bullet;
 
@@ -30,13 +32,15 @@ public class Tower : MonoBehaviour{
     public float projectileSpeed;
     public int cost;
     public int[] upgradeCosts;
+    public string[] upgradeDescriptions;
     public int totalMoneySpent = 0;
-    private int sellValue = 0;
+    public int sellValue = 0;
+    public int totalUpgrades = 0;
 
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
     // panel er instancen (som blir lagd senere)
     private GameObject upgradePanel;
-    private GameObject panel;
+    public GameObject panel;
     private GameObject descriptionPanel;
     private TextMeshProUGUI descriptionPanelText;
     private TextMeshProUGUI upgradeCostText;
@@ -53,6 +57,7 @@ public class Tower : MonoBehaviour{
             cost = StatTracker.instance.getCost(0);
 
             upgradeCosts = StatTracker.instance.getUpgradeCost(0);
+            upgradeDescriptions = StatTracker.instance.getUpgradeDescription(0);
 
             descriptionText = StatTracker.instance.getDescription(0);
         }
@@ -64,6 +69,7 @@ public class Tower : MonoBehaviour{
             cost = StatTracker.instance.getCost(1);
 
             upgradeCosts = StatTracker.instance.getUpgradeCost(1);
+            upgradeDescriptions = StatTracker.instance.getUpgradeDescription(1);
 
             descriptionText = StatTracker.instance.getDescription(1);
         }
@@ -173,6 +179,33 @@ public class Tower : MonoBehaviour{
         sellValue = (int)(totalMoneySpent * 0.8);
     }
 
+    public void updateUIText(){
+        descriptionPanelText.text = upgradeDescriptions[totalUpgrades];
+        sellValueText.text = sellValue.ToString();
+        if (totalUpgrades < 4){
+            upgradeCostText.text = upgradeCosts[totalUpgrades].ToString();
+        }
+    }
+
+    public void upgradeTower(){
+        if (totalUpgrades == 4){
+            return;
+        }
+
+        if (StatTracker.instance.getTokens() < upgradeCosts[totalUpgrades]){
+            return;
+        }
+
+        StatTracker.instance.changeTokens(-upgradeCosts[totalUpgrades]);
+        StatTracker.instance.updateText();
+
+        totalMoneySpent += upgradeCosts[totalUpgrades];
+        updateSellValue();
+
+        totalUpgrades++;
+
+        updateUIText();
+    }
 
     [SerializeField] LineRenderer line;
     // HUSK Å KJØRE DENNE PÅ NYTT HVIS DU OPPDATERER RANGE (DEN KJØRER NÅ KUN EN GANG I START)
@@ -211,7 +244,7 @@ public class Tower : MonoBehaviour{
     void OnMouseExit(){
         line.enabled = false;
 
-        Destroy(panel);
+        //Destroy(panel);
     }
 
     public void createUpgradePanelUI(){
@@ -219,19 +252,29 @@ public class Tower : MonoBehaviour{
             Destroy(panel);
         }
 
+        //Når UIen blir lagd så settes currentTileHoldingTowerUI til å være dette tårnet sin tile
+        //Når UIen blir slettet, så blir ikke den variabelen resatt, så være forsiktig med det + husk å slette
+        //JEG TROR DEN KOMMENTAREN OVER ER TROLL, SÅ BARE IGNORER
+        BuildManager.instance.currentTileHoldingTowerUI = myTile;
+
         //Vi lager en instance av upgradePanel inni panel, så setter vi panel til å være en parent av Canvas
         panel = (GameObject)Instantiate(upgradePanel);
         panel.transform.SetParent(CanvasManager.instance.transform, false);
 
         descriptionPanel = panel.transform.Find("UpgradeButton/UpgradeDescription").gameObject;
         descriptionPanelText = descriptionPanel.GetComponentInChildren<TextMeshProUGUI>(true);
-        descriptionPanelText.text = descriptionText;
+        //descriptionPanelText.text = upgradeDescriptions[totalUpgrades];
+
+        descriptionPanel.SetActive(false);
 
         upgradeCostText = panel.transform.Find("UpgradeCostText").GetComponent<TextMeshProUGUI>();
-        upgradeCostText.text = upgradeCosts[0].ToString();
+        //upgradeCostText.text = upgradeCosts[totalUpgrades].ToString();
 
         sellValueText = panel.transform.Find("SellValueText").GetComponent<TextMeshProUGUI>();
-        sellValueText.text = sellValue.ToString();
+        //sellValueText.text = sellValue.ToString();
+
+        //Kommenterte ut .text greiene fordi de blir gjort i updateUIText()
+        updateUIText();
     }
 
     void OnMouseDown(){

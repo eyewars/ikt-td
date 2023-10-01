@@ -7,7 +7,7 @@ public class Tile : MonoBehaviour{
     public Color hoverColor;
     private Color startColor;
 
-    private GameObject tower;
+    public GameObject tower;
 
     private Renderer rend;
 
@@ -26,6 +26,7 @@ public class Tile : MonoBehaviour{
         Vector3 tempPos = transform.position;
         tempPos.y += 0.6f;
         tower = (GameObject)Instantiate(towerToBuild, tempPos, transform.rotation);
+        tower.GetComponent<Tower>().myTile = this;
 
         if (StatTracker.instance.getTokens() < tower.GetComponent<Tower>().getCost()){
             Destroy(tower);
@@ -38,6 +39,14 @@ public class Tile : MonoBehaviour{
         tower.GetComponent<Tower>().updateSellValue();
 
         StatTracker.instance.updateText();
+    }
+
+    public void sellTower(){
+        int value = tower.GetComponent<Tower>().sellValue;
+        StatTracker.instance.changeTokens(value);
+        StatTracker.instance.updateText();
+
+        Destroy(tower);
     }
 
     void OnMouseDown(){
