@@ -86,6 +86,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8474880257500109932}
   m_SourcePrefab: {fileID: 100100000, guid: 3fa500f8023fabd4e948a6d21da2a0e5, type: 3}
+--- !u!1 &369200356749928806 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5172266720071952667, guid: 3fa500f8023fabd4e948a6d21da2a0e5, type: 3}
+  m_PrefabInstance: {fileID: 4406705263312093059}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3271344050564183995 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1171469175893821496, guid: 3fa500f8023fabd4e948a6d21da2a0e5, type: 3}
@@ -108,18 +113,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebcf8eaa65c37f46835274944db6662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myTile: {fileID: 0}
   bullet: {fileID: 3097568633870670902, guid: 6decb57c60d19dd46b8f461b9b3b6440, type: 3}
   shootTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
   partToRotate: {fileID: 3271344050564183995}
+  partToShootFrom: {fileID: 369200356749928806}
   type: Laser Shooter
   damage: 0
   range: 0
   attackSpeed: 0
   projectileSpeed: 0
   cost: 0
-  upgradePanel: {fileID: 2384827274650208657, guid: c2a0bacc6d1094045893dc6544b7bfa7, type: 3}
+  upgradeCosts: 
+  upgradeDescriptions: []
+  totalMoneySpent: 0
+  sellValue: 0
+  totalUpgrades: 0
+  panel: {fileID: 0}
   bulletHolder: {fileID: 0}
   line: {fileID: -3658486390157186984}
 --- !u!120 &-3658486390157186984

@@ -30,7 +30,7 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] float projectileSpeedLS = 20f;
     [SerializeField] int costLS = 100;
     [SerializeField] int[] upgradeCostsLS = {100, 200, 300, 400};
-    [SerializeField] string[] upgradeDescriptionsLS = {"Increase damage per shot.", "Increase attack range.", "Apply a stakcing damage over time effect to the target. The effect does not refresh on attack.", "Significantly increase attack speed, and the damage over time effects ticks much faster.", "Fully upgraded."};
+    [SerializeField] string[] upgradeDescriptionsLS = {"Increase damage per shot.", "Increase attack range.", "Apply a stacking damage over time effect to the target. The effect does not refresh on attack.", "Significantly increase attack speed, and the damage over time effects ticks much faster.", "Fully upgraded."};
 
     [SerializeField] float damagePC = 2f;
     [SerializeField] float rangePC = 2.8f;

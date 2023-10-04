@@ -37,6 +37,10 @@ public class Tower : MonoBehaviour{
     public int sellValue = 0;
     public int totalUpgrades = 0;
 
+    // Status conditions
+    public bool laserShooterUpgrade3 = false;
+    public bool laserShooterUpgrade4 = false;
+
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
     // panel er instancen (som blir lagd senere)
     private GameObject upgradePanel;
@@ -98,7 +102,7 @@ public class Tower : MonoBehaviour{
             
         bullets[bullets.Count - 1].GetComponent<Bullet>().myDir = enemyTarget.position - transform.position;
 
-        bullets[bullets.Count - 1].GetComponent<Bullet>().myTower = this;   
+        bullets[bullets.Count - 1].GetComponent<Bullet>().myTower = this;
     }
 
     void findEnemy(){
@@ -196,6 +200,8 @@ public class Tower : MonoBehaviour{
             return;
         }
 
+        upgradeType(type, totalUpgrades);
+
         StatTracker.instance.changeTokens(-upgradeCosts[totalUpgrades]);
         StatTracker.instance.updateText();
 
@@ -277,5 +283,29 @@ public class Tower : MonoBehaviour{
 
     void OnMouseDown(){
         createUpgradePanelUI();
+    }
+
+    void upgradeType(string towerType, int upgradeNumber){
+        if (towerType == "Laser Shooter"){
+            if (upgradeNumber == 0){
+                damage++;
+            }
+            else if (upgradeNumber == 1){
+                range = 4.5f;
+                CreatePoints(100);
+            }
+            else if (upgradeNumber == 2){
+                laserShooterUpgrade3 = true;
+            }
+            else if (upgradeNumber == 3){
+                laserShooterUpgrade3 = false;
+                laserShooterUpgrade4 = true;
+
+                attackSpeed = 0.2f;
+            }
+        }
+        else if (towerType == "Plasma Canon"){
+
+        }
     }
 }

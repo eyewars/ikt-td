@@ -33,6 +33,15 @@ public class Bullet : MonoBehaviour{
 
             Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.getDamage(); 
 
+            if (myTower.laserShooterUpgrade3){
+                Spawner.enemies[enemyIndex].GetComponent<Enemy>().laserShooterUpgrade3StatusAdd();  
+            }
+
+            if (myTower.laserShooterUpgrade4){
+                Spawner.enemies[enemyIndex].GetComponent<Enemy>().laserShooterUpgrade4StatusAdd();  
+            }
+            
+            // DETTE BLIR SJEKKA FOR TICK DAMAGE I Enemy SCRIPTET
             if (Spawner.enemies[enemyIndex].GetComponent<Enemy>().health <= 0){
                 StatTracker.instance.changeTokens(Spawner.enemies[enemyIndex].GetComponent<Enemy>().tokenIncrease);
                 Destroy(Spawner.enemies[enemyIndex]);
