@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - UpgradePanelTag
+  - Rotate
   layers:
   - Default
   - TransparentFX

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Tower : MonoBehaviour{
@@ -22,7 +23,13 @@ public class Tower : MonoBehaviour{
 
     public Transform enemyTarget = null;
 
-    public GameObject partToRotate;
+    public GameObject upgrade0Model;
+    public GameObject upgrade1Model;
+    public GameObject upgrade2Model;
+    public GameObject upgrade3Model;
+    public GameObject upgrade4Model;
+    private GameObject[] partToRotateArr;
+    private GameObject partToRotate;
 
     public string type = "Laser Shooter";
 
@@ -85,6 +92,19 @@ public class Tower : MonoBehaviour{
     void Start(){
         upgradePanel = BuildManager.instance.upgradePanel;
         bulletHolder = GameObject.Find("Bullets");
+
+        partToRotateArr = GameObject.FindGameObjectsWithTag("Rotate");
+        partToRotate = partToRotateArr[0];
+        upgrade1Model.SetActive(false);
+        upgrade2Model.SetActive(false);
+        upgrade3Model.SetActive(false);
+        upgrade4Model.SetActive(false);
+
+        // Fjerner "Rotate" taggen sånn at ikke de blir funnet på nytt av neste tårn
+        for (int i = 0; i < partToRotateArr.Length; i++){
+            partToRotateArr[i].tag = "Untagged";
+        }
+
 
         // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // FJERN DENNE LINJA NÅR DU FÅR MODELL SHITTET TIL Å FUNGERE ELLER NOE SÅNN !!!!!!!!!!!!!!!!!!!!!!!!!! 
@@ -289,19 +309,38 @@ public class Tower : MonoBehaviour{
         if (towerType == "Laser Shooter"){
             if (upgradeNumber == 0){
                 damage++;
+
+                upgrade0Model.SetActive(false);
+                upgrade1Model.SetActive(true);
+                partToRotate = partToRotateArr[1];
             }
             else if (upgradeNumber == 1){
                 range = 4.5f;
                 CreatePoints(100);
+
+                upgrade1Model.SetActive(false);
+                upgrade2Model.SetActive(true);
+                partToRotate = partToRotateArr[2];
             }
             else if (upgradeNumber == 2){
                 laserShooterUpgrade3 = true;
+
+                upgrade2Model.SetActive(false);
+                upgrade3Model.SetActive(true);
+                partToRotate = partToRotateArr[3];
             }
             else if (upgradeNumber == 3){
                 laserShooterUpgrade3 = false;
                 laserShooterUpgrade4 = true;
 
                 attackSpeed = 0.2f;
+
+                upgrade3Model.SetActive(false);
+                upgrade4Model.SetActive(true);
+                partToRotate = partToRotateArr[4];
+
+                upgradeCostText.enabled = false;
+                panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;
             }
         }
         else if (towerType == "Plasma Canon"){
