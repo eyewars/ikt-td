@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 using TMPro;
 
 public class Tower : MonoBehaviour{
@@ -13,11 +14,14 @@ public class Tower : MonoBehaviour{
 
     // TYPE OF BULLET TO SHOOT
     public GameObject bullet;
+    public GameObject mine;
 
     public float shootTimer;
+    public float mineTimer;
 
     // LIST OF BULLETS THAT THE TOWER SHOT
     public static List<GameObject> bullets = new List<GameObject>();
+    public static List<GameObject> mines = new List<GameObject>();
 
     public string enemyTag = "Enemy";
 
@@ -37,6 +41,7 @@ public class Tower : MonoBehaviour{
     public float range;
     public float attackSpeed;
     public float projectileSpeed;
+    public float explosionRadius;
     public int cost;
     public int[] upgradeCosts;
     public string[] upgradeDescriptions;
@@ -44,9 +49,11 @@ public class Tower : MonoBehaviour{
     public int sellValue = 0;
     public int totalUpgrades = 0;
 
-    // Status conditions
+    // Upgrade conditions
     public bool laserShooterUpgrade3 = false;
     public bool laserShooterUpgrade4 = false;
+    public bool plasmaCanonUpgrade3 = false;
+    public bool plasmaCanonUpgrade4 = false;
 
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
     // panel er instancen (som blir lagd senere)
@@ -65,6 +72,7 @@ public class Tower : MonoBehaviour{
             range = StatTracker.instance.getRange(0);
             attackSpeed = StatTracker.instance.getAttackSpeed(0);
             projectileSpeed = StatTracker.instance.getProjectileSpeed(0);
+            explosionRadius = StatTracker.instance.getExplosionRadius(0);
             cost = StatTracker.instance.getCost(0);
 
             upgradeCosts = StatTracker.instance.getUpgradeCost(0);
@@ -77,6 +85,7 @@ public class Tower : MonoBehaviour{
             range = StatTracker.instance.getRange(1);
             attackSpeed = StatTracker.instance.getAttackSpeed(1);
             projectileSpeed = StatTracker.instance.getProjectileSpeed(1);
+            explosionRadius = StatTracker.instance.getExplosionRadius(1);
             cost = StatTracker.instance.getCost(1);
 
             upgradeCosts = StatTracker.instance.getUpgradeCost(1);
@@ -89,9 +98,11 @@ public class Tower : MonoBehaviour{
     }
 
     public GameObject bulletHolder;
+    public GameObject mineHolder;
     void Start(){
         upgradePanel = BuildManager.instance.upgradePanel;
         bulletHolder = GameObject.Find("Bullets");
+        mineHolder = GameObject.Find("Mines");
 
         partToRotateArr = GameObject.FindGameObjectsWithTag("Rotate");
         partToRotate = partToRotateArr[0];
@@ -123,6 +134,30 @@ public class Tower : MonoBehaviour{
         bullets[bullets.Count - 1].GetComponent<Bullet>().myDir = enemyTarget.position - transform.position;
 
         bullets[bullets.Count - 1].GetComponent<Bullet>().myTower = this;
+    }
+
+    void plantMine(){
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, range);
+        List<Collider> groundColliders = new List<Collider>();
+        foreach (var hitCollider in hitColliders){
+            if (hitCollider.tag == "Ground"){
+                if (!hitCollider.GetComponent<Ground>().hasMine){
+                    groundColliders.Add(hitCollider);
+                }  
+            }
+        }
+
+        if (groundColliders.Count > 0){
+            int randomGround = Random.Range(0, groundColliders.Count);
+
+            groundColliders[randomGround].GetComponent<Ground>().hasMine = true;
+
+            mines.Add((GameObject)Instantiate(mine, mineHolder.transform));
+            mines[mines.Count - 1].transform.position = groundColliders[randomGround].transform.position;
+            mines[mines.Count - 1].transform.position += new Vector3(0, 0.7f, 0);
+
+            mines[mines.Count - 1].GetComponent<Mine>().myTower = this; 
+        }
     }
 
     void findEnemy(){
@@ -160,6 +195,14 @@ public class Tower : MonoBehaviour{
 
     void Update(){
         findEnemy();
+
+        if ((type == "Plasma Canon") && plasmaCanonUpgrade3){
+            if (mineTimer >= 3){
+                plantMine();
+                mineTimer -= 3;
+            }
+            mineTimer += 1 * Time.deltaTime; 
+        }
 
         if (enemyTarget == null){
             return;
@@ -344,7 +387,40 @@ public class Tower : MonoBehaviour{
             }
         }
         else if (towerType == "Plasma Canon"){
+            if (upgradeNumber == 0){
+                range = 3.5f;
+                CreatePoints(100);
 
+                upgrade0Model.SetActive(false);
+                upgrade1Model.SetActive(true);
+                partToRotate = partToRotateArr[1];
+            }
+            else if (upgradeNumber == 1){
+                explosionRadius = 2.5f;
+
+                upgrade1Model.SetActive(false);
+                upgrade2Model.SetActive(true);
+                partToRotate = partToRotateArr[2];
+            }
+            else if (upgradeNumber == 2){
+                plasmaCanonUpgrade3 = true;
+
+                upgrade2Model.SetActive(false);
+                upgrade3Model.SetActive(true);
+                partToRotate = partToRotateArr[3];
+            }
+            else if (upgradeNumber == 3){
+                explosionRadius = 3f;
+
+                plasmaCanonUpgrade4 = true;
+
+                upgrade3Model.SetActive(false);
+                upgrade4Model.SetActive(true);
+                partToRotate = partToRotateArr[4];
+
+                upgradeCostText.enabled = false;
+                panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - UpgradePanelTag
   - Rotate
+  - Ground
   layers:
   - Default
   - TransparentFX

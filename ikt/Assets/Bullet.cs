@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -31,23 +32,47 @@ public class Bullet : MonoBehaviour{
         if (enemyIndex >= 0){
             Destroy(gameObject);
 
-            Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.getDamage(); 
+            if (myTower.type == "Laser Shooter"){
+                Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.getDamage();
 
-            if (myTower.laserShooterUpgrade3){
-                Spawner.enemies[enemyIndex].GetComponent<Enemy>().laserShooterUpgrade3StatusAdd();  
-            }
+                if (myTower.laserShooterUpgrade4){
+                    Spawner.enemies[enemyIndex].GetComponent<Enemy>().laserShooterUpgrade4StatusAdd();  
+                }
+                else if (myTower.laserShooterUpgrade3){
+                    Spawner.enemies[enemyIndex].GetComponent<Enemy>().laserShooterUpgrade3StatusAdd();  
+                }
 
-            if (myTower.laserShooterUpgrade4){
-                Spawner.enemies[enemyIndex].GetComponent<Enemy>().laserShooterUpgrade4StatusAdd();  
+                deleteEnemy(Spawner.enemies[enemyIndex]);
             }
-            
-            // DETTE BLIR SJEKKA FOR TICK DAMAGE I Enemy SCRIPTET
-            if (Spawner.enemies[enemyIndex].GetComponent<Enemy>().health <= 0){
-                StatTracker.instance.changeTokens(Spawner.enemies[enemyIndex].GetComponent<Enemy>().tokenIncrease);
-                Destroy(Spawner.enemies[enemyIndex]);
-                Spawner.enemies.Remove(Spawner.enemies[enemyIndex]);
-                StatTracker.instance.updateText();
-            }  
+            else if (myTower.type == "Plasma Canon"){
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, myTower.explosionRadius);
+                List<Collider> enemiesHit = new List<Collider>();
+                foreach (var hitCollider in hitColliders){
+                    if (hitCollider.tag == "Enemy"){
+                        enemiesHit.Add(hitCollider);
+                    }
+                }
+
+                for (int i = 0; i < enemiesHit.Count; i++){
+                    if (myTower.plasmaCanonUpgrade4){
+                        enemiesHit[i].GetComponent<Enemy>().health -= myTower.getDamage() + enemiesHit.Count;
+                    }
+                    else {
+                        enemiesHit[i].GetComponent<Enemy>().health -= myTower.getDamage();
+                    }
+
+                    deleteEnemy(enemiesHit[i].gameObject);
+                }
+            }
         }      
+    }
+
+    void deleteEnemy(GameObject theEnemy){
+        if (theEnemy.GetComponent<Enemy>().health <= 0){
+            StatTracker.instance.changeTokens(theEnemy.GetComponent<Enemy>().tokenIncrease);
+            Destroy(theEnemy);
+            Spawner.enemies.Remove(theEnemy);
+            StatTracker.instance.updateText(); 
+        }
     }
 }

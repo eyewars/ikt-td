@@ -87,6 +87,8 @@ public class Enemy : MonoBehaviour{
         laserShooterUpgrade4Status.Add(temp);
     }
 
+    // Destroy(Spawner.enemies[enemyIndex]) INDEXEN ER NOEN GANGER UTE AV RANGE, MEST SANSYNLIG FORDI ENEMIEN ER DØD ALLEREDE OG DEN PRØVER Å GJØRE DET PÅ NYTT
+    // BUGGEN ØDELEGGER IKKE SPILLET, MEN KAAAAAN HENDE DU FÅR PENGER 2 GANGER (Må sjekke)
     public void checkIfDead(){
         int enemyIndex = Spawner.enemies.IndexOf(this.gameObject);
         if (health <= 0){

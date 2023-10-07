@@ -7768,7 +7768,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &659473504
 PrefabInstance:
@@ -21225,6 +21225,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7572413558925721408, guid: b57e2f05056b2984aa32958ecb4a8da5, type: 3}
   m_PrefabInstance: {fileID: 1711760557}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1712072989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1712072990}
+  m_Layer: 0
+  m_Name: Mines
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1712072990
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712072989}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1728253800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22830,7 +22861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserShooterPrefab: {fileID: 3089830319780423567, guid: 0a6f17985f8656c43b5233dd75af0001, type: 3}
-  plasmaCanonPrefab: {fileID: 1690707844443398068, guid: 9a2821b7b9d844b4eada30ccab3a7e4a, type: 3}
+  plasmaCanonPrefab: {fileID: 452275509142667752, guid: 7cc326b5b6d5a7c408c3ed179b38766f, type: 3}
   upgradePanel: {fileID: 2384827274650208657, guid: c2a0bacc6d1094045893dc6544b7bfa7, type: 3}
   currentTileHoldingTowerUI: {fileID: 0}
 --- !u!4 &1830548493
@@ -22860,7 +22891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ff6a02e7e235245bb1411d9280ebd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tokens: 10000
+  tokens: 300
   playerHealth: 100
   score: 0
   wave: 0
@@ -22871,6 +22902,7 @@ MonoBehaviour:
   rangeLS: 3.8
   attackSpeedLS: 0.8
   projectileSpeedLS: 20
+  explosionRadiusLS: 0
   costLS: 100
   upgradeCostsLS: 64000000c80000002c01000090010000
   upgradeDescriptionsLS:
@@ -22885,12 +22917,13 @@ MonoBehaviour:
   rangePC: 2.8
   attackSpeedPC: 1.5
   projectileSpeedPC: 12
+  explosionRadiusPC: 1.8
   costPC: 150
   upgradeCostsPC: 96000000fa0000005e010000c2010000
   upgradeDescriptionsPC:
   - Increase attack range.
   - Explosions radius is bigger.
-  - Deply landmines that explode when stepped on.
+  - Deploy landmines that explode when stepped on.
   - The explosion deals more damage the more enemies it hits.
   - '"Fully upgraded."'
 --- !u!1001 &1837951586
@@ -23507,7 +23540,7 @@ RectTransform:
   - {fileID: 411552130}
   - {fileID: 1305708159}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
