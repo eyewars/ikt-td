@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class StatTracker : MonoBehaviour{
 
@@ -55,6 +56,10 @@ public class StatTracker : MonoBehaviour{
 
     public void takeDamage(int dmg){
         playerHealth -= dmg;
+
+        if (playerHealth <= 0) {
+            SceneManager.LoadScene(2);
+        }
     }
 
     public void increaseWave(){

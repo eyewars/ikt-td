@@ -34,7 +34,7 @@ Transform:
   - {fileID: 8305897705934183943}
   - {fileID: 8376215677543450803}
   - {fileID: 537728899505967280}
-  - {fileID: 5708810065327457140}
+  - {fileID: 2216638889085782604}
   - {fileID: 8903925077455193815}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -55,12 +55,13 @@ MonoBehaviour:
   bullet: {fileID: 3097568633870670902, guid: 6decb57c60d19dd46b8f461b9b3b6440, type: 3}
   mine: {fileID: 7355341159754770106, guid: b35cc0acda245d749adbb5859f10f789, type: 3}
   shootTimer: 0
+  mineTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
   upgrade0Model: {fileID: 8651319606306145469}
   upgrade1Model: {fileID: 9184417899169272329}
   upgrade2Model: {fileID: 882060359831357962}
-  upgrade3Model: {fileID: 4932026732287154638}
+  upgrade3Model: {fileID: 1551707774159032566}
   upgrade4Model: {fileID: 8132031989409160301}
   type: Plasma Canon
   damage: 0
@@ -76,8 +77,11 @@ MonoBehaviour:
   totalUpgrades: 0
   laserShooterUpgrade3: 0
   laserShooterUpgrade4: 0
+  plasmaCanonUpgrade3: 0
+  plasmaCanonUpgrade4: 0
   panel: {fileID: 0}
   bulletHolder: {fileID: 0}
+  mineHolder: {fileID: 0}
   line: {fileID: 8473242483354992821}
 --- !u!120 &8473242483354992821
 LineRenderer:
@@ -297,7 +301,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: dad88c79bd6b11148b67cf49e0c3f4bb, type: 3}
   m_PrefabInstance: {fileID: 71174586179172187}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5238669327824708767
+--- !u!1001 &1822176838722203047
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -378,15 +382,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10949fbbdc3ae8e48a5eb1228cabc764, type: 3}
---- !u!1 &4932026732287154638 stripped
+--- !u!1 &1551707774159032566 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 10949fbbdc3ae8e48a5eb1228cabc764, type: 3}
-  m_PrefabInstance: {fileID: 5238669327824708767}
+  m_PrefabInstance: {fileID: 1822176838722203047}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5708810065327457140 stripped
+--- !u!4 &2216638889085782604 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 10949fbbdc3ae8e48a5eb1228cabc764, type: 3}
-  m_PrefabInstance: {fileID: 5238669327824708767}
+  m_PrefabInstance: {fileID: 1822176838722203047}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8337555694751608664
 PrefabInstance:
