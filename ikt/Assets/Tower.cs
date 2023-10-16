@@ -35,6 +35,8 @@ public class Tower : MonoBehaviour{
     private GameObject[] partToRotateArr;
     private GameObject partToRotate;
 
+    private Vector3 partToRotatePositionTemp;
+
     public string type = "Laser Shooter";
 
     public float damage;
@@ -49,11 +51,18 @@ public class Tower : MonoBehaviour{
     public int sellValue = 0;
     public int totalUpgrades = 0;
 
+    public int tokensPerPump = 5;
+
     // Upgrade conditions
     public bool laserShooterUpgrade3 = false;
     public bool laserShooterUpgrade4 = false;
     public bool plasmaCanonUpgrade3 = false;
     public bool plasmaCanonUpgrade4 = false;
+    public bool cryoCanonUpgrade0 = false;
+    public bool cryoCanonUpgrade2 = false;
+    public bool cryoCanonUpgrade4 = false;
+    public bool energyGeneratorUpgrade2 = false;
+    public bool energyGeneratorUpgrade4 = false;
 
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
     // panel er instancen (som blir lagd senere)
@@ -93,7 +102,34 @@ public class Tower : MonoBehaviour{
 
             descriptionText = StatTracker.instance.getDescription(1);
         }
+        else if (type == "Cryo Canon"){
+            damage = StatTracker.instance.getDamage(2);
+            range = StatTracker.instance.getRange(2);
+            attackSpeed = StatTracker.instance.getAttackSpeed(2);
+            projectileSpeed = StatTracker.instance.getProjectileSpeed(2);
+            explosionRadius = StatTracker.instance.getExplosionRadius(2);
+            cost = StatTracker.instance.getCost(2);
 
+            upgradeCosts = StatTracker.instance.getUpgradeCost(2);
+            upgradeDescriptions = StatTracker.instance.getUpgradeDescription(2);
+
+            descriptionText = StatTracker.instance.getDescription(2);
+
+            cryoCanonUpgrade0 = true;
+        }
+        else if (type == "Energy Generator"){
+            damage = StatTracker.instance.getDamage(3);
+            range = StatTracker.instance.getRange(3);
+            attackSpeed = StatTracker.instance.getAttackSpeed(3);
+            projectileSpeed = StatTracker.instance.getProjectileSpeed(3);
+            explosionRadius = StatTracker.instance.getExplosionRadius(3);
+            cost = StatTracker.instance.getCost(3);
+
+            upgradeCosts = StatTracker.instance.getUpgradeCost(3);
+            upgradeDescriptions = StatTracker.instance.getUpgradeDescription(3);
+
+            descriptionText = StatTracker.instance.getDescription(3);
+        }
         shootTimer = attackSpeed;
     }
 
@@ -116,11 +152,12 @@ public class Tower : MonoBehaviour{
             partToRotateArr[i].tag = "Untagged";
         }
 
-
         // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // FJERN DENNE LINJA NÅR DU FÅR MODELL SHITTET TIL Å FUNGERE ELLER NOE SÅNN !!!!!!!!!!!!!!!!!!!!!!!!!! 
         // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+
+        partToRotatePositionTemp = partToRotate.transform.position;
 
         CreatePoints(100);
     }
@@ -194,32 +231,58 @@ public class Tower : MonoBehaviour{
     }
 
     void Update(){
-        findEnemy();
+        if ((type != "Energy Generator") && (type != "Support Tower")){
+            findEnemy();
 
-        if ((type == "Plasma Canon") && plasmaCanonUpgrade3){
-            if (mineTimer >= 3){
-                plantMine();
-                mineTimer -= 3;
+            if ((type == "Plasma Canon") && plasmaCanonUpgrade3){
+                if (mineTimer >= 3){
+                    plantMine();
+                    mineTimer -= 3;
+                }
+                mineTimer += 1 * Time.deltaTime; 
             }
-            mineTimer += 1 * Time.deltaTime; 
-        }
 
-        if (enemyTarget == null){
-            return;
-        }
+            if (enemyTarget == null){
+                return;
+            }
 
-        Vector3 direction = enemyTarget.position - transform.position;
-        Quaternion turnDirection = Quaternion.LookRotation(direction);
-        Vector3 turnRotation = turnDirection.eulerAngles;
-        
-        partToRotate.transform.rotation = Quaternion.Euler(0f, turnRotation.y, 0f);
+            Vector3 direction = enemyTarget.position - transform.position;
+            Quaternion turnDirection = Quaternion.LookRotation(direction);
+            Vector3 turnRotation = turnDirection.eulerAngles;
+            
+            partToRotate.transform.rotation = Quaternion.Euler(0f, turnRotation.y, 0f);
 
-        if (shootTimer >= attackSpeed){
-            shoot();
-            shootTimer -= attackSpeed;
+            if (shootTimer >= attackSpeed){
+                shoot();
+                shootTimer -= attackSpeed;
+            }
+            
+            shootTimer += 1 * Time.deltaTime; 
         }
-        
-        shootTimer += 1 * Time.deltaTime;
+        else if(type == "Energy Generator"){
+            if (shootTimer <= (attackSpeed / 2)){
+                //10*(0.75/1.5)*2
+                partToRotate.transform.position = new Vector3(partToRotatePositionTemp.x, partToRotatePositionTemp.y - (0.15f * (shootTimer / attackSpeed) * 2), partToRotatePositionTemp.z);
+            }
+            else{
+                partToRotate.transform.position = new Vector3(partToRotatePositionTemp.x, partToRotatePositionTemp.y - (0.15f * (1 - (shootTimer / attackSpeed)) * 2), partToRotatePositionTemp.z);
+            }
+
+            if (shootTimer >= attackSpeed){
+                if (energyGeneratorUpgrade4){
+                    //StatTracker.instance.changeTokens((int)(tokensPerPump + (StatTracker.instance.getTokens() * 0.01)));
+                }
+                else {
+                    //StatTracker.instance.changeTokens(tokensPerPump);
+                }
+                StatTracker.instance.updateText();
+                shootTimer -= attackSpeed;
+            }
+            
+            shootTimer += 1 * Time.deltaTime;
+
+            partToRotate.transform.rotation = Quaternion.Euler(0f, 360 * shootTimer / attackSpeed, 0f);
+        }
     }
 
     public float getDamage(){
@@ -413,6 +476,77 @@ public class Tower : MonoBehaviour{
                 explosionRadius = 3f;
 
                 plasmaCanonUpgrade4 = true;
+
+                upgrade3Model.SetActive(false);
+                upgrade4Model.SetActive(true);
+                partToRotate = partToRotateArr[4];
+
+                upgradeCostText.enabled = false;
+                panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;
+            }
+        }
+        else if (towerType == "Cryo Canon"){
+            if (upgradeNumber == 0){
+                attackSpeed = 1.2f;
+
+                upgrade0Model.SetActive(false);
+                upgrade1Model.SetActive(true);
+                partToRotate = partToRotateArr[1];
+            }
+            else if (upgradeNumber == 1){
+                cryoCanonUpgrade0 = false;
+                cryoCanonUpgrade2 = true;
+
+                upgrade1Model.SetActive(false);
+                upgrade2Model.SetActive(true);
+                partToRotate = partToRotateArr[2];
+            }
+            else if (upgradeNumber == 2){
+                explosionRadius = 1.5f;
+
+                upgrade2Model.SetActive(false);
+                upgrade3Model.SetActive(true);
+                partToRotate = partToRotateArr[3];
+            }
+            else if (upgradeNumber == 3){
+                damage = 2f;
+                explosionRadius = 2f;
+
+                cryoCanonUpgrade2 = false;
+                cryoCanonUpgrade4 = true;
+
+                upgrade3Model.SetActive(false);
+                upgrade4Model.SetActive(true);
+                partToRotate = partToRotateArr[4];
+
+                upgradeCostText.enabled = false;
+                panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;
+            }
+        }
+        else if (towerType == "Energy Generator"){
+            if (upgradeNumber == 0){
+                tokensPerPump = 10;
+
+                upgrade0Model.SetActive(false);
+                upgrade1Model.SetActive(true);
+                partToRotate = partToRotateArr[1];
+            }
+            else if (upgradeNumber == 1){
+                energyGeneratorUpgrade2 = true;
+
+                upgrade1Model.SetActive(false);
+                upgrade2Model.SetActive(true);
+                partToRotate = partToRotateArr[2];
+            }
+            else if (upgradeNumber == 2){
+                attackSpeed = 1.5f;
+
+                upgrade2Model.SetActive(false);
+                upgrade3Model.SetActive(true);
+                partToRotate = partToRotateArr[3];
+            }
+            else if (upgradeNumber == 3){
+                energyGeneratorUpgrade4 = true;
 
                 upgrade3Model.SetActive(false);
                 upgrade4Model.SetActive(true);

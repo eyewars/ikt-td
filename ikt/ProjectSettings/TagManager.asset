@@ -8,6 +8,7 @@ TagManager:
   - UpgradePanelTag
   - Rotate
   - Ground
+  - EnergyGenerator
   layers:
   - Default
   - TransparentFX

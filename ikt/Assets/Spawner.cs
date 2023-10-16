@@ -16,7 +16,21 @@ public class Spawner : MonoBehaviour{
     int numberOfEnemiesSent = 0;
     public GameObject enemy;
 
+    bool hasGottenEndOfRoundTokens = false;
+
     public static List<GameObject> enemies = new List<GameObject>();
+
+    List<List<List<string>>> enemyWaves = new List<List<List<string>>>{
+        new List<List<string>>{
+            new List<string> { "Normal", "2" },
+            new List<string> { "Fast", "1" },
+            new List<string> { "Slow", "1" }
+        },
+        new List<List<string>>{
+            new List<string> { "Fast", "3" },
+            new List<string> { "Slow", "1" }
+        }
+    };
 
     [SerializeField] private Image roundTimerImg;
     [SerializeField] private TextMeshProUGUI roundTimerText;
@@ -38,6 +52,8 @@ public class Spawner : MonoBehaviour{
     }
 
     public void startWave(){
+        hasGottenEndOfRoundTokens = false;
+
         int tokenAmount = (int)Math.Round((10 - sendWaveTimer) * 10);
         StatTracker.instance.changeTokens(tokenAmount);
 
@@ -47,7 +63,7 @@ public class Spawner : MonoBehaviour{
     }
 
     void Start(){
-        
+        //enemyWaves = {{{"Normal", "2"}, {"Fast", "1"}, {"Fast", "1"}}, {{"Slow", "3"}, {"Fast", "1"}}};
     }
 
     void Update(){
@@ -60,6 +76,29 @@ public class Spawner : MonoBehaviour{
             timer += 1 * Time.deltaTime;
         }
         else{
+            if ((!hasGottenEndOfRoundTokens) && (StatTracker.instance.getWave() > 0)){
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, 30);
+                List<Collider> energyGeneratorsHit = new List<Collider>();
+                foreach (var hitCollider in hitColliders){
+                    if (hitCollider.tag == "EnergyGenerator"){
+                        energyGeneratorsHit.Add(hitCollider);
+                    }
+                }
+
+                for (int i = 0; i < energyGeneratorsHit.Count; i++){
+                    if (energyGeneratorsHit[i].GetComponent<Tower>().energyGeneratorUpgrade2){
+                        StatTracker.instance.changeTokens(30);
+                    }
+                }
+
+                // Du får litt penger på slutten av runden uansett
+                StatTracker.instance.changeTokens(50);
+
+                StatTracker.instance.updateText();
+
+                hasGottenEndOfRoundTokens = true;
+            }
+
             if (sendWaveTimer < maxSendWaveTimer){
                 sendWaveTimer += 1 * Time.deltaTime;
             }

@@ -64,6 +64,40 @@ public class Bullet : MonoBehaviour{
                     deleteEnemy(enemiesHit[i].gameObject);
                 }
             }
+            else if (myTower.type == "Cryo Canon"){
+                if (myTower.totalUpgrades >= 3){
+                    Collider[] hitColliders = Physics.OverlapSphere(transform.position, myTower.explosionRadius);
+                    List<Collider> enemiesHit = new List<Collider>();
+                    foreach (var hitCollider in hitColliders){
+                        if (hitCollider.tag == "Enemy"){
+                            enemiesHit.Add(hitCollider);
+                        }
+                    }  
+
+                    for (int i = 0; i < enemiesHit.Count; i++){
+                        enemiesHit[i].GetComponent<Enemy>().health -= myTower.getDamage();
+
+                        if (myTower.cryoCanonUpgrade4){
+                            enemiesHit[i].GetComponent<Enemy>().cryoCanonUpgrade4StatusAdd(); 
+                        }
+                        else{
+                            enemiesHit[i].GetComponent<Enemy>().cryoCanonUpgrade2StatusAdd(); 
+                        }
+                        
+                        deleteEnemy(enemiesHit[i].gameObject);
+                    }
+                }
+                else if (myTower.cryoCanonUpgrade2){
+                    Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.getDamage();
+                    Spawner.enemies[enemyIndex].GetComponent<Enemy>().cryoCanonUpgrade2StatusAdd(); 
+                    deleteEnemy(Spawner.enemies[enemyIndex]);
+                }
+                else if (myTower.cryoCanonUpgrade0){
+                    Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.getDamage();
+                    Spawner.enemies[enemyIndex].GetComponent<Enemy>().cryoCanonUpgrade0StatusAdd(); 
+                    deleteEnemy(Spawner.enemies[enemyIndex]);
+                }
+            }
         }      
     }
 

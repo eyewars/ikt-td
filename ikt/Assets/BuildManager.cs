@@ -16,6 +16,8 @@ public class BuildManager : MonoBehaviour{
 
     public GameObject laserShooterPrefab;
     public GameObject plasmaCanonPrefab;
+    public GameObject cryoCanonPrefab;
+    public GameObject energyGeneratorPrefab;
 
     private GameObject towerToBuild;
 
@@ -28,6 +30,12 @@ public class BuildManager : MonoBehaviour{
                 break;
             case 1:
                 towerToBuild = plasmaCanonPrefab;
+                break;
+            case 2:
+                towerToBuild = cryoCanonPrefab;
+                break;
+            case 3:
+                towerToBuild = energyGeneratorPrefab;
                 break;
         }
     }
