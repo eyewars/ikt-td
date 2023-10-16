@@ -38,8 +38,10 @@ public class Spawner : MonoBehaviour{
     void spawnEnemy(){
         enemies.Add((GameObject)Instantiate(enemy, this.transform));
         enemies[enemies.Count - 1].transform.position = new Vector3(0, 1, 1);
-        enemies[enemies.Count - 1].GetComponent<Enemy>().health = StatTracker.instance.getWave();
-        enemies[enemies.Count - 1].GetComponent<Enemy>().tokenIncrease = StatTracker.instance.getWave() * 2;
+
+        // Disse er for å sette stats, men det gjør vi nå i enemy
+        //enemies[enemies.Count - 1].GetComponent<Enemy>().health = StatTracker.instance.getWave();
+        //enemies[enemies.Count - 1].GetComponent<Enemy>().tokenIncrease = StatTracker.instance.getWave() * 2;
 
         numberOfEnemiesSent++;
     }
@@ -63,7 +65,7 @@ public class Spawner : MonoBehaviour{
     }
 
     void Start(){
-        //enemyWaves = {{{"Normal", "2"}, {"Fast", "1"}, {"Fast", "1"}}, {{"Slow", "3"}, {"Fast", "1"}}};
+
     }
 
     void Update(){

@@ -270,10 +270,10 @@ public class Tower : MonoBehaviour{
 
             if (shootTimer >= attackSpeed){
                 if (energyGeneratorUpgrade4){
-                    //StatTracker.instance.changeTokens((int)(tokensPerPump + (StatTracker.instance.getTokens() * 0.01)));
+                    StatTracker.instance.changeTokens((int)(tokensPerPump + (StatTracker.instance.getTokens() * 0.01)));
                 }
                 else {
-                    //StatTracker.instance.changeTokens(tokensPerPump);
+                    StatTracker.instance.changeTokens(tokensPerPump);
                 }
                 StatTracker.instance.updateText();
                 shootTimer -= attackSpeed;
