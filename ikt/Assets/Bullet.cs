@@ -33,7 +33,8 @@ public class Bullet : MonoBehaviour{
             Destroy(gameObject);
 
             if (myTower.type == "Laser Shooter"){
-                Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.getDamage();
+                //Debug.Log(GlobalCalc.instance.getResistance(myTower.damageType, Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance));
+                Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, 0);
 
                 if (myTower.laserShooterUpgrade4){
                     Spawner.enemies[enemyIndex].GetComponent<Enemy>().laserShooterUpgrade4StatusAdd();  
@@ -55,10 +56,10 @@ public class Bullet : MonoBehaviour{
 
                 for (int i = 0; i < enemiesHit.Count; i++){
                     if (myTower.plasmaCanonUpgrade4){
-                        enemiesHit[i].GetComponent<Enemy>().health -= myTower.getDamage() + enemiesHit.Count;
+                        enemiesHit[i].GetComponent<Enemy>().health -= myTower.dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, enemiesHit.Count);
                     }
                     else {
-                        enemiesHit[i].GetComponent<Enemy>().health -= myTower.getDamage();
+                        enemiesHit[i].GetComponent<Enemy>().health -= myTower.dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, 0);
                     }
 
                     deleteEnemy(enemiesHit[i].gameObject);
@@ -75,7 +76,7 @@ public class Bullet : MonoBehaviour{
                     }  
 
                     for (int i = 0; i < enemiesHit.Count; i++){
-                        enemiesHit[i].GetComponent<Enemy>().health -= myTower.getDamage();
+                        enemiesHit[i].GetComponent<Enemy>().health -= myTower.dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, 0);
 
                         if (myTower.cryoCanonUpgrade4){
                             enemiesHit[i].GetComponent<Enemy>().cryoCanonUpgrade4StatusAdd(); 
@@ -88,12 +89,12 @@ public class Bullet : MonoBehaviour{
                     }
                 }
                 else if (myTower.cryoCanonUpgrade2){
-                    Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.getDamage();
+                    Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, 0);
                     Spawner.enemies[enemyIndex].GetComponent<Enemy>().cryoCanonUpgrade2StatusAdd(); 
                     deleteEnemy(Spawner.enemies[enemyIndex]);
                 }
                 else if (myTower.cryoCanonUpgrade0){
-                    Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.getDamage();
+                    Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, 0);
                     Spawner.enemies[enemyIndex].GetComponent<Enemy>().cryoCanonUpgrade0StatusAdd(); 
                     deleteEnemy(Spawner.enemies[enemyIndex]);
                 }

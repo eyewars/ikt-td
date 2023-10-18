@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -1509278882954602689}
   - component: {fileID: -8730800596786017142}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Laser Fast
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 82c22bcdcf5ff14429a9225ce7632e8c, type: 2}
+  - {fileID: 2100000, guid: a0e350093d5a08c4b80e875b0c8347e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,8 +119,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a354568f1989c874990b3bb11788a3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  type: laserFast
+  baseSpeed: 2.2
+  health: 1
+  playerDamage: 1
+  tokenIncrease: 1
+  damageResistance: Laser
   distanceToWaypoint: 0
+  cryoCanonUpgrade0Status: 0
+  cryoCanonUpgrade2Status: 0
+  cryoCanonUpgrade4Status: 0
   target: {fileID: 0}
 --- !u!54 &-8730800596786017142
 Rigidbody:

@@ -39,6 +39,8 @@ public class Tower : MonoBehaviour{
 
     public string type = "Laser Shooter";
 
+    public string damageType = "Laser";
+
     public float damage;
     public float range;
     public float attackSpeed;
@@ -283,6 +285,13 @@ public class Tower : MonoBehaviour{
 
             partToRotate.transform.rotation = Quaternion.Euler(0f, 360 * shootTimer / attackSpeed, 0f);
         }
+    }
+
+    public float dealDamage(string enemyResistance, float bonusDamage){
+        if (damageType == enemyResistance){
+            return (damage + bonusDamage) / 2;
+        }
+        else return damage + bonusDamage;
     }
 
     public float getDamage(){

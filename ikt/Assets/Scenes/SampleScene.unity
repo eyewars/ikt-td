@@ -524,7 +524,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114e6cdeb78a2d448ac36366a2f29126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 2079278745197572331, guid: 1fb131d2c7d18324f8f8bb8ba85649a4, type: 3}
+  normalRegular: {fileID: 2079278745197572331, guid: 8f3bb8d9160ae8340967d69eba35de01, type: 3}
+  normalFast: {fileID: 2079278745197572331, guid: 2deaf079dd5765647b57d917dbc4142c, type: 3}
+  normalSlow: {fileID: 2079278745197572331, guid: cebb449c059d9ed469f2c49e4eedf459, type: 3}
+  normalBoss: {fileID: 2079278745197572331, guid: 9b8764a76779a7a4db67146719d79680, type: 3}
+  laserRegular: {fileID: 2079278745197572331, guid: 55786ad0b2c74644695fed04a1be9341, type: 3}
+  laserFast: {fileID: 2079278745197572331, guid: 94c2790543c2dfc48a4f15fb18b77a16, type: 3}
+  laserSlow: {fileID: 2079278745197572331, guid: 1cd746f40fc078d4b96a669e3c63158c, type: 3}
+  laserBoss: {fileID: 2079278745197572331, guid: bece7463cb3e6734d89c0174cc8a7dad, type: 3}
+  plasmaRegular: {fileID: 2079278745197572331, guid: fa7b3fc6ba4cd254fa435fbd3033da4c, type: 3}
+  plasmaFast: {fileID: 2079278745197572331, guid: 0994227b5a82e834192d2c9a99d5923e, type: 3}
+  plasmaSlow: {fileID: 2079278745197572331, guid: 172a63b88b1ea344db9fe0de13a9d51e, type: 3}
+  plasmaBoss: {fileID: 2079278745197572331, guid: 920d0cf9096d7f7439ab589dd971fa8d, type: 3}
   roundTimerImg: {fileID: 945762381}
   roundTimerText: {fileID: 477264654}
 --- !u!1 &27252331 stripped
@@ -22953,6 +22964,7 @@ GameObject:
   - component: {fileID: 1830548493}
   - component: {fileID: 1830548492}
   - component: {fileID: 1830548494}
+  - component: {fileID: 1830548495}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -23005,7 +23017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ff6a02e7e235245bb1411d9280ebd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tokens: 30000
+  tokens: 200
   playerHealth: 100
   score: 0
   wave: 0
@@ -23066,6 +23078,18 @@ MonoBehaviour:
   - Generates energy faster.
   - Generates more energy based on how much energy you already have.
   - Fully upgraded.
+--- !u!114 &1830548495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830548491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a9687dc49d4edf4a8236106873a5f41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1837951586
 PrefabInstance:
   m_ObjectHideFlags: 0

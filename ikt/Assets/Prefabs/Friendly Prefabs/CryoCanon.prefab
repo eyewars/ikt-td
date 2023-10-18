@@ -64,6 +64,7 @@ MonoBehaviour:
   upgrade3Model: {fileID: 8028760528703508812}
   upgrade4Model: {fileID: 4883637436305703190}
   type: Cryo Canon
+  damageType: Neutral
   damage: 0
   range: 0
   attackSpeed: 0
@@ -83,6 +84,8 @@ MonoBehaviour:
   cryoCanonUpgrade0: 0
   cryoCanonUpgrade2: 0
   cryoCanonUpgrade4: 0
+  energyGeneratorUpgrade2: 0
+  energyGeneratorUpgrade4: 0
   panel: {fileID: 0}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}

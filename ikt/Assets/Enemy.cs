@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,14 +8,14 @@ public class Enemy : MonoBehaviour{
     // DET ER EN BUG AV OG TIL SOM GJØR AT ENEMIESA JITTERER I TARGET POINTSA (VET IKKE HELT HVORFOR DET SKJER, HAR KANSKJE NOE MED DOTSA Å GJØRE)
     public string type = "Normal";
 
-    public float speed;
-    private float baseSpeed;
+    private float speed = 1f;
+    public float baseSpeed = 1f;
+    public float health = 2f;
+    public int playerDamage = 1;
+    public int tokenIncrease = 2;
+    public string damageResistance = "Laser";
+
     public float distanceToWaypoint = 0f;
-
-    public float health;
-    public int playerDamage;
-
-    public int tokenIncrease;
 
     // Status conditions
     public List<float[]> laserShooterUpgrade3Status = new List<float[]>();
@@ -29,26 +30,11 @@ public class Enemy : MonoBehaviour{
     void Start(){
         target = Waypoints.points[waypointIndex];
 
-        if (type == "Normal"){
-            speed = 1f;
-            health = 2f;
-            tokenIncrease = 2;
-            playerDamage = 1;
-        }
-        else if (type == "Fast"){
-            speed = 1.8f;
-            health = 1f;
-            tokenIncrease = 2;
-            playerDamage = 1;
-        }
-        else if (type == "Slow"){
-            speed = 0.8f;
-            health = 3f;
-            tokenIncrease = 2;
-            playerDamage = 2;
-        }
+        health = health * (float)Math.Pow(1.05, StatTracker.instance.getWave() - 1);
+        baseSpeed = baseSpeed * (float)Math.Pow(1.05, StatTracker.instance.getWave() - 1);
+        tokenIncrease = tokenIncrease * (int)Math.Pow(1.05, StatTracker.instance.getWave() - 1);
 
-        baseSpeed = speed;
+        speed = baseSpeed;
     }
 
     void Update(){
@@ -57,7 +43,8 @@ public class Enemy : MonoBehaviour{
 
         distanceToWaypoint = Vector3.Distance(transform.position, target.position);
 
-        if (distanceToWaypoint < 0.01){
+        // Var originalt på 0.01, men det stuttera en del av og til da
+        if (distanceToWaypoint < 0.1){
             if (waypointIndex >= Waypoints.points.Length - 1){
                 Destroy(gameObject);
                 StatTracker.instance.takeDamage(playerDamage);
@@ -74,7 +61,7 @@ public class Enemy : MonoBehaviour{
                 laserShooterUpgrade3Status[i][0] -= 1;
                 laserShooterUpgrade3Status[i][1]++;
 
-                health--;
+                health -= 1 / GlobalCalc.instance.getResistance("Laser", damageResistance);
                 checkIfDead();
             }
 
@@ -91,7 +78,7 @@ public class Enemy : MonoBehaviour{
                 laserShooterUpgrade4Status[i][0] -= 1;
                 laserShooterUpgrade4Status[i][1]++;
 
-                health--;
+                health -= 1 / GlobalCalc.instance.getResistance("Laser", damageResistance);
                 checkIfDead();
             }
 

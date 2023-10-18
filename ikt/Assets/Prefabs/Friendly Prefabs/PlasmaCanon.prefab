@@ -64,6 +64,7 @@ MonoBehaviour:
   upgrade3Model: {fileID: 1551707774159032566}
   upgrade4Model: {fileID: 8132031989409160301}
   type: Plasma Canon
+  damageType: Plasma
   damage: 0
   range: 0
   attackSpeed: 0
@@ -75,10 +76,16 @@ MonoBehaviour:
   totalMoneySpent: 0
   sellValue: 0
   totalUpgrades: 0
+  tokensPerPump: 5
   laserShooterUpgrade3: 0
   laserShooterUpgrade4: 0
   plasmaCanonUpgrade3: 0
   plasmaCanonUpgrade4: 0
+  cryoCanonUpgrade0: 0
+  cryoCanonUpgrade2: 0
+  cryoCanonUpgrade4: 0
+  energyGeneratorUpgrade2: 0
+  energyGeneratorUpgrade4: 0
   panel: {fileID: 0}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}
