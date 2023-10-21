@@ -30,8 +30,8 @@ public class Enemy : MonoBehaviour{
     void Start(){
         target = Waypoints.points[waypointIndex];
 
-        health = health * (float)Math.Pow(1.05, StatTracker.instance.getWave() - 1);
-        baseSpeed = baseSpeed * (float)Math.Pow(1.05, StatTracker.instance.getWave() - 1);
+        health = (health + (0.1f * StatTracker.instance.getWave())) * (float)Math.Pow(1.03, StatTracker.instance.getWave() - 1);
+        baseSpeed = baseSpeed * (float)Math.Pow(1.02, StatTracker.instance.getWave() - 1);
         tokenIncrease = tokenIncrease * (int)Math.Pow(1.05, StatTracker.instance.getWave() - 1);
 
         speed = baseSpeed;
@@ -143,7 +143,7 @@ public class Enemy : MonoBehaviour{
         cryoCanonUpgrade4Status = 0.5f;
     }
 
-    // Destroy(Spawner.enemies[enemyIndex]) INDEXEN ER NOEN GANGER UTE AV RANGE, MEST SANSYNLIG FORDI ENEMIEN ER DØD ALLEREDE OG DEN PRØVER Å GJØRE DET PÅ NYTT
+    // Destroy(Spawner.enemies[enemyIndex]) INDEXEN ER NOEN GANGER UTE AV RANGE, MEST SANSYNLIG FORDI ENEMIEN ER DØD ALLEREDE OG DEN PRØVER Å ØDELEGGE PÅ NYTT
     // BUGGEN ØDELEGGER IKKE SPILLET, MEN KAAAAAN HENDE DU FÅR PENGER 2 GANGER (Må sjekke)
     public void checkIfDead(){
         int enemyIndex = Spawner.enemies.IndexOf(this.gameObject);

@@ -109,9 +109,10 @@ public class Spawner : MonoBehaviour{
     }
 
     void Start(){
-        for (int i = 0; i < 51; i++){
-            float tempPowerLevel = 5 * (((float)i / 2) + 1);
-            int powerLevel = (int)tempPowerLevel;
+        for (int i = 0; i < 501; i++){
+            //float tempPowerLevel = 5 * (((float)i / 2) + 1);
+            //int powerLevel = (int)tempPowerLevel;
+            int powerLevel = 5 + i;
             //Debug.Log(powerLevel);
             int maxPerEnemy = powerLevel;
             int numberOfEnemyTypes = Random.Range(1, (int)Math.Sqrt(powerLevel + 1) + 1);
@@ -141,14 +142,20 @@ public class Spawner : MonoBehaviour{
                 while(sum != total);
 
                 if ((i + 1) % 5 == 0){
-                    string randomBoss = enemyBossTypes[Random.Range(0, enemyBossTypes.Length)];
-                    List<String> tempEnemy = new List<string>{randomBoss, "1", "1"};
-                    tempList.Add(tempEnemy);
-                    Debug.Log(randomBoss);
+                    if (i == 4){
+                        List<String> tempEnemy = new List<string>{"normalBoss", "1", "1"};
+                        tempList.Add(tempEnemy); 
+                    }
+                    else{
+                        string randomBoss = enemyBossTypes[Random.Range(0, enemyBossTypes.Length)];
+                        List<String> tempEnemy = new List<string>{randomBoss, "1", "1"};
+                        tempList.Add(tempEnemy);   
+                    }
+                    
                 }
                 
                 for (int j = 0; j < len; j++){
-                    List<String> tempEnemy = new List<string>{enemyTypesToUse[j], tempNumbers[j].ToString(), Random.Range(0.2f, 3.0f).ToString()};
+                    List<String> tempEnemy = new List<string>{enemyTypesToUse[j], tempNumbers[j].ToString(), Random.Range(0.2f, 2.3f).ToString()};
                     tempList.Add(tempEnemy);
                 }
 
@@ -246,7 +253,7 @@ public class Spawner : MonoBehaviour{
                     }
 
                     for (int i = 0; i < energyGeneratorsHit.Count; i++){
-                        if (energyGeneratorsHit[i].GetComponent<Tower>().energyGeneratorUpgrade2){
+                        if (energyGeneratorsHit[i].GetComponent<Tower>().energyGeneratorUpgrade1){
                             StatTracker.instance.changeTokens(30);
                         }
                     }

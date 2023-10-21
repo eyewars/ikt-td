@@ -63,7 +63,7 @@ public class Tower : MonoBehaviour{
     public bool cryoCanonUpgrade0 = false;
     public bool cryoCanonUpgrade2 = false;
     public bool cryoCanonUpgrade4 = false;
-    public bool energyGeneratorUpgrade2 = false;
+    public bool energyGeneratorUpgrade1 = false;
     public bool energyGeneratorUpgrade4 = false;
 
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
@@ -272,7 +272,10 @@ public class Tower : MonoBehaviour{
 
             if (shootTimer >= attackSpeed){
                 if (energyGeneratorUpgrade4){
-                    StatTracker.instance.changeTokens((int)(tokensPerPump + (StatTracker.instance.getTokens() * 0.01)));
+                    if (StatTracker.instance.getTokens() > 5000){
+                        StatTracker.instance.changeTokens(60);
+                    }
+                    else StatTracker.instance.changeTokens((int)(tokensPerPump + (StatTracker.instance.getTokens() * 0.01)));
                 }
                 else {
                     StatTracker.instance.changeTokens(tokensPerPump);
@@ -423,7 +426,7 @@ public class Tower : MonoBehaviour{
     void upgradeType(string towerType, int upgradeNumber){
         if (towerType == "Laser Shooter"){
             if (upgradeNumber == 0){
-                damage++;
+                damage = 1.5f;
 
                 upgrade0Model.SetActive(false);
                 upgrade1Model.SetActive(true);
@@ -534,21 +537,21 @@ public class Tower : MonoBehaviour{
         }
         else if (towerType == "Energy Generator"){
             if (upgradeNumber == 0){
-                tokensPerPump = 10;
+                energyGeneratorUpgrade1 = true;
 
                 upgrade0Model.SetActive(false);
                 upgrade1Model.SetActive(true);
                 partToRotate = partToRotateArr[1];
             }
             else if (upgradeNumber == 1){
-                energyGeneratorUpgrade2 = true;
+                tokensPerPump = 10;
 
                 upgrade1Model.SetActive(false);
                 upgrade2Model.SetActive(true);
                 partToRotate = partToRotateArr[2];
             }
             else if (upgradeNumber == 2){
-                attackSpeed = 1.5f;
+                attackSpeed = 2.5f;
 
                 upgrade2Model.SetActive(false);
                 upgrade3Model.SetActive(true);

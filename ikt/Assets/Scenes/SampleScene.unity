@@ -23017,7 +23017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ff6a02e7e235245bb1411d9280ebd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tokens: 200
+  tokens: 300
   playerHealth: 100
   score: 0
   wave: 0
@@ -23027,10 +23027,10 @@ MonoBehaviour:
   damageLS: 1
   rangeLS: 3.8
   attackSpeedLS: 0.8
-  projectileSpeedLS: 20
+  projectileSpeedLS: 32
   explosionRadiusLS: 0
-  costLS: 100
-  upgradeCostsLS: 64000000c80000002c01000090010000
+  costLS: 150
+  upgradeCostsLS: af000000e1000000f4010000e8030000
   upgradeDescriptionsLS:
   - Increase damage per shot.
   - Increase attack range.
@@ -23042,10 +23042,10 @@ MonoBehaviour:
   damagePC: 2
   rangePC: 2.8
   attackSpeedPC: 1.5
-  projectileSpeedPC: 12
+  projectileSpeedPC: 22
   explosionRadiusPC: 1.8
-  costPC: 150
-  upgradeCostsPC: 96000000fa0000005e010000c2010000
+  costPC: 200
+  upgradeCostsPC: 96000000e10000009001000084030000
   upgradeDescriptionsPC:
   - Increase attack range.
   - Explosions radius is bigger.
@@ -23055,10 +23055,10 @@ MonoBehaviour:
   damageCC: 1
   rangeCC: 3.5
   attackSpeedCC: 1.6
-  projectileSpeedCC: 14
+  projectileSpeedCC: 24
   explosionRadiusCC: 0
-  costCC: 125
-  upgradeCostsCC: 7d000000e100000045010000a9010000
+  costCC: 250
+  upgradeCostsCC: e10000002c010000900100008a020000
   upgradeDescriptionsCC:
   - Increase attack speed.
   - Slows even more.
@@ -23067,14 +23067,14 @@ MonoBehaviour:
   - Fully upgraded.
   damageEG: 0
   rangeEG: 0
-  attackSpeedEG: 2
+  attackSpeedEG: 4
   projectileSpeedEG: 0
   explosionRadiusEG: 0
-  costEG: 200
-  upgradeCostsEG: c80000002c01000090010000f4010000
+  costEG: 450
+  upgradeCostsEG: 5e010000f401000026020000e8030000
   upgradeDescriptionsEG:
-  - Generates more energy..
   - Generate a large amount of energy at the end of the round.
+  - Generates more energy.
   - Generates energy faster.
   - Generates more energy based on how much energy you already have.
   - Fully upgraded.
