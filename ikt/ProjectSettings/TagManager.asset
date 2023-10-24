@@ -9,6 +9,7 @@ TagManager:
   - Rotate
   - Ground
   - EnergyGenerator
+  - LightsabreRotate
   layers:
   - Default
   - TransparentFX

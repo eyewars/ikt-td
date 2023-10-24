@@ -34,6 +34,15 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] int[] upgradeCostsLS = {100, 200, 300, 400};
     [SerializeField] string[] upgradeDescriptionsLS = {"Increase damage per shot.", "Increase attack range.", "Apply a stacking damage over time effect to the target. The effect does not refresh on attack.", "Significantly increase attack speed, and the damage over time effects ticks much faster.", "Fully upgraded."};
 
+    [SerializeField] float damageLSA = 0.5f;
+    [SerializeField] float rangeLSA = 0f;
+    [SerializeField] float attackSpeedLSA = 0.2f;
+    [SerializeField] float projectileSpeedLSA = 0f;
+    [SerializeField] float explosionRadiusLSA = 0f;
+    [SerializeField] int costLSA = 225;
+    [SerializeField] int[] upgradeCostsLSA = {200, 400, 600, 800};
+    [SerializeField] string[] upgradeDescriptionsLSA = {"Increase range.", "Increase damage per tick.", "Deal more damage and more damage over time.", "Deal even more damage to enemies affected by crowd control.", "Fully upgraded."};
+
     [SerializeField] float damagePC = 2f;
     [SerializeField] float rangePC = 2.8f;
     [SerializeField] float attackSpeedPC = 1.5f;
@@ -107,11 +116,13 @@ public class StatTracker : MonoBehaviour{
         switch (index){
             case 0:
                 return damageLS;
-            case 1: 
-                return damagePC;
+            case 1:
+                return damageLSA;
             case 2: 
-                return damageCC;
+                return damagePC;
             case 3: 
+                return damageCC;
+            case 4: 
                 return damageEG;
             default: 
                 return damageLS;
@@ -122,11 +133,13 @@ public class StatTracker : MonoBehaviour{
         switch (index){
             case 0:
                 return rangeLS;
-            case 1: 
-                return rangePC;
+            case 1:
+                return rangeLSA;
             case 2: 
-                return rangeCC;
+                return rangePC;
             case 3: 
+                return rangeCC;
+            case 4: 
                 return rangeEG;
             default: 
                 return rangeLS;
@@ -137,11 +150,13 @@ public class StatTracker : MonoBehaviour{
         switch (index){
             case 0:
                 return attackSpeedLS;
-            case 1: 
-                return attackSpeedPC;
+            case 1:
+                return attackSpeedLSA;
             case 2: 
-                return attackSpeedCC;
+                return attackSpeedPC;
             case 3: 
+                return attackSpeedCC;
+            case 4: 
                 return attackSpeedEG;
             default: 
                 return attackSpeedLS;
@@ -152,11 +167,13 @@ public class StatTracker : MonoBehaviour{
         switch (index){
             case 0:
                 return projectileSpeedLS;
-            case 1: 
-                return projectileSpeedPC;
+            case 1:
+                return projectileSpeedLSA;
             case 2: 
-                return projectileSpeedCC;
+                return projectileSpeedPC;
             case 3: 
+                return projectileSpeedCC;
+            case 4: 
                 return projectileSpeedEG;
             default: 
                 return projectileSpeedLS;
@@ -167,11 +184,13 @@ public class StatTracker : MonoBehaviour{
         switch (index){
             case 0:
                 return costLS;
-            case 1: 
-                return costPC;
+            case 1:
+                return costLSA;
             case 2: 
-                return costCC;
+                return costPC;
             case 3: 
+                return costCC;
+            case 4: 
                 return costEG;
             default: 
                 return costLS;
@@ -182,11 +201,13 @@ public class StatTracker : MonoBehaviour{
         switch (index){
             case 0:
                 return "Basic tower that shoots laser.";
-            case 1: 
-                return "Slow tower that shoots plasma.";
+            case 1:
+                return "Has a static lightsabre arm that damages all enemies that pass through.";
             case 2: 
-                return "Slows enemies with freezing attacks.";
+                return "Slow tower that shoots plasma.";
             case 3: 
+                return "Slows enemies with freezing attacks.";
+            case 4: 
                 return "Generates energy.";
             default: 
                 return "DEFAULT, DU ADDA IKKE INDEX";
@@ -197,11 +218,13 @@ public class StatTracker : MonoBehaviour{
         switch (index){
             case 0:
                 return upgradeCostsLS;
-            case 1: 
-                return upgradeCostsPC;
+            case 1:
+                return upgradeCostsLSA;
             case 2: 
-                return upgradeCostsCC;
+                return upgradeCostsPC;
             case 3: 
+                return upgradeCostsCC;
+            case 4: 
                 return upgradeCostsEG;
             default: 
                 return upgradeCostsLS;
@@ -212,11 +235,13 @@ public class StatTracker : MonoBehaviour{
         switch (index){
             case 0:
                 return upgradeDescriptionsLS;
-            case 1: 
-                return upgradeDescriptionsPC;
+            case 1:
+                return upgradeDescriptionsLSA;
             case 2: 
-                return upgradeDescriptionsCC;
+                return upgradeDescriptionsPC;
             case 3: 
+                return upgradeDescriptionsCC;
+            case 4: 
                 return upgradeDescriptionsEG;
             default: 
                 return upgradeDescriptionsLS;
@@ -227,11 +252,13 @@ public class StatTracker : MonoBehaviour{
         switch (index){
             case 0:
                 return explosionRadiusLS;
-            case 1: 
-                return explosionRadiusPC;
+            case 1:
+                return explosionRadiusLSA;
             case 2: 
-                return explosionRadiusCC;
+                return explosionRadiusPC;
             case 3: 
+                return explosionRadiusCC;
+            case 4: 
                 return explosionRadiusEG;
             default: 
                 return explosionRadiusLS;

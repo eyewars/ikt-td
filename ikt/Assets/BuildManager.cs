@@ -18,6 +18,7 @@ public class BuildManager : MonoBehaviour{
     public GameObject plasmaCanonPrefab;
     public GameObject cryoCanonPrefab;
     public GameObject energyGeneratorPrefab;
+    public GameObject lightSabreArmPrefab;
 
     private GameObject towerToBuild;
 
@@ -29,12 +30,16 @@ public class BuildManager : MonoBehaviour{
                 towerToBuild = laserShooterPrefab;
                 break;
             case 1:
+                towerToBuild = lightSabreArmPrefab;
+                break;
+            // Putt single target plasma før aoe plasma AKA her
+            case 2:
                 towerToBuild = plasmaCanonPrefab;
                 break;
-            case 2:
+            case 3:
                 towerToBuild = cryoCanonPrefab;
                 break;
-            case 3:
+            case 4:
                 towerToBuild = energyGeneratorPrefab;
                 break;
         }

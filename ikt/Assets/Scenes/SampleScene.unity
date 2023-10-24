@@ -2060,9 +2060,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlasmaCanon
       objectReference: {fileID: 0}
+    - target: {fileID: 4235409083420866980, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1d48b4d031c95754d9d48391ad7a016a, type: 3}
     - target: {fileID: 7449860838671692713, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
       propertyPath: towerIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5246,6 +5250,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1957423149}
+  - {fileID: 655402541}
   - {fileID: 1207139481}
   - {fileID: 1782734834}
   - {fileID: 1995707766}
@@ -7715,6 +7720,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!224 &655402541 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+  m_PrefabInstance: {fileID: 1436628518}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &658588929
 GameObject:
   m_ObjectHideFlags: 0
@@ -17806,6 +17816,111 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 214434194494505157, guid: fac624a5719982e48b5e17dd87db0216, type: 3}
   m_PrefabInstance: {fileID: 1433956157}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1436628518
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 424609642}
+    m_Modifications:
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085144982328304413, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3878061010471275247, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_Name
+      value: LightSabreArm
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449860838671692713, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: towerIndex
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
 --- !u!1001 &1436702924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22511,9 +22626,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: CryoCanon
       objectReference: {fileID: 0}
+    - target: {fileID: 4235409083420866980, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e7c2507aefbe1cb449e424ff3c9f69a7, type: 3}
     - target: {fileID: 7449860838671692713, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
       propertyPath: towerIndex
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22988,6 +23107,7 @@ MonoBehaviour:
   plasmaCanonPrefab: {fileID: 452275509142667752, guid: 7cc326b5b6d5a7c408c3ed179b38766f, type: 3}
   cryoCanonPrefab: {fileID: 297803194607618257, guid: e0646dfdac8a40a459f645f9a50bdc80, type: 3}
   energyGeneratorPrefab: {fileID: 3311230926245483922, guid: d6f2e498228b74e46b3d05392515c87a, type: 3}
+  lightSabreArmPrefab: {fileID: 6095154545313570937, guid: 22df2daddb31e77438ca0c794d93c66f, type: 3}
   upgradePanel: {fileID: 2384827274650208657, guid: c2a0bacc6d1094045893dc6544b7bfa7, type: 3}
   currentTileHoldingTowerUI: {fileID: 0}
 --- !u!4 &1830548493
@@ -23017,7 +23137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ff6a02e7e235245bb1411d9280ebd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tokens: 300
+  tokens: 30000
   playerHealth: 100
   score: 0
   wave: 0
@@ -23039,6 +23159,19 @@ MonoBehaviour:
   - Significantly increase attack speed, and the damage over time effects ticks much
     faster.
   - '"Fully upgraded."'
+  damageLSA: 0.5
+  rangeLSA: 0
+  attackSpeedLSA: 0.2
+  projectileSpeedLSA: 0
+  explosionRadiusLSA: 0
+  costLSA: 225
+  upgradeCostsLSA: c8000000900100005802000020030000
+  upgradeDescriptionsLSA:
+  - Increase range.
+  - Increase damage per tick.
+  - Deal more damage and more damage over time.
+  - Deal even more damage to enemies affected by crowd control.
+  - Fully upgraded.
   damagePC: 2
   rangePC: 2.8
   attackSpeedPC: 1.5
@@ -25225,9 +25358,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnergyGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 4235409083420866980, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7676d58473331154383659f9fe614814, type: 3}
     - target: {fileID: 7449860838671692713, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
       propertyPath: towerIndex
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28559,6 +28696,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserShooter
       objectReference: {fileID: 0}
+    - target: {fileID: 4235409083420866980, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4331d6bc1d97f3a4d8c4e3a02004abc8, type: 3}
     - target: {fileID: 7449860838671692713, guid: 056cf05c68b62bc4faf6b255cf456b43, type: 3}
       propertyPath: buttonText
       value: 

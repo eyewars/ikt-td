@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using TMPro;
+using Unity.VisualScripting;
 
 public class Tower : MonoBehaviour{
 
@@ -36,6 +37,11 @@ public class Tower : MonoBehaviour{
     private GameObject partToRotate;
 
     private Vector3 partToRotatePositionTemp;
+
+    public List<GameObject> lightsabreEnemies = new List<GameObject>();
+    GameObject[] lightsabreArmsToRotateAll;
+    List<GameObject> lightsabreArmsToRotate = new List<GameObject>();
+    float lightsabreArmRotateTimer = 0f;
 
     public string type = "Laser Shooter";
 
@@ -91,7 +97,7 @@ public class Tower : MonoBehaviour{
 
             descriptionText = StatTracker.instance.getDescription(0);
         }
-        else if (type == "Plasma Canon"){
+        else if (type == "Lightsabre Arm"){
             damage = StatTracker.instance.getDamage(1);
             range = StatTracker.instance.getRange(1);
             attackSpeed = StatTracker.instance.getAttackSpeed(1);
@@ -104,7 +110,7 @@ public class Tower : MonoBehaviour{
 
             descriptionText = StatTracker.instance.getDescription(1);
         }
-        else if (type == "Cryo Canon"){
+        else if (type == "Plasma Canon"){
             damage = StatTracker.instance.getDamage(2);
             range = StatTracker.instance.getRange(2);
             attackSpeed = StatTracker.instance.getAttackSpeed(2);
@@ -116,10 +122,8 @@ public class Tower : MonoBehaviour{
             upgradeDescriptions = StatTracker.instance.getUpgradeDescription(2);
 
             descriptionText = StatTracker.instance.getDescription(2);
-
-            cryoCanonUpgrade0 = true;
         }
-        else if (type == "Energy Generator"){
+        else if (type == "Cryo Canon"){
             damage = StatTracker.instance.getDamage(3);
             range = StatTracker.instance.getRange(3);
             attackSpeed = StatTracker.instance.getAttackSpeed(3);
@@ -131,6 +135,21 @@ public class Tower : MonoBehaviour{
             upgradeDescriptions = StatTracker.instance.getUpgradeDescription(3);
 
             descriptionText = StatTracker.instance.getDescription(3);
+
+            cryoCanonUpgrade0 = true;
+        }
+        else if (type == "Energy Generator"){
+            damage = StatTracker.instance.getDamage(4);
+            range = StatTracker.instance.getRange(4);
+            attackSpeed = StatTracker.instance.getAttackSpeed(4);
+            projectileSpeed = StatTracker.instance.getProjectileSpeed(4);
+            explosionRadius = StatTracker.instance.getExplosionRadius(4);
+            cost = StatTracker.instance.getCost(4);
+
+            upgradeCosts = StatTracker.instance.getUpgradeCost(4);
+            upgradeDescriptions = StatTracker.instance.getUpgradeDescription(4);
+
+            descriptionText = StatTracker.instance.getDescription(4);
         }
         shootTimer = attackSpeed;
     }
@@ -141,6 +160,16 @@ public class Tower : MonoBehaviour{
         upgradePanel = BuildManager.instance.upgradePanel;
         bulletHolder = GameObject.Find("Bullets");
         mineHolder = GameObject.Find("Mines");
+
+        if (type == "Lightsabre Arm"){
+            lightsabreArmsToRotateAll = GameObject.FindGameObjectsWithTag("LightsabreRotate");
+            lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[0]);
+            Debug.Log(lightsabreArmsToRotateAll.Length);
+
+            for (int i = 0; i < lightsabreArmsToRotateAll.Length; i++){
+                lightsabreArmsToRotateAll[i].tag = "Untagged";
+            }
+        }
 
         partToRotateArr = GameObject.FindGameObjectsWithTag("Rotate");
         partToRotate = partToRotateArr[0];
@@ -233,7 +262,7 @@ public class Tower : MonoBehaviour{
     }
 
     void Update(){
-        if ((type != "Energy Generator") && (type != "Support Tower")){
+        if ((type != "Energy Generator") && (type != "Support Tower") && (type != "Lightsabre Arm")){
             findEnemy();
 
             if ((type == "Plasma Canon") && plasmaCanonUpgrade3){
@@ -287,6 +316,54 @@ public class Tower : MonoBehaviour{
             shootTimer += 1 * Time.deltaTime;
 
             partToRotate.transform.rotation = Quaternion.Euler(0f, 360 * shootTimer / attackSpeed, 0f);
+        }
+        else if (type == "Lightsabre Arm"){
+            if (shootTimer >= attackSpeed){
+                //Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, 0);
+
+                List<int> enemiesToRemoveFromList = new List<int>();
+
+                for (int i = 0; i < lightsabreEnemies.Count; i++){
+                    int enemyIndex = Spawner.enemies.IndexOf(lightsabreEnemies[i]);
+                    
+                    if (enemyIndex == -1){
+                        enemiesToRemoveFromList.Add(i);
+                        continue;
+                    }
+
+                    GameObject theEnemy = Spawner.enemies[enemyIndex];
+
+                    //0 er bonus damage og du kan lage en variabel for dette når den blir oppgradert og sånn bruh
+                    theEnemy.GetComponent<Enemy>().health -= dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, 0);
+
+                    if (theEnemy.GetComponent<Enemy>().health <= 0){
+                        StatTracker.instance.changeTokens(theEnemy.GetComponent<Enemy>().tokenIncrease);
+                        Destroy(theEnemy);
+                        Spawner.enemies.Remove(theEnemy);
+                        StatTracker.instance.updateText();
+
+                        enemiesToRemoveFromList.Add(i);
+                    }
+                }
+
+                for (int i = 0; i < enemiesToRemoveFromList.Count; i++){
+                    lightsabreEnemies.RemoveAt(enemiesToRemoveFromList[enemiesToRemoveFromList.Count - i - 1]);
+                }
+
+                shootTimer -= attackSpeed;
+            }
+
+            shootTimer += 1 * Time.deltaTime; 
+
+            if (lightsabreArmRotateTimer >= 1){
+                lightsabreArmRotateTimer -= 1;
+            }
+
+            lightsabreArmRotateTimer += 1 * Time.deltaTime;
+
+            for (int i = 0; i < lightsabreArmsToRotate.Count; i++){
+                lightsabreArmsToRotate[i].transform.rotation = Quaternion.Euler(0f, 0f, 360 * lightsabreArmRotateTimer / 1);
+            }   
         }
     }
 
@@ -452,6 +529,52 @@ public class Tower : MonoBehaviour{
                 laserShooterUpgrade4 = true;
 
                 attackSpeed = 0.2f;
+
+                upgrade3Model.SetActive(false);
+                upgrade4Model.SetActive(true);
+                partToRotate = partToRotateArr[4];
+
+                upgradeCostText.enabled = false;
+                panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;
+            }
+        }
+        else if (towerType == "Lightsabre Arm"){
+            if (upgradeNumber == 0){
+
+                lightsabreArmsToRotate.Clear();
+                lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[1]);
+
+                upgrade0Model.SetActive(false);
+                upgrade1Model.SetActive(true);
+                partToRotate = partToRotateArr[1];
+            }
+            else if (upgradeNumber == 1){
+                damage = 1f;
+
+                lightsabreArmsToRotate.Clear();
+                lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[2]);
+
+                upgrade1Model.SetActive(false);
+                upgrade2Model.SetActive(true);
+                partToRotate = partToRotateArr[2];
+            }
+            else if (upgradeNumber == 2){
+                
+
+                lightsabreArmsToRotate.Clear();
+                lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[3]);
+                lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[4]);
+
+                upgrade2Model.SetActive(false);
+                upgrade3Model.SetActive(true);
+                partToRotate = partToRotateArr[3];
+            }
+            else if (upgradeNumber == 3){
+
+
+                lightsabreArmsToRotate.Clear();
+                lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[5]);
+                lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[6]);
 
                 upgrade3Model.SetActive(false);
                 upgrade4Model.SetActive(true);
