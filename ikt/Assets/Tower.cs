@@ -644,7 +644,7 @@ public class Tower : MonoBehaviour{
                 partToRotate = partToRotateArr[3];
             }
             else if (upgradeNumber == 3){
-                damage = 2f;
+                damage = 1f;
                 explosionRadius = 2f;
 
                 cryoCanonUpgrade2 = false;

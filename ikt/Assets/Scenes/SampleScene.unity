@@ -23159,9 +23159,9 @@ MonoBehaviour:
   - Significantly increase attack speed, and the damage over time effects ticks much
     faster.
   - '"Fully upgraded."'
-  damageLSA: 0.5
+  damageLSA: 0.25
   rangeLSA: 0
-  attackSpeedLSA: 0.2
+  attackSpeedLSA: 0.1
   projectileSpeedLSA: 0
   explosionRadiusLSA: 0
   costLSA: 225
@@ -23185,7 +23185,7 @@ MonoBehaviour:
   - Deploy landmines that explode when stepped on.
   - The explosion deals more damage the more enemies it hits.
   - '"Fully upgraded."'
-  damageCC: 1
+  damageCC: 0.5
   rangeCC: 3.5
   attackSpeedCC: 1.6
   projectileSpeedCC: 24
