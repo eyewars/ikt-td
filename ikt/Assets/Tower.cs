@@ -71,6 +71,7 @@ public class Tower : MonoBehaviour{
     public bool cryoCanonUpgrade4 = false;
     public bool energyGeneratorUpgrade1 = false;
     public bool energyGeneratorUpgrade4 = false;
+    public bool lightsabreArmUpgrade3 = false;
 
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
     // panel er instancen (som blir lagd senere)
@@ -110,7 +111,7 @@ public class Tower : MonoBehaviour{
 
             descriptionText = StatTracker.instance.getDescription(1);
         }
-        else if (type == "Plasma Canon"){
+        else if (type == "Plasma Tower"){
             damage = StatTracker.instance.getDamage(2);
             range = StatTracker.instance.getRange(2);
             attackSpeed = StatTracker.instance.getAttackSpeed(2);
@@ -123,7 +124,7 @@ public class Tower : MonoBehaviour{
 
             descriptionText = StatTracker.instance.getDescription(2);
         }
-        else if (type == "Cryo Canon"){
+        else if (type == "Plasma Canon"){
             damage = StatTracker.instance.getDamage(3);
             range = StatTracker.instance.getRange(3);
             attackSpeed = StatTracker.instance.getAttackSpeed(3);
@@ -135,10 +136,8 @@ public class Tower : MonoBehaviour{
             upgradeDescriptions = StatTracker.instance.getUpgradeDescription(3);
 
             descriptionText = StatTracker.instance.getDescription(3);
-
-            cryoCanonUpgrade0 = true;
         }
-        else if (type == "Energy Generator"){
+        else if (type == "Cryo Canon"){
             damage = StatTracker.instance.getDamage(4);
             range = StatTracker.instance.getRange(4);
             attackSpeed = StatTracker.instance.getAttackSpeed(4);
@@ -150,6 +149,49 @@ public class Tower : MonoBehaviour{
             upgradeDescriptions = StatTracker.instance.getUpgradeDescription(4);
 
             descriptionText = StatTracker.instance.getDescription(4);
+
+            cryoCanonUpgrade0 = true;
+        }
+        else if (type == "Beacon"){
+            damage = StatTracker.instance.getDamage(5);
+            range = StatTracker.instance.getRange(5);
+            attackSpeed = StatTracker.instance.getAttackSpeed(5);
+            projectileSpeed = StatTracker.instance.getProjectileSpeed(5);
+            explosionRadius = StatTracker.instance.getExplosionRadius(5);
+            cost = StatTracker.instance.getCost(5);
+
+            upgradeCosts = StatTracker.instance.getUpgradeCost(5);
+            upgradeDescriptions = StatTracker.instance.getUpgradeDescription(5);
+
+            descriptionText = StatTracker.instance.getDescription(5);
+
+            cryoCanonUpgrade0 = true;
+        }
+        else if (type == "Energy Generator"){
+            damage = StatTracker.instance.getDamage(6);
+            range = StatTracker.instance.getRange(6);
+            attackSpeed = StatTracker.instance.getAttackSpeed(6);
+            projectileSpeed = StatTracker.instance.getProjectileSpeed(6);
+            explosionRadius = StatTracker.instance.getExplosionRadius(6);
+            cost = StatTracker.instance.getCost(6);
+
+            upgradeCosts = StatTracker.instance.getUpgradeCost(6);
+            upgradeDescriptions = StatTracker.instance.getUpgradeDescription(6);
+
+            descriptionText = StatTracker.instance.getDescription(6);
+        }
+         else if (type == "Support Tower"){
+            damage = StatTracker.instance.getDamage(7);
+            range = StatTracker.instance.getRange(7);
+            attackSpeed = StatTracker.instance.getAttackSpeed(7);
+            projectileSpeed = StatTracker.instance.getProjectileSpeed(7);
+            explosionRadius = StatTracker.instance.getExplosionRadius(7);
+            cost = StatTracker.instance.getCost(7);
+
+            upgradeCosts = StatTracker.instance.getUpgradeCost(7);
+            upgradeDescriptions = StatTracker.instance.getUpgradeDescription(7);
+
+            descriptionText = StatTracker.instance.getDescription(7);
         }
         shootTimer = attackSpeed;
     }
@@ -164,7 +206,6 @@ public class Tower : MonoBehaviour{
         if (type == "Lightsabre Arm"){
             lightsabreArmsToRotateAll = GameObject.FindGameObjectsWithTag("LightsabreRotate");
             lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[0]);
-            Debug.Log(lightsabreArmsToRotateAll.Length);
 
             for (int i = 0; i < lightsabreArmsToRotateAll.Length; i++){
                 lightsabreArmsToRotateAll[i].tag = "Untagged";
@@ -186,6 +227,7 @@ public class Tower : MonoBehaviour{
         // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // FJERN DENNE LINJA NÅR DU FÅR MODELL SHITTET TIL Å FUNGERE ELLER NOE SÅNN !!!!!!!!!!!!!!!!!!!!!!!!!! 
         // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 
         partToRotatePositionTemp = partToRotate.transform.position;
@@ -333,8 +375,16 @@ public class Tower : MonoBehaviour{
 
                     GameObject theEnemy = Spawner.enemies[enemyIndex];
 
-                    //0 er bonus damage og du kan lage en variabel for dette når den blir oppgradert og sånn bruh
-                    theEnemy.GetComponent<Enemy>().health -= dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, 0);
+                    // KAN HENDE AT DETTE SYSTEMET BARE STRAIGHT UP IKKE FUNKER, HUSK Å TEST DET NÅR DU KAN ROTERE OG SJEKKE ORDENTLIG HVILKEN ENEMY SOM ENTERA FØRST
+                    int upgrade3StatusIndex = theEnemy.GetComponent<Enemy>().lightsabreArmUpgrade3StatusTower.IndexOf(this);
+                    //Debug.Log(upgrade3StatusIndex);
+
+                    float bonusDamage = 0f;
+                    if (lightsabreArmUpgrade3){
+                        bonusDamage = theEnemy.GetComponent<Enemy>().lightsabreArmUpgrade3StatusTimer[upgrade3StatusIndex] / 10;
+                    }
+                    theEnemy.GetComponent<Enemy>().health -= dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, bonusDamage);
+                    // KAN HENDE AT DETTE SYSTEMET BARE STRAIGHT UP IKKE FUNKER, HUSK Å TEST DET NÅR DU KAN ROTERE OG SJEKKE ORDENTLIG HVILKEN ENEMY SOM ENTERA FØRST
 
                     if (theEnemy.GetComponent<Enemy>().health <= 0){
                         StatTracker.instance.changeTokens(theEnemy.GetComponent<Enemy>().tokenIncrease);
@@ -559,7 +609,7 @@ public class Tower : MonoBehaviour{
                 partToRotate = partToRotateArr[2];
             }
             else if (upgradeNumber == 2){
-                
+                lightsabreArmUpgrade3 = true;
 
                 lightsabreArmsToRotate.Clear();
                 lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[3]);
@@ -575,6 +625,35 @@ public class Tower : MonoBehaviour{
                 lightsabreArmsToRotate.Clear();
                 lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[5]);
                 lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[6]);
+
+                upgrade3Model.SetActive(false);
+                upgrade4Model.SetActive(true);
+                partToRotate = partToRotateArr[4];
+
+                upgradeCostText.enabled = false;
+                panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;
+            }
+        }
+        else if (towerType == "Plasma Tower"){
+            if (upgradeNumber == 0){
+
+                upgrade0Model.SetActive(false);
+                upgrade1Model.SetActive(true);
+                partToRotate = partToRotateArr[1];
+            }
+            else if (upgradeNumber == 1){
+
+                upgrade1Model.SetActive(false);
+                upgrade2Model.SetActive(true);
+                partToRotate = partToRotateArr[2];
+            }
+            else if (upgradeNumber == 2){
+
+                upgrade2Model.SetActive(false);
+                upgrade3Model.SetActive(true);
+                partToRotate = partToRotateArr[3];
+            }
+            else if (upgradeNumber == 3){
 
                 upgrade3Model.SetActive(false);
                 upgrade4Model.SetActive(true);
@@ -658,6 +737,35 @@ public class Tower : MonoBehaviour{
                 panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;
             }
         }
+        else if (towerType == "Beacon"){
+            if (upgradeNumber == 0){
+
+                upgrade0Model.SetActive(false);
+                upgrade1Model.SetActive(true);
+                partToRotate = partToRotateArr[1];
+            }
+            else if (upgradeNumber == 1){
+
+                upgrade1Model.SetActive(false);
+                upgrade2Model.SetActive(true);
+                partToRotate = partToRotateArr[2];
+            }
+            else if (upgradeNumber == 2){
+
+                upgrade2Model.SetActive(false);
+                upgrade3Model.SetActive(true);
+                partToRotate = partToRotateArr[3];
+            }
+            else if (upgradeNumber == 3){
+
+                upgrade3Model.SetActive(false);
+                upgrade4Model.SetActive(true);
+                partToRotate = partToRotateArr[4];
+
+                upgradeCostText.enabled = false;
+                panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;
+            }
+        }
         else if (towerType == "Energy Generator"){
             if (upgradeNumber == 0){
                 energyGeneratorUpgrade1 = true;
@@ -682,6 +790,35 @@ public class Tower : MonoBehaviour{
             }
             else if (upgradeNumber == 3){
                 energyGeneratorUpgrade4 = true;
+
+                upgrade3Model.SetActive(false);
+                upgrade4Model.SetActive(true);
+                partToRotate = partToRotateArr[4];
+
+                upgradeCostText.enabled = false;
+                panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;
+            }
+        }
+        else if (towerType == "Support Tower"){
+            if (upgradeNumber == 0){
+
+                upgrade0Model.SetActive(false);
+                upgrade1Model.SetActive(true);
+                partToRotate = partToRotateArr[1];
+            }
+            else if (upgradeNumber == 1){
+
+                upgrade1Model.SetActive(false);
+                upgrade2Model.SetActive(true);
+                partToRotate = partToRotateArr[2];
+            }
+            else if (upgradeNumber == 2){
+
+                upgrade2Model.SetActive(false);
+                upgrade3Model.SetActive(true);
+                partToRotate = partToRotateArr[3];
+            }
+            else if (upgradeNumber == 3){
 
                 upgrade3Model.SetActive(false);
                 upgrade4Model.SetActive(true);

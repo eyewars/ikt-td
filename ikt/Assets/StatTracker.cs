@@ -43,6 +43,15 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] int[] upgradeCostsLSA = {200, 400, 600, 800};
     [SerializeField] string[] upgradeDescriptionsLSA = {"Increase range.", "Increase damage per tick.", "Deal more damage and more damage over time.", "Deal even more damage to enemies affected by crowd control.", "Fully upgraded."};
 
+    [SerializeField] float damagePT = 0.5f;
+    [SerializeField] float rangePT = 4.2f;
+    [SerializeField] float attackSpeedPT = 0.1f;
+    [SerializeField] float projectileSpeedPT = 50f;
+    [SerializeField] float explosionRadiusPT = 0f;
+    [SerializeField] int costPT = 320;
+    [SerializeField] int[] upgradeCostsPT = {350, 450, 750, 950};
+    [SerializeField] string[] upgradeDescriptionsPT = {"Increase damage.", "Time between attacking enemies is shorter.", "Deals more damage the longer it attacks.", "Starts at max bonus.", "Fully upgraded."};
+
     [SerializeField] float damagePC = 2f;
     [SerializeField] float rangePC = 2.8f;
     [SerializeField] float attackSpeedPC = 1.5f;
@@ -61,6 +70,15 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] int[] upgradeCostsCC = {125, 225, 325, 425};
     [SerializeField] string[] upgradeDescriptionsCC = {"Increase attack speed.", "Slows even more.", "Nearby enemies also get slowed.", "Freezes enemies for a short duration, and slows them after they thaw out.", "Fully upgraded."};
 
+    [SerializeField] float damageB = 0.3f;
+    [SerializeField] float rangeB = 2f;
+    [SerializeField] float attackSpeedB = 2.5f;
+    [SerializeField] float projectileSpeedB = 0f;
+    [SerializeField] float explosionRadiusB = 0f;
+    [SerializeField] int costB = 250;
+    [SerializeField] int[] upgradeCostsB = {210, 420, 600, 975};
+    [SerializeField] string[] upgradeDescriptionsB = {"Increase attack range.", "Increase attack speed.", "Stun lasts longer.", "After the stun is over, a delayed stun is applied that activates shortly after.", "Fully upgraded."};
+
     [SerializeField] float damageEG = 0f;
     [SerializeField] float rangeEG = 0f;
     [SerializeField] float attackSpeedEG = 2f;
@@ -69,6 +87,15 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] int costEG = 200;
     [SerializeField] int[] upgradeCostsEG = {200, 300, 400, 500};
     [SerializeField] string[] upgradeDescriptionsEG = {"Generates more energy.", "Generate a large amount of energy at the end of the round.", "Generates energy faster.", "Generates more energy based on how much energy you already have.", "Fully upgraded."};
+
+    [SerializeField] float damageST = 0f;
+    [SerializeField] float rangeST = 2.2f;
+    [SerializeField] float attackSpeedST = 1.8f;
+    [SerializeField] float projectileSpeedST = 0f;
+    [SerializeField] float explosionRadiusST = 0f;
+    [SerializeField] int costST = 250;
+    [SerializeField] int[] upgradeCostsST = {250, 450, 600, 900};
+    [SerializeField] string[] upgradeDescriptionsST = {"Increase damage of nearby towers.", "Increase attack speed of nearby towers.", "Nearby enemies take bonus damage.", "Nearby enemies do not resist damage based on damage type.", "Fully upgraded."};
 
     void Start(){
         updateText();
@@ -119,11 +146,17 @@ public class StatTracker : MonoBehaviour{
             case 1:
                 return damageLSA;
             case 2: 
-                return damagePC;
+                return damagePT;
             case 3: 
-                return damageCC;
+                return damagePC;
             case 4: 
+                return damageCC;
+            case 5: 
+                return damageB;
+            case 6: 
                 return damageEG;
+            case 7: 
+                return damageST;
             default: 
                 return damageLS;
         }
@@ -136,11 +169,17 @@ public class StatTracker : MonoBehaviour{
             case 1:
                 return rangeLSA;
             case 2: 
-                return rangePC;
+                return rangePT;
             case 3: 
-                return rangeCC;
+                return rangePC;
             case 4: 
+                return rangeCC;
+            case 5: 
+                return rangeB;
+            case 6: 
                 return rangeEG;
+            case 7: 
+                return rangeST;
             default: 
                 return rangeLS;
         }
@@ -153,11 +192,17 @@ public class StatTracker : MonoBehaviour{
             case 1:
                 return attackSpeedLSA;
             case 2: 
-                return attackSpeedPC;
+                return attackSpeedPT;
             case 3: 
-                return attackSpeedCC;
+                return attackSpeedPC;
             case 4: 
+                return attackSpeedCC;
+            case 5: 
+                return attackSpeedB;
+            case 6: 
                 return attackSpeedEG;
+            case 7: 
+                return attackSpeedST;
             default: 
                 return attackSpeedLS;
         }
@@ -170,11 +215,17 @@ public class StatTracker : MonoBehaviour{
             case 1:
                 return projectileSpeedLSA;
             case 2: 
-                return projectileSpeedPC;
+                return projectileSpeedPT;
             case 3: 
-                return projectileSpeedCC;
+                return projectileSpeedPC;
             case 4: 
+                return projectileSpeedCC;
+            case 5: 
+                return projectileSpeedB;
+            case 6: 
                 return projectileSpeedEG;
+            case 7: 
+                return projectileSpeedST;
             default: 
                 return projectileSpeedLS;
         }
@@ -187,11 +238,17 @@ public class StatTracker : MonoBehaviour{
             case 1:
                 return costLSA;
             case 2: 
-                return costPC;
+                return costPT;
             case 3: 
-                return costCC;
+                return costPC;
             case 4: 
+                return costCC;
+            case 5: 
+                return costB;
+            case 6: 
                 return costEG;
+            case 7: 
+                return costST;
             default: 
                 return costLS;
         }
@@ -204,11 +261,17 @@ public class StatTracker : MonoBehaviour{
             case 1:
                 return "Has a static lightsabre arm that damages all enemies that pass through.";
             case 2: 
-                return "Slow tower that shoots plasma.";
+                return "Shoots a constant beam of plasma at the target. After the target dies, the tower will need to recharge for a short duration before it can attack again.";
             case 3: 
-                return "Slows enemies with freezing attacks.";
+                return "Slow tower that shoots plasma.";
             case 4: 
+                return "Slows enemies with freezing attacks.";
+            case 5: 
+                return "Stuns all enemies in range for a short duration.";
+            case 6: 
                 return "Generates energy.";
+            case 7: 
+                return "Increases attack speed of nearby towers.";
             default: 
                 return "DEFAULT, DU ADDA IKKE INDEX";
         }
@@ -221,11 +284,17 @@ public class StatTracker : MonoBehaviour{
             case 1:
                 return upgradeCostsLSA;
             case 2: 
-                return upgradeCostsPC;
+                return upgradeCostsPT;
             case 3: 
-                return upgradeCostsCC;
+                return upgradeCostsPC;
             case 4: 
+                return upgradeCostsCC;
+            case 5: 
+                return upgradeCostsB;
+            case 6: 
                 return upgradeCostsEG;
+            case 7: 
+                return upgradeCostsST;
             default: 
                 return upgradeCostsLS;
         }
@@ -238,11 +307,17 @@ public class StatTracker : MonoBehaviour{
             case 1:
                 return upgradeDescriptionsLSA;
             case 2: 
-                return upgradeDescriptionsPC;
+                return upgradeDescriptionsPT;
             case 3: 
-                return upgradeDescriptionsCC;
+                return upgradeDescriptionsPC;
             case 4: 
+                return upgradeDescriptionsCC;
+            case 5: 
+                return upgradeDescriptionsB;
+            case 6: 
                 return upgradeDescriptionsEG;
+            case 7: 
+                return upgradeDescriptionsST;
             default: 
                 return upgradeDescriptionsLS;
         }
@@ -255,11 +330,17 @@ public class StatTracker : MonoBehaviour{
             case 1:
                 return explosionRadiusLSA;
             case 2: 
-                return explosionRadiusPC;
+                return explosionRadiusPT;
             case 3: 
-                return explosionRadiusCC;
+                return explosionRadiusPC;
             case 4: 
+                return explosionRadiusCC;
+            case 5: 
+                return explosionRadiusB;
+            case 6: 
                 return explosionRadiusEG;
+            case 7: 
+                return explosionRadiusST;
             default: 
                 return explosionRadiusLS;
         }

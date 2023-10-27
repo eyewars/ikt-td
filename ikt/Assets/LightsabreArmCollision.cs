@@ -8,6 +8,7 @@ public class LightsabreArmCollision : MonoBehaviour{
     void OnTriggerEnter(Collider thing){
         if (thing.gameObject.tag == "Enemy"){
             myTower.lightsabreEnemies.Add(thing.gameObject);
+            thing.gameObject.GetComponent<Enemy>().lightsabreArmUpgrade3StatusAdd(myTower);
         }  
     }
 

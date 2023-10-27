@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour{
     public float cryoCanonUpgrade0Status = 0;
     public float cryoCanonUpgrade2Status = 0;
     public float cryoCanonUpgrade4Status = 0;
+    public List<float> lightsabreArmUpgrade3StatusTimer = new List<float>();
+    public List<Tower> lightsabreArmUpgrade3StatusTower = new List<Tower>();
 
     public Transform target;
     private int waypointIndex = 0;
@@ -119,6 +121,10 @@ public class Enemy : MonoBehaviour{
                 cryoCanonUpgrade2StatusAdd();
             }
         }
+
+        for (int i = 0; i < lightsabreArmUpgrade3StatusTimer.Count; i++){
+            lightsabreArmUpgrade3StatusTimer[i] += 1 * Time.deltaTime;
+        }
     }
 
     public void laserShooterUpgrade3StatusAdd(){
@@ -141,6 +147,11 @@ public class Enemy : MonoBehaviour{
 
     public void cryoCanonUpgrade4StatusAdd(){
         cryoCanonUpgrade4Status = 0.5f;
+    }
+
+    public void lightsabreArmUpgrade3StatusAdd(Tower myTower){
+        lightsabreArmUpgrade3StatusTimer.Add(0f);
+        lightsabreArmUpgrade3StatusTower.Add(myTower);
     }
 
     // Destroy(Spawner.enemies[enemyIndex]) INDEXEN ER NOEN GANGER UTE AV RANGE, MEST SANSYNLIG FORDI ENEMIEN ER DØD ALLEREDE OG DEN PRØVER Å ØDELEGGE PÅ NYTT
