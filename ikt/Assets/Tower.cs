@@ -47,6 +47,9 @@ public class Tower : MonoBehaviour{
 
     public string damageType = "Laser";
 
+    public List<string> targetingOptions = new List<string>();
+    public int currentTargetingIndex = 0;
+
     public float damage;
     public float range;
     public float attackSpeed;
@@ -97,6 +100,8 @@ public class Tower : MonoBehaviour{
             upgradeDescriptions = StatTracker.instance.getUpgradeDescription(0);
 
             descriptionText = StatTracker.instance.getDescription(0);
+
+            targetingOptions = StatTracker.instance.getTargetingOptions(0);
         }
         else if (type == "Lightsabre Arm"){
             damage = StatTracker.instance.getDamage(1);
@@ -110,6 +115,8 @@ public class Tower : MonoBehaviour{
             upgradeDescriptions = StatTracker.instance.getUpgradeDescription(1);
 
             descriptionText = StatTracker.instance.getDescription(1);
+
+            targetingOptions = StatTracker.instance.getTargetingOptions(1);
         }
         else if (type == "Plasma Tower"){
             damage = StatTracker.instance.getDamage(2);
@@ -123,6 +130,8 @@ public class Tower : MonoBehaviour{
             upgradeDescriptions = StatTracker.instance.getUpgradeDescription(2);
 
             descriptionText = StatTracker.instance.getDescription(2);
+
+            targetingOptions = StatTracker.instance.getTargetingOptions(2);
         }
         else if (type == "Plasma Canon"){
             damage = StatTracker.instance.getDamage(3);
@@ -136,6 +145,8 @@ public class Tower : MonoBehaviour{
             upgradeDescriptions = StatTracker.instance.getUpgradeDescription(3);
 
             descriptionText = StatTracker.instance.getDescription(3);
+
+            targetingOptions = StatTracker.instance.getTargetingOptions(3);
         }
         else if (type == "Cryo Canon"){
             damage = StatTracker.instance.getDamage(4);
@@ -149,6 +160,8 @@ public class Tower : MonoBehaviour{
             upgradeDescriptions = StatTracker.instance.getUpgradeDescription(4);
 
             descriptionText = StatTracker.instance.getDescription(4);
+
+            targetingOptions = StatTracker.instance.getTargetingOptions(4);
 
             cryoCanonUpgrade0 = true;
         }
@@ -165,6 +178,8 @@ public class Tower : MonoBehaviour{
 
             descriptionText = StatTracker.instance.getDescription(5);
 
+            targetingOptions = StatTracker.instance.getTargetingOptions(5);
+
             cryoCanonUpgrade0 = true;
         }
         else if (type == "Energy Generator"){
@@ -179,6 +194,8 @@ public class Tower : MonoBehaviour{
             upgradeDescriptions = StatTracker.instance.getUpgradeDescription(6);
 
             descriptionText = StatTracker.instance.getDescription(6);
+
+            targetingOptions = StatTracker.instance.getTargetingOptions(6);
         }
          else if (type == "Support Tower"){
             damage = StatTracker.instance.getDamage(7);
@@ -192,6 +209,8 @@ public class Tower : MonoBehaviour{
             upgradeDescriptions = StatTracker.instance.getUpgradeDescription(7);
 
             descriptionText = StatTracker.instance.getDescription(7);
+
+            targetingOptions = StatTracker.instance.getTargetingOptions(7);
         }
         shootTimer = attackSpeed;
     }
@@ -476,6 +495,19 @@ public class Tower : MonoBehaviour{
         totalUpgrades++;
 
         updateUIText();
+    }
+
+    public void changeTargeting(){
+        if (currentTargetingIndex == (targetingOptions.Count - 1)){
+            currentTargetingIndex = 0;
+        }
+        else{
+            currentTargetingIndex++;
+        }
+
+        
+            partToRotate.transform.Rotate(0, 90, 0);
+        
     }
 
     [SerializeField] LineRenderer line;

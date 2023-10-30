@@ -87,6 +87,7 @@ MonoBehaviour:
   cryoCanonUpgrade4: 0
   energyGeneratorUpgrade1: 0
   energyGeneratorUpgrade4: 0
+  lightsabreArmUpgrade3: 0
   panel: {fileID: 0}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}

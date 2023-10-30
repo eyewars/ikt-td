@@ -53,7 +53,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myTile: {fileID: 0}
   bullet: {fileID: 3097568633870670902, guid: 6decb57c60d19dd46b8f461b9b3b6440, type: 3}
+  mine: {fileID: 0}
   shootTimer: 0
+  mineTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
   upgrade0Model: {fileID: 8894339355360532556}
@@ -61,21 +63,34 @@ MonoBehaviour:
   upgrade2Model: {fileID: 7587355607064452594}
   upgrade3Model: {fileID: 1662833904322506834}
   upgrade4Model: {fileID: 3089279289326097785}
+  lightsabreEnemies: []
   type: Laser Shooter
+  damageType: Laser
   damage: 0
   range: 0
   attackSpeed: 0
   projectileSpeed: 0
+  explosionRadius: 0
   cost: 0
   upgradeCosts: 
   upgradeDescriptions: []
   totalMoneySpent: 0
   sellValue: 0
   totalUpgrades: 0
+  tokensPerPump: 5
   laserShooterUpgrade3: 0
   laserShooterUpgrade4: 0
+  plasmaCanonUpgrade3: 0
+  plasmaCanonUpgrade4: 0
+  cryoCanonUpgrade0: 0
+  cryoCanonUpgrade2: 0
+  cryoCanonUpgrade4: 0
+  energyGeneratorUpgrade1: 0
+  energyGeneratorUpgrade4: 0
+  lightsabreArmUpgrade3: 0
   panel: {fileID: 0}
   bulletHolder: {fileID: 0}
+  mineHolder: {fileID: 0}
   line: {fileID: 7097074002649084440}
 --- !u!120 &7097074002649084440
 LineRenderer:

@@ -97,6 +97,11 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] int[] upgradeCostsST = {250, 450, 600, 900};
     [SerializeField] string[] upgradeDescriptionsST = {"Increase damage of nearby towers.", "Increase attack speed of nearby towers.", "Nearby enemies take bonus damage.", "Nearby enemies do not resist damage based on damage type.", "Fully upgraded."};
 
+    [SerializeField] List<string> normalTargeting = new List<string>(){"First", "Strong", "Close", "Last"};
+    [SerializeField] List<string> armTargeting = new List<string>(){"Up", "Right", "Down", "Left"};
+    [SerializeField] List<string> noTargeting = new List<string>(){"None"};
+
+
     void Start(){
         updateText();
     }
@@ -343,6 +348,29 @@ public class StatTracker : MonoBehaviour{
                 return explosionRadiusST;
             default: 
                 return explosionRadiusLS;
+        }
+    }
+
+    public List<string> getTargetingOptions(int index){
+        switch (index){
+            case 0:
+                return normalTargeting;
+            case 1:
+                return armTargeting;
+            case 2: 
+                return normalTargeting;
+            case 3: 
+                return normalTargeting;
+            case 4: 
+                return normalTargeting;
+            case 5: 
+                return noTargeting;
+            case 6: 
+                return noTargeting;
+            case 7: 
+                return noTargeting;
+            default: 
+                return normalTargeting;
         }
     }
 }
