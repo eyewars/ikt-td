@@ -41,7 +41,6 @@ public class Tower : MonoBehaviour{
     public List<GameObject> lightsabreEnemies = new List<GameObject>();
     GameObject[] lightsabreArmsToRotateAll;
     List<GameObject> lightsabreArmsToRotate = new List<GameObject>();
-    float lightsabreArmRotateTimer = 0f;
 
     public string type = "Laser Shooter";
 
@@ -75,6 +74,7 @@ public class Tower : MonoBehaviour{
     public bool energyGeneratorUpgrade1 = false;
     public bool energyGeneratorUpgrade4 = false;
     public bool lightsabreArmUpgrade3 = false;
+    public bool lightsabreArmUpgrade4 = false;
 
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
     // panel er instancen (som blir lagd senere)
@@ -395,13 +395,20 @@ public class Tower : MonoBehaviour{
                     GameObject theEnemy = Spawner.enemies[enemyIndex];
 
                     // KAN HENDE AT DETTE SYSTEMET BARE STRAIGHT UP IKKE FUNKER, HUSK Å TEST DET NÅR DU KAN ROTERE OG SJEKKE ORDENTLIG HVILKEN ENEMY SOM ENTERA FØRST
-                    int upgrade3StatusIndex = theEnemy.GetComponent<Enemy>().lightsabreArmUpgrade3StatusTower.IndexOf(this);
+                    int upgrade3StatusIndex = theEnemy.GetComponent<Enemy>().lightsabreArmUpgrade3StatusTower.IndexOf(gameObject);
                     //Debug.Log(upgrade3StatusIndex);
 
                     float bonusDamage = 0f;
                     if (lightsabreArmUpgrade3){
                         bonusDamage = theEnemy.GetComponent<Enemy>().lightsabreArmUpgrade3StatusTimer[upgrade3StatusIndex] / 10;
                     }
+
+                    if (lightsabreArmUpgrade4){
+                        if (theEnemy.GetComponent<Enemy>().speed != theEnemy.GetComponent<Enemy>().baseSpeed){
+                            bonusDamage += 0.5f;
+                        }
+                    }
+
                     theEnemy.GetComponent<Enemy>().health -= dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, bonusDamage);
                     // KAN HENDE AT DETTE SYSTEMET BARE STRAIGHT UP IKKE FUNKER, HUSK Å TEST DET NÅR DU KAN ROTERE OG SJEKKE ORDENTLIG HVILKEN ENEMY SOM ENTERA FØRST
 
@@ -424,14 +431,8 @@ public class Tower : MonoBehaviour{
 
             shootTimer += 1 * Time.deltaTime; 
 
-            if (lightsabreArmRotateTimer >= 1){
-                lightsabreArmRotateTimer -= 1;
-            }
-
-            lightsabreArmRotateTimer += 1 * Time.deltaTime;
-
             for (int i = 0; i < lightsabreArmsToRotate.Count; i++){
-                lightsabreArmsToRotate[i].transform.rotation = Quaternion.Euler(0f, 0f, 360 * lightsabreArmRotateTimer / 1);
+                lightsabreArmsToRotate[i].transform.Rotate(0, 0, 180 * Time.deltaTime);
             }   
         }
     }
@@ -505,9 +506,7 @@ public class Tower : MonoBehaviour{
             currentTargetingIndex++;
         }
 
-        
-            partToRotate.transform.Rotate(0, 90, 0);
-        
+        partToRotate.transform.Rotate(0, 90, 0);
     }
 
     [SerializeField] LineRenderer line;
@@ -631,7 +630,7 @@ public class Tower : MonoBehaviour{
                 partToRotate = partToRotateArr[1];
             }
             else if (upgradeNumber == 1){
-                damage = 1f;
+                damage = 0.4f;
 
                 lightsabreArmsToRotate.Clear();
                 lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[2]);
@@ -652,7 +651,7 @@ public class Tower : MonoBehaviour{
                 partToRotate = partToRotateArr[3];
             }
             else if (upgradeNumber == 3){
-
+                lightsabreArmUpgrade4 = true;
 
                 lightsabreArmsToRotate.Clear();
                 lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[5]);

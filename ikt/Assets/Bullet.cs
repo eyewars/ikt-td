@@ -14,6 +14,11 @@ public class Bullet : MonoBehaviour{
 
     void Start(){
         startPos = transform.position;
+
+        Quaternion turnDirection = Quaternion.LookRotation(myDir);
+        Vector3 turnRotation = turnDirection.eulerAngles;
+            
+        transform.rotation = Quaternion.Euler(90f, turnRotation.y, 0f);
     }
 
     void Update(){

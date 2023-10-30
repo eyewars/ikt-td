@@ -66,6 +66,8 @@ MonoBehaviour:
   lightsabreEnemies: []
   type: Laser Shooter
   damageType: Laser
+  targetingOptions: []
+  currentTargetingIndex: 0
   damage: 0
   range: 0
   attackSpeed: 0
@@ -88,6 +90,7 @@ MonoBehaviour:
   energyGeneratorUpgrade1: 0
   energyGeneratorUpgrade4: 0
   lightsabreArmUpgrade3: 0
+  lightsabreArmUpgrade4: 0
   panel: {fileID: 0}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}

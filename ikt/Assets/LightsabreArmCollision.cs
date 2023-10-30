@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LightsabreArmCollision : MonoBehaviour{
-    public Tower myTower;
+    public GameObject myTower;
 
     void OnTriggerEnter(Collider thing){
         if (thing.gameObject.tag == "Enemy"){
-            myTower.lightsabreEnemies.Add(thing.gameObject);
+            myTower.GetComponent<Tower>().lightsabreEnemies.Add(thing.gameObject);
             thing.gameObject.GetComponent<Enemy>().lightsabreArmUpgrade3StatusAdd(myTower);
         }  
     }
 
     void OnTriggerExit(Collider thing){
         if (thing.gameObject.tag == "Enemy"){
-            myTower.lightsabreEnemies.Remove(thing.gameObject);
+            myTower.GetComponent<Tower>().lightsabreEnemies.Remove(thing.gameObject);
         } 
     }
 }

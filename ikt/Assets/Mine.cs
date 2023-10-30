@@ -5,6 +5,10 @@ using UnityEngine;
 public class Mine : MonoBehaviour{
     public Tower myTower;
 
+    void Start(){
+        transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+    }
+
     void OnTriggerEnter(Collider thing){
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2);
         List<Collider> enemiesHit = new List<Collider>();

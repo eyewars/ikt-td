@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour{
     // DET ER EN BUG AV OG TIL SOM GJØR AT ENEMIESA JITTERER I TARGET POINTSA (VET IKKE HELT HVORFOR DET SKJER, HAR KANSKJE NOE MED DOTSA Å GJØRE)
     public string type = "Normal";
 
-    private float speed = 1f;
+    [HideInInspector] public float speed = 1f;
     public float baseSpeed = 1f;
     public float health = 2f;
     public int playerDamage = 1;
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour{
     public float cryoCanonUpgrade2Status = 0;
     public float cryoCanonUpgrade4Status = 0;
     public List<float> lightsabreArmUpgrade3StatusTimer = new List<float>();
-    public List<Tower> lightsabreArmUpgrade3StatusTower = new List<Tower>();
+    public List<GameObject> lightsabreArmUpgrade3StatusTower = new List<GameObject>();
 
     public Transform target;
     private int waypointIndex = 0;
@@ -149,7 +149,7 @@ public class Enemy : MonoBehaviour{
         cryoCanonUpgrade4Status = 0.5f;
     }
 
-    public void lightsabreArmUpgrade3StatusAdd(Tower myTower){
+    public void lightsabreArmUpgrade3StatusAdd(GameObject myTower){
         lightsabreArmUpgrade3StatusTimer.Add(0f);
         lightsabreArmUpgrade3StatusTower.Add(myTower);
     }
