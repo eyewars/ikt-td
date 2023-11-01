@@ -84,6 +84,11 @@ public class Tower : MonoBehaviour{
     private TextMeshProUGUI descriptionPanelText;
     private TextMeshProUGUI upgradeCostText;
     private TextMeshProUGUI sellValueText;
+    private TextMeshProUGUI towerNameText;
+    private TextMeshProUGUI targetText;
+    private Image upgradeImageUI;
+
+    public Sprite[] upgradeImageUIArray;
 
     private string descriptionText;
 
@@ -102,6 +107,7 @@ public class Tower : MonoBehaviour{
             descriptionText = StatTracker.instance.getDescription(0);
 
             targetingOptions = StatTracker.instance.getTargetingOptions(0);
+            Debug.Log(targetingOptions[0]);
         }
         else if (type == "Lightsabre Arm"){
             damage = StatTracker.instance.getDamage(1);
@@ -292,33 +298,71 @@ public class Tower : MonoBehaviour{
     void findEnemy(){
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
 
-        GameObject enemyNearestEnd = null;
-        float nearestWaypoint = Mathf.Infinity;
+        if (currentTargetingIndex == 0){
+            GameObject enemyNearestEnd = null;
+            float nearestWaypoint = Mathf.Infinity;
 
-        for (int i = 0; i < enemies.Length; i++){
-            Transform targetOfEnemy = enemies[i].GetComponent<Enemy>().target;
-            int tempWaypointNum = System.Array.IndexOf(Waypoints.points, targetOfEnemy);
+            for (int i = 0; i < enemies.Length; i++){
+                Transform targetOfEnemy = enemies[i].GetComponent<Enemy>().target;
+                int tempWaypointNum = System.Array.IndexOf(Waypoints.points, targetOfEnemy);
 
-            float distanceToEnemy = (enemies[i].transform.position - transform.position).magnitude;
+                float distanceToEnemy = (enemies[i].transform.position - transform.position).magnitude;
 
-            if (distanceToEnemy > range){
-                continue;
+                if (distanceToEnemy > range){
+                    continue;
+                }
+
+                if (enemyNearestEnd == null){
+                    enemyNearestEnd = enemies[i];
+                    nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
+                }
+                
+                if ((tempWaypointNum >= System.Array.IndexOf(Waypoints.points, enemyNearestEnd.GetComponent<Enemy>().target)) && (enemies[i].GetComponent<Enemy>().distanceToWaypoint < nearestWaypoint)){
+                    enemyNearestEnd = enemies[i];
+                    nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
+                }
             }
 
-            if (enemyNearestEnd == null){
-                enemyNearestEnd = enemies[i];
-                nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
-            }
-            
-            if ((tempWaypointNum >= System.Array.IndexOf(Waypoints.points, enemyNearestEnd.GetComponent<Enemy>().target)) && (enemies[i].GetComponent<Enemy>().distanceToWaypoint < nearestWaypoint)){
-                enemyNearestEnd = enemies[i];
-                nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
+            enemyTarget = null;
+            if (enemyNearestEnd != null){
+                enemyTarget = enemyNearestEnd.transform;
             }
         }
+        else if (currentTargetingIndex == 1){
 
-        enemyTarget = null;
-        if (enemyNearestEnd != null){
-            enemyTarget = enemyNearestEnd.transform;
+        }
+        else if (currentTargetingIndex == 2){
+            
+        }
+        else if (currentTargetingIndex == 3){
+            GameObject enemyNearestStart = null;
+            float furthestFromWaypoint = 0f;
+
+            for (int i = 0; i < enemies.Length; i++){
+                Transform targetOfEnemy = enemies[i].GetComponent<Enemy>().target;
+                int tempWaypointNum = System.Array.IndexOf(Waypoints.points, targetOfEnemy);
+
+                float distanceToEnemy = (enemies[i].transform.position - transform.position).magnitude;
+
+                if (distanceToEnemy > range){
+                    continue;
+                }
+
+                if (enemyNearestStart == null){
+                    enemyNearestStart = enemies[i];
+                    furthestFromWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
+                }
+                
+                if ((tempWaypointNum <= System.Array.IndexOf(Waypoints.points, enemyNearestStart.GetComponent<Enemy>().target)) && (enemies[i].GetComponent<Enemy>().distanceToWaypoint > furthestFromWaypoint)){
+                    enemyNearestStart = enemies[i];
+                    furthestFromWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
+                }
+            }
+
+            enemyTarget = null;
+            if (enemyNearestStart != null){
+                enemyTarget = enemyNearestStart.transform;
+            }
         }
     }
 
@@ -470,10 +514,20 @@ public class Tower : MonoBehaviour{
 
     public void updateUIText(){
         descriptionPanelText.text = upgradeDescriptions[totalUpgrades];
+
+        upgradeImageUI.sprite = upgradeImageUIArray[totalUpgrades];
+
         sellValueText.text = sellValue.ToString();
         if (totalUpgrades < 4){
             upgradeCostText.text = upgradeCosts[totalUpgrades].ToString();
         }
+        else{
+            upgradeCostText.enabled = false;
+            panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;
+        }
+
+        //GameObject.Find("TargetingButton").GetComponentInChildren<TextMeshProUGUI>().text = targetingOptions[currentTargetingIndex];
+        targetText.text = targetingOptions[currentTargetingIndex];
     }
 
     public void upgradeTower(){
@@ -506,7 +560,12 @@ public class Tower : MonoBehaviour{
             currentTargetingIndex++;
         }
 
-        partToRotate.transform.Rotate(0, 90, 0);
+        GameObject.Find("TargetingButton").GetComponentInChildren<TextMeshProUGUI>().text = targetingOptions[currentTargetingIndex];
+
+        if (type == "Lightsabre Arm"){
+            partToRotate.transform.Rotate(0, 90, 0);
+        }
+       
     }
 
     [SerializeField] LineRenderer line;
@@ -567,13 +626,21 @@ public class Tower : MonoBehaviour{
 
         descriptionPanel.SetActive(false);
 
+        towerNameText = panel.transform.Find("TowerName").GetComponent<TextMeshProUGUI>();
+        towerNameText.text = type;
+
+        upgradeImageUI = panel.transform.Find("TowerImage").GetComponent<Image>();
+
         upgradeCostText = panel.transform.Find("UpgradeCostText").GetComponent<TextMeshProUGUI>();
         //upgradeCostText.text = upgradeCosts[totalUpgrades].ToString();
 
         sellValueText = panel.transform.Find("SellValueText").GetComponent<TextMeshProUGUI>();
         //sellValueText.text = sellValue.ToString();
 
+        targetText = panel.transform.Find("TargetingButton").GetComponentInChildren<TextMeshProUGUI>();
+
         //Kommenterte ut .text greiene fordi de blir gjort i updateUIText()
+        
         updateUIText();
     }
 
@@ -628,6 +695,8 @@ public class Tower : MonoBehaviour{
                 upgrade0Model.SetActive(false);
                 upgrade1Model.SetActive(true);
                 partToRotate = partToRotateArr[1];
+
+                partToRotate.transform.Rotate(0, 90 * currentTargetingIndex, 0);
             }
             else if (upgradeNumber == 1){
                 damage = 0.4f;
@@ -638,6 +707,8 @@ public class Tower : MonoBehaviour{
                 upgrade1Model.SetActive(false);
                 upgrade2Model.SetActive(true);
                 partToRotate = partToRotateArr[2];
+
+                partToRotate.transform.Rotate(0, 90 * currentTargetingIndex, 0);
             }
             else if (upgradeNumber == 2){
                 lightsabreArmUpgrade3 = true;
@@ -649,6 +720,8 @@ public class Tower : MonoBehaviour{
                 upgrade2Model.SetActive(false);
                 upgrade3Model.SetActive(true);
                 partToRotate = partToRotateArr[3];
+
+                partToRotate.transform.Rotate(0, 90 * currentTargetingIndex, 0);
             }
             else if (upgradeNumber == 3){
                 lightsabreArmUpgrade4 = true;
@@ -660,6 +733,8 @@ public class Tower : MonoBehaviour{
                 upgrade3Model.SetActive(false);
                 upgrade4Model.SetActive(true);
                 partToRotate = partToRotateArr[4];
+
+                partToRotate.transform.Rotate(0, 90 * currentTargetingIndex, 0);
 
                 upgradeCostText.enabled = false;
                 panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;

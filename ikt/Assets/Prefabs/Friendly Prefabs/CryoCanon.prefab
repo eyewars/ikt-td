@@ -92,6 +92,12 @@ MonoBehaviour:
   lightsabreArmUpgrade3: 0
   lightsabreArmUpgrade4: 0
   panel: {fileID: 0}
+  upgradeImageUIArray:
+  - {fileID: 21300000, guid: e7c2507aefbe1cb449e424ff3c9f69a7, type: 3}
+  - {fileID: 21300000, guid: c2412b1fd19e37f46a24529a0c950f4d, type: 3}
+  - {fileID: 21300000, guid: 591474755b88d694d972ef7d4c7cc359, type: 3}
+  - {fileID: 21300000, guid: 8bca8a878cdd11849881234473935e32, type: 3}
+  - {fileID: 21300000, guid: f804c18d501c29b48adc24739a4043c9, type: 3}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}
   line: {fileID: 7489377999245041994}

@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8359360142156415037
 MeshFilter:
@@ -122,19 +122,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebcf8eaa65c37f46835274944db6662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myTile: {fileID: 0}
   bullet: {fileID: 3097568633870670902, guid: 6decb57c60d19dd46b8f461b9b3b6440, type: 3}
+  mine: {fileID: 0}
   shootTimer: 0
+  mineTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
-  partToRotate: {fileID: 0}
+  upgrade0Model: {fileID: 0}
+  upgrade1Model: {fileID: 0}
+  upgrade2Model: {fileID: 0}
+  upgrade3Model: {fileID: 0}
+  upgrade4Model: {fileID: 0}
+  lightsabreEnemies: []
   type: Plasma Canon
+  damageType: Laser
+  targetingOptions: []
+  currentTargetingIndex: 0
   damage: 0
   range: 0
   attackSpeed: 0
   projectileSpeed: 0
+  explosionRadius: 0
   cost: 0
-  upgradePanel: {fileID: 2384827274650208657, guid: c2a0bacc6d1094045893dc6544b7bfa7, type: 3}
+  upgradeCosts: 
+  upgradeDescriptions: []
+  totalMoneySpent: 0
+  sellValue: 0
+  totalUpgrades: 0
+  tokensPerPump: 5
+  laserShooterUpgrade3: 0
+  laserShooterUpgrade4: 0
+  plasmaCanonUpgrade3: 0
+  plasmaCanonUpgrade4: 0
+  cryoCanonUpgrade0: 0
+  cryoCanonUpgrade2: 0
+  cryoCanonUpgrade4: 0
+  energyGeneratorUpgrade1: 0
+  energyGeneratorUpgrade4: 0
+  lightsabreArmUpgrade3: 0
+  lightsabreArmUpgrade4: 0
+  panel: {fileID: 0}
+  upgradeImageUIArray: []
   bulletHolder: {fileID: 0}
+  mineHolder: {fileID: 0}
   line: {fileID: 8651350456653347156}
 --- !u!114 &5767828890441277699
 MonoBehaviour:

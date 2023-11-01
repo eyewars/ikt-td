@@ -90,7 +90,14 @@ MonoBehaviour:
   energyGeneratorUpgrade1: 0
   energyGeneratorUpgrade4: 0
   lightsabreArmUpgrade3: 0
+  lightsabreArmUpgrade4: 0
   panel: {fileID: 0}
+  upgradeImageUIArray:
+  - {fileID: 21300000, guid: 3400817375618934e8415be884d97cab, type: 3}
+  - {fileID: 21300000, guid: acd88162f51ff8f4694f5442f47d80b6, type: 3}
+  - {fileID: 21300000, guid: 1d87a78d86439d846a6eee177af2e3dc, type: 3}
+  - {fileID: 21300000, guid: 3219db21ee92ddc43a6e39fae76f1d7b, type: 3}
+  - {fileID: 21300000, guid: e6a4cab23d0a0cd49bdc7e4059004234, type: 3}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}
   line: {fileID: 965433740427695991}

@@ -262,13 +262,13 @@ public class StatTracker : MonoBehaviour{
     public string getDescription(int index){
         switch (index){
             case 0:
-                return "Basic tower that shoots laser.";
+                return "Fires lasers at a single enemy quickly.";
             case 1:
                 return "Has a static lightsabre arm that damages all enemies that pass through.";
             case 2: 
                 return "Shoots a constant beam of plasma at the target. After the target dies, the tower will need to recharge for a short duration before it can attack again.";
             case 3: 
-                return "Slow tower that shoots plasma.";
+                return "Slowly shoots exploding plasma blasts that damages multiple enemies at once.";
             case 4: 
                 return "Slows enemies with freezing attacks.";
             case 5: 

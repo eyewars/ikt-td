@@ -63,8 +63,11 @@ MonoBehaviour:
   upgrade2Model: {fileID: 6879724581265318484}
   upgrade3Model: {fileID: 6059989848186330695}
   upgrade4Model: {fileID: 2205160100967794547}
+  lightsabreEnemies: []
   type: Energy Generator
   damageType: Neutral
+  targetingOptions: []
+  currentTargetingIndex: 0
   damage: 0
   range: 0
   attackSpeed: 0
@@ -84,9 +87,17 @@ MonoBehaviour:
   cryoCanonUpgrade0: 0
   cryoCanonUpgrade2: 0
   cryoCanonUpgrade4: 0
-  energyGeneratorUpgrade2: 0
+  energyGeneratorUpgrade1: 0
   energyGeneratorUpgrade4: 0
+  lightsabreArmUpgrade3: 0
+  lightsabreArmUpgrade4: 0
   panel: {fileID: 0}
+  upgradeImageUIArray:
+  - {fileID: 21300000, guid: 7676d58473331154383659f9fe614814, type: 3}
+  - {fileID: 21300000, guid: d3a057165335ddb439e767aa7b7c61cf, type: 3}
+  - {fileID: 21300000, guid: 8b3e1812d18fe5f43ae79f66ff422e46, type: 3}
+  - {fileID: 21300000, guid: 7f39c8e2964096c40862af500a2e3f23, type: 3}
+  - {fileID: 21300000, guid: ff2e12a153ba74944b4be4c18cd9c866, type: 3}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}
   line: {fileID: 4366997930437412060}
