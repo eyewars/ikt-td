@@ -23,6 +23,11 @@ public class Enemy : MonoBehaviour{
     public float cryoCanonUpgrade0Status = 0;
     public float cryoCanonUpgrade2Status = 0;
     public float cryoCanonUpgrade4Status = 0;
+    public float beaconUpgrade0Status = 0;
+    public float beaconUpgrade3Status = 0;
+    public float beaconUpgrade4Status = 0;
+    public float beaconUpgrade4StatusBonusStun = 0;
+    public float beaconUpgrade4StatusBonusStunTimeToActivate = 0;
     public List<float> lightsabreArmUpgrade3StatusTimer = new List<float>();
     public List<GameObject> lightsabreArmUpgrade3StatusTower = new List<GameObject>();
 
@@ -122,6 +127,55 @@ public class Enemy : MonoBehaviour{
             }
         }
 
+        if (beaconUpgrade0Status > 0){
+            speed = 0f;
+
+            beaconUpgrade0Status -= 1 * Time.deltaTime;
+
+            if (beaconUpgrade0Status <= 0){
+                speed = baseSpeed;
+            }
+        }
+
+        if (beaconUpgrade3Status > 0){
+            speed = 0f;
+
+            beaconUpgrade3Status -= 1 * Time.deltaTime;
+
+            if (beaconUpgrade3Status <= 0){
+                speed = baseSpeed;
+            }
+        }
+
+        if (beaconUpgrade4Status > 0){
+            speed = 0f;
+
+            beaconUpgrade4Status -= 1 * Time.deltaTime;
+
+            if (beaconUpgrade4Status <= 0){
+                speed = baseSpeed;
+                beaconUpgrade4StatusBonusStunTimeToActivate = 0.5f;
+            }
+        }
+
+        if (beaconUpgrade4StatusBonusStunTimeToActivate > 0){
+            beaconUpgrade4StatusBonusStunTimeToActivate -= 1 * Time.deltaTime;
+
+            if (beaconUpgrade4StatusBonusStunTimeToActivate <= 0){
+                beaconUpgrade4StatusBonusStun = 0.5f;
+            }
+        }
+
+        if (beaconUpgrade4StatusBonusStun > 0){
+            speed = 0f;
+
+            beaconUpgrade4StatusBonusStun -= 1 * Time.deltaTime;
+
+            if (beaconUpgrade4StatusBonusStun <= 0){
+                speed = baseSpeed;
+            }
+        }
+
         for (int i = 0; i < lightsabreArmUpgrade3StatusTimer.Count; i++){
             lightsabreArmUpgrade3StatusTimer[i] += 1 * Time.deltaTime;
         }
@@ -147,6 +201,18 @@ public class Enemy : MonoBehaviour{
 
     public void cryoCanonUpgrade4StatusAdd(){
         cryoCanonUpgrade4Status = 0.5f;
+    }
+
+    public void beaconUpgrade0StatusAdd(){
+        beaconUpgrade0Status = 0.5f;
+    }
+
+    public void beaconUpgrade3StatusAdd(){
+        beaconUpgrade3Status = 0.8f;
+    }
+
+    public void beaconUpgrade4StatusAdd(){
+        beaconUpgrade4Status = 0.8f;
     }
 
     public void lightsabreArmUpgrade3StatusAdd(GameObject myTower){

@@ -23459,7 +23459,7 @@ MonoBehaviour:
   lightSabreArmPrefab: {fileID: 6095154545313570937, guid: 22df2daddb31e77438ca0c794d93c66f, type: 3}
   plasmaTowerPrefab: {fileID: 1435057866679740948, guid: af71f1f21deb3e54bada87a40394283c, type: 3}
   beaconPrefab: {fileID: 4900030948108446074, guid: 6a5f78c093746c54fa890a085d823515, type: 3}
-  supportTowerPrefab: {fileID: 0}
+  supportTowerPrefab: {fileID: 1577873266004719544, guid: 265bdeb6e9978ea4dad01d1411f61582, type: 3}
   upgradePanel: {fileID: 2384827274650208657, guid: c2a0bacc6d1094045893dc6544b7bfa7, type: 3}
   currentTileHoldingTowerUI: {fileID: 0}
 --- !u!4 &1830548493
@@ -23489,7 +23489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ff6a02e7e235245bb1411d9280ebd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tokens: 30000
+  tokens: 300
   playerHealth: 100
   score: 0
   wave: 0
@@ -23552,7 +23552,7 @@ MonoBehaviour:
   - '"Fully upgraded."'
   damageCC: 0.5
   rangeCC: 3.5
-  attackSpeedCC: 1.6
+  attackSpeedCC: 2.2
   projectileSpeedCC: 24
   explosionRadiusCC: 0
   costCC: 250

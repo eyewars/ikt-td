@@ -75,6 +75,9 @@ public class Tower : MonoBehaviour{
     public bool energyGeneratorUpgrade4 = false;
     public bool lightsabreArmUpgrade3 = false;
     public bool lightsabreArmUpgrade4 = false;
+    public bool beaconUpgrade0 = false;
+    public bool beaconUpgrade3 = false;
+    public bool beaconUpgrade4 = false;
 
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
     // panel er instancen (som blir lagd senere)
@@ -107,7 +110,6 @@ public class Tower : MonoBehaviour{
             descriptionText = StatTracker.instance.getDescription(0);
 
             targetingOptions = StatTracker.instance.getTargetingOptions(0);
-            Debug.Log(targetingOptions[0]);
         }
         else if (type == "Lightsabre Arm"){
             damage = StatTracker.instance.getDamage(1);
@@ -186,7 +188,7 @@ public class Tower : MonoBehaviour{
 
             targetingOptions = StatTracker.instance.getTargetingOptions(5);
 
-            cryoCanonUpgrade0 = true;
+            beaconUpgrade0 = true;
         }
         else if (type == "Energy Generator"){
             damage = StatTracker.instance.getDamage(6);
@@ -367,7 +369,7 @@ public class Tower : MonoBehaviour{
     }
 
     void Update(){
-        if ((type != "Energy Generator") && (type != "Support Tower") && (type != "Lightsabre Arm")){
+        if ((type != "Energy Generator") && (type != "Support Tower") && (type != "Lightsabre Arm") && (type != "Beacon")){
             findEnemy();
 
             if ((type == "Plasma Canon") && plasmaCanonUpgrade3){
@@ -421,6 +423,48 @@ public class Tower : MonoBehaviour{
             shootTimer += 1 * Time.deltaTime;
 
             partToRotate.transform.rotation = Quaternion.Euler(0f, 360 * shootTimer / attackSpeed, 0f);
+        }
+        else if (type == "Support Tower"){
+            shootTimer += 1 * Time.deltaTime;
+
+            partToRotate.transform.rotation = Quaternion.Euler(0f, 360 * shootTimer / attackSpeed, 0f);
+        }
+        else if (type == "Beacon"){
+            if (shootTimer >= attackSpeed){
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, range);
+                List<Collider> enemiesHit = new List<Collider>();
+                foreach (var hitCollider in hitColliders){
+                    if (hitCollider.tag == "Enemy"){
+                        enemiesHit.Add(hitCollider);
+                    }
+                }  
+
+                for (int i = 0; i < enemiesHit.Count; i++){
+                    enemiesHit[i].GetComponent<Enemy>().health -= dealDamage(enemiesHit[i].GetComponent<Enemy>().damageResistance, 0);
+
+                    if (beaconUpgrade4){
+                        enemiesHit[i].GetComponent<Enemy>().beaconUpgrade4StatusAdd(); 
+                    }
+                    else if(beaconUpgrade3){
+                        enemiesHit[i].GetComponent<Enemy>().beaconUpgrade3StatusAdd(); 
+                    }
+                    else{
+                        enemiesHit[i].GetComponent<Enemy>().beaconUpgrade0StatusAdd(); 
+                    }
+                            
+                    if (enemiesHit[i].GetComponent<Enemy>().health <= 0){
+                        StatTracker.instance.changeTokens(enemiesHit[i].GetComponent<Enemy>().tokenIncrease);
+                        Destroy(enemiesHit[i].gameObject);
+                        Spawner.enemies.Remove(enemiesHit[i].gameObject);
+                        StatTracker.instance.updateText();
+
+                        //enemiesToRemoveFromList.Add(i);
+                    }
+                }
+
+                shootTimer -= attackSpeed;
+            }
+            shootTimer += 1 * Time.deltaTime;
         }
         else if (type == "Lightsabre Arm"){
             if (shootTimer >= attackSpeed){
@@ -807,7 +851,7 @@ public class Tower : MonoBehaviour{
         }
         else if (towerType == "Cryo Canon"){
             if (upgradeNumber == 0){
-                attackSpeed = 1.2f;
+                attackSpeed = 1.8f;
 
                 upgrade0Model.SetActive(false);
                 upgrade1Model.SetActive(true);
@@ -845,24 +889,37 @@ public class Tower : MonoBehaviour{
         }
         else if (towerType == "Beacon"){
             if (upgradeNumber == 0){
+                range = 2.5f;
+                CreatePoints(100);
+                damage = 0.4f;
 
                 upgrade0Model.SetActive(false);
                 upgrade1Model.SetActive(true);
                 partToRotate = partToRotateArr[1];
             }
             else if (upgradeNumber == 1){
+                attackSpeed = 2f;
+                damage = 0.5f;
 
                 upgrade1Model.SetActive(false);
                 upgrade2Model.SetActive(true);
                 partToRotate = partToRotateArr[2];
             }
             else if (upgradeNumber == 2){
+                beaconUpgrade3 = true;
+                beaconUpgrade0 = false;
+                damage = 0.8f;
+                range = 2.8f;
 
                 upgrade2Model.SetActive(false);
                 upgrade3Model.SetActive(true);
                 partToRotate = partToRotateArr[3];
             }
             else if (upgradeNumber == 3){
+                beaconUpgrade4 = true;
+                beaconUpgrade3 = false;
+                damage = 1f;
+                range = 3f;
 
                 upgrade3Model.SetActive(false);
                 upgrade4Model.SetActive(true);

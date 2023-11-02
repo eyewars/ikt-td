@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTile: {fileID: 0}
-  bullet: {fileID: 3097568633870670902, guid: 6decb57c60d19dd46b8f461b9b3b6440, type: 3}
+  bullet: {fileID: 6233238507576025373, guid: 17ad006178cbf2741a63b31bee3bc160, type: 3}
   mine: {fileID: 0}
   shootTimer: 0
   mineTimer: 0
