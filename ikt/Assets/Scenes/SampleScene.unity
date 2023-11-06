@@ -23524,12 +23524,12 @@ MonoBehaviour:
   - Deal more damage and more damage over time.
   - Deal even more damage to enemies affected by crowd control.
   - Fully upgraded.
-  damagePT: 0.5
+  damagePT: 0.4
   rangePT: 4.2
   attackSpeedPT: 0.1
   projectileSpeedPT: 50
   explosionRadiusPT: 0
-  costPT: 320
+  costPT: 300
   upgradeCostsPT: 5e010000c2010000ee020000b6030000
   upgradeDescriptionsPT:
   - Increase damage.

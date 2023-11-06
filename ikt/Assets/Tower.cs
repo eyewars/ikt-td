@@ -14,11 +14,14 @@ public class Tower : MonoBehaviour{
     public Tile myTile;
 
     // TYPE OF BULLET TO SHOOT
+    private GameObject[] shootPointArr;
+    public Transform shootPoint;
     public GameObject bullet;
     public GameObject mine;
 
     public float shootTimer;
     public float mineTimer;
+    public float plasmaTowerCooldownTimer;
 
     // LIST OF BULLETS THAT THE TOWER SHOT
     public static List<GameObject> bullets = new List<GameObject>();
@@ -41,6 +44,9 @@ public class Tower : MonoBehaviour{
     public List<GameObject> lightsabreEnemies = new List<GameObject>();
     GameObject[] lightsabreArmsToRotateAll;
     List<GameObject> lightsabreArmsToRotate = new List<GameObject>();
+
+    GameObject[] plasmaShooterLineRenderersGameObject;
+    List<LineRenderer> plasmaShooterLineRenderers = new List<LineRenderer>();
 
     public string type = "Laser Shooter";
 
@@ -78,6 +84,16 @@ public class Tower : MonoBehaviour{
     public bool beaconUpgrade0 = false;
     public bool beaconUpgrade3 = false;
     public bool beaconUpgrade4 = false;
+    public bool supportUpgrade0 = false;
+    public bool supportUpgrade1 = false;
+    public bool supportUpgrade2 = false;
+    public bool supportUpgrade3 = false;
+    public bool supportUpgrade4 = false;
+
+    // Statuses
+    public bool supportUpgrade0Status = false;
+    public bool supportUpgrade1Status = false;
+    public bool supportUpgrade2Status = false;
 
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
     // panel er instancen (som blir lagd senere)
@@ -219,6 +235,8 @@ public class Tower : MonoBehaviour{
             descriptionText = StatTracker.instance.getDescription(7);
 
             targetingOptions = StatTracker.instance.getTargetingOptions(7);
+
+            supportUpgrade0 = true;
         }
         shootTimer = attackSpeed;
     }
@@ -239,6 +257,27 @@ public class Tower : MonoBehaviour{
             }
         }
 
+        if (type == "Plasma Tower"){
+            plasmaShooterLineRenderersGameObject = GameObject.FindGameObjectsWithTag("LaserLineRenderer");
+
+            for (int i = 0; i < plasmaShooterLineRenderersGameObject.Length; i++){
+                plasmaShooterLineRenderersGameObject[i].tag = "Untagged";
+                plasmaShooterLineRenderers.Add(plasmaShooterLineRenderersGameObject[i].GetComponent<LineRenderer>());
+            }
+
+            plasmaShooterLineRenderers[0].enabled = false;
+        }
+
+        if ((type == "Laser Shooter") || (type == "Plasma Canon") || (type == "Plasma Tower") || (type == "Cryo Canon")){
+            shootPointArr = GameObject.FindGameObjectsWithTag("ShootPoint");
+
+            for (int i = 0; i < shootPointArr.Length; i++){
+                shootPointArr[i].tag = "Untagged";
+            }
+
+            shootPoint = shootPointArr[0].transform;
+        }
+
         partToRotateArr = GameObject.FindGameObjectsWithTag("Rotate");
         partToRotate = partToRotateArr[0];
         upgrade1Model.SetActive(false);
@@ -255,20 +294,26 @@ public class Tower : MonoBehaviour{
         // FJERN DENNE LINJA NÅR DU FÅR MODELL SHITTET TIL Å FUNGERE ELLER NOE SÅNN !!!!!!!!!!!!!!!!!!!!!!!!!! 
         // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        if (type != "Support Tower"){
+            transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        }
 
         partToRotatePositionTemp = partToRotate.transform.position;
 
         CreatePoints(100);
+
+        if (type == "Support Tower"){
+            line.transform.Rotate(90, 0, 0);
+        }
     }
     
     // INSTANTIATES BULLETS AND ADDS TO LIST
     // FINDS THE DIRECTION FROM THE BULLET THAT WAS JUST MADE TO THE TARGET, AND ADDS THAT VALUE TO THE myDir VARIABLE
     void shoot(){
         bullets.Add((GameObject)Instantiate(bullet, bulletHolder.transform));
-        bullets[bullets.Count - 1].transform.position = transform.position;
+        bullets[bullets.Count - 1].transform.position = shootPoint.position;
             
-        bullets[bullets.Count - 1].GetComponent<Bullet>().myDir = enemyTarget.position - transform.position;
+        bullets[bullets.Count - 1].GetComponent<Bullet>().myDir = enemyTarget.position - shootPoint.position;
 
         bullets[bullets.Count - 1].GetComponent<Bullet>().myTower = this;
     }
@@ -369,7 +414,7 @@ public class Tower : MonoBehaviour{
     }
 
     void Update(){
-        if ((type != "Energy Generator") && (type != "Support Tower") && (type != "Lightsabre Arm") && (type != "Beacon")){
+        if ((type != "Energy Generator") && (type != "Support Tower") && (type != "Lightsabre Arm") && (type != "Beacon") && (type != "Plasma Tower")){
             findEnemy();
 
             if ((type == "Plasma Canon") && plasmaCanonUpgrade3){
@@ -424,11 +469,6 @@ public class Tower : MonoBehaviour{
 
             partToRotate.transform.rotation = Quaternion.Euler(0f, 360 * shootTimer / attackSpeed, 0f);
         }
-        else if (type == "Support Tower"){
-            shootTimer += 1 * Time.deltaTime;
-
-            partToRotate.transform.rotation = Quaternion.Euler(0f, 360 * shootTimer / attackSpeed, 0f);
-        }
         else if (type == "Beacon"){
             if (shootTimer >= attackSpeed){
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, range);
@@ -464,6 +504,52 @@ public class Tower : MonoBehaviour{
 
                 shootTimer -= attackSpeed;
             }
+            shootTimer += 1 * Time.deltaTime;
+        }
+        else if (type == "Plasma Tower"){
+            findEnemy();
+
+            if (plasmaTowerCooldownTimer > 0){
+                plasmaTowerCooldownTimer -= 1 * Time.deltaTime;
+
+                plasmaShooterLineRenderers[totalUpgrades].enabled = false;
+
+                return;
+            }
+
+            if (enemyTarget == null){
+                plasmaShooterLineRenderers[totalUpgrades].enabled = false;
+
+                return;
+            }
+            else {
+                plasmaShooterLineRenderers[totalUpgrades].enabled = true;
+            }
+
+            plasmaShooterLineRenderers[totalUpgrades].SetPosition(0, shootPoint.position);
+            plasmaShooterLineRenderers[totalUpgrades].SetPosition(1, enemyTarget.position);
+
+            Vector3 direction = enemyTarget.position - transform.position;
+            Quaternion turnDirection = Quaternion.LookRotation(direction);
+            Vector3 turnRotation = turnDirection.eulerAngles;
+            
+            partToRotate.transform.rotation = Quaternion.Euler(0f, turnRotation.y, 0f);
+
+            if (shootTimer >= attackSpeed){
+                enemyTarget.GetComponent<Enemy>().health -= dealDamage(enemyTarget.GetComponent<Enemy>().damageResistance, 0);
+
+                if (enemyTarget.GetComponent<Enemy>().health <= 0){
+                    StatTracker.instance.changeTokens(enemyTarget.GetComponent<Enemy>().tokenIncrease);
+                    Destroy(enemyTarget.gameObject);
+                    Spawner.enemies.Remove(enemyTarget.gameObject);
+                    StatTracker.instance.updateText();
+
+                    plasmaTowerCooldownTimer = 2f;
+                }
+
+                shootTimer -= attackSpeed;
+            }
+
             shootTimer += 1 * Time.deltaTime;
         }
         else if (type == "Lightsabre Arm"){
@@ -593,6 +679,10 @@ public class Tower : MonoBehaviour{
 
         totalUpgrades++;
 
+        if ((type == "Laser Shooter") || (type == "Plasma Canon") || (type == "Plasma Tower") || (type == "Cryo Canon")){
+           shootPoint = shootPointArr[totalUpgrades].transform; 
+        }
+        
         updateUIText();
     }
 

@@ -91,6 +91,17 @@ MonoBehaviour:
   energyGeneratorUpgrade4: 0
   lightsabreArmUpgrade3: 0
   lightsabreArmUpgrade4: 0
+  beaconUpgrade0: 0
+  beaconUpgrade3: 0
+  beaconUpgrade4: 0
+  supportUpgrade0: 0
+  supportUpgrade1: 0
+  supportUpgrade2: 0
+  supportUpgrade3: 0
+  supportUpgrade4: 0
+  supportUpgrade0Status: 0
+  supportUpgrade1Status: 0
+  supportUpgrade2Status: 0
   panel: {fileID: 0}
   upgradeImageUIArray:
   - {fileID: 21300000, guid: 3400817375618934e8415be884d97cab, type: 3}

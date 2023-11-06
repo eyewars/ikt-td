@@ -101,7 +101,6 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] List<string> armTargeting = new List<string>(){"Up", "Right", "Down", "Left"};
     [SerializeField] List<string> noTargeting = new List<string>(){"None"};
 
-
     void Start(){
         updateText();
     }
