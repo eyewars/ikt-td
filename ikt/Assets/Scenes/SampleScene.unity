@@ -23489,7 +23489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ff6a02e7e235245bb1411d9280ebd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tokens: 30000
+  tokens: 300
   playerHealth: 100
   score: 0
   wave: 0
@@ -23529,7 +23529,7 @@ MonoBehaviour:
   attackSpeedPT: 0.1
   projectileSpeedPT: 50
   explosionRadiusPT: 0
-  costPT: 300
+  costPT: 320
   upgradeCostsPT: 5e010000c2010000ee020000b6030000
   upgradeDescriptionsPT:
   - Time between attacking enemies is shorter.

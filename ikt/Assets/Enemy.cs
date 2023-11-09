@@ -38,8 +38,16 @@ public class Enemy : MonoBehaviour{
         target = Waypoints.points[waypointIndex];
 
         health = (health + (0.1f * StatTracker.instance.getWave())) * (float)Math.Pow(1.03, StatTracker.instance.getWave() - 1);
-        baseSpeed = baseSpeed * (float)Math.Pow(1.02, StatTracker.instance.getWave() - 1);
-        tokenIncrease = tokenIncrease * (int)Math.Pow(1.05, StatTracker.instance.getWave() - 1);
+
+        if (StatTracker.instance.getWave() >= 60){
+            baseSpeed = baseSpeed * (float)Math.Pow(1.02, 75 - 1);
+        }
+        else baseSpeed = baseSpeed * (float)Math.Pow(1.02, StatTracker.instance.getWave() - 1);
+
+        if (StatTracker.instance.getWave() >= 25){
+            tokenIncrease = (int)(tokenIncrease + (0.1f * 25)) * (int)Math.Pow(1.05, 25 - 1);
+        }
+        else tokenIncrease = (int)(tokenIncrease + (0.1f * StatTracker.instance.getWave())) * (int)Math.Pow(1.05, StatTracker.instance.getWave() - 1);
 
         speed = baseSpeed;
     }
