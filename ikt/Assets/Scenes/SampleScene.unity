@@ -23489,7 +23489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ff6a02e7e235245bb1411d9280ebd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tokens: 300
+  tokens: 30000
   playerHealth: 100
   score: 0
   wave: 0
@@ -23524,7 +23524,7 @@ MonoBehaviour:
   - Deal more damage and more damage over time.
   - Deal even more damage to enemies affected by crowd control.
   - Fully upgraded.
-  damagePT: 0.4
+  damagePT: 0.3
   rangePT: 4.2
   attackSpeedPT: 0.1
   projectileSpeedPT: 50
@@ -23532,8 +23532,8 @@ MonoBehaviour:
   costPT: 300
   upgradeCostsPT: 5e010000c2010000ee020000b6030000
   upgradeDescriptionsPT:
-  - Increase damage.
   - Time between attacking enemies is shorter.
+  - Increase damage.
   - Deals more damage the longer it attacks.
   - Starts at max bonus.
   - Fully upgraded.
