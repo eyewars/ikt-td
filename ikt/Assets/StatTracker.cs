@@ -50,7 +50,7 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] float explosionRadiusPT = 0f;
     [SerializeField] int costPT = 320;
     [SerializeField] int[] upgradeCostsPT = {350, 450, 750, 950};
-    [SerializeField] string[] upgradeDescriptionsPT = {"Increase damage.", "Time between attacking enemies is shorter.", "Deals more damage the longer it attacks.", "Starts at max bonus.", "Fully upgraded."};
+    [SerializeField] string[] upgradeDescriptionsPT = {"Time between attacking enemies is shorter.", "Increase damage.", "Deals more damage the longer it attacks.", "Starts at max bonus.", "Fully upgraded."};
 
     [SerializeField] float damagePC = 2f;
     [SerializeField] float rangePC = 2.8f;

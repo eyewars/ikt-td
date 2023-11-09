@@ -69,6 +69,8 @@ public class Tower : MonoBehaviour{
 
     public int tokensPerPump = 5;
 
+    float bonusDamagePlasmaTower = 0f;
+
     // Upgrade conditions
     public bool laserShooterUpgrade3 = false;
     public bool laserShooterUpgrade4 = false;
@@ -526,6 +528,16 @@ public class Tower : MonoBehaviour{
                 plasmaShooterLineRenderers[totalUpgrades].enabled = true;
             }
 
+            if (totalUpgrades == 4){
+                bonusDamagePlasmaTower = 2f;
+            }
+            else if (totalUpgrades == 3){
+                if (bonusDamagePlasmaTower >= 2f){
+                    bonusDamagePlasmaTower = 2f;
+                }
+                else bonusDamagePlasmaTower += 0.1f * Time.deltaTime;
+            }
+
             plasmaShooterLineRenderers[totalUpgrades].SetPosition(0, shootPoint.position);
             plasmaShooterLineRenderers[totalUpgrades].SetPosition(1, enemyTarget.position);
 
@@ -544,7 +556,12 @@ public class Tower : MonoBehaviour{
                     Spawner.enemies.Remove(enemyTarget.gameObject);
                     StatTracker.instance.updateText();
 
-                    plasmaTowerCooldownTimer = 2f;
+                    if (totalUpgrades >= 1){
+                        plasmaTowerCooldownTimer = 1f;
+                    }
+                    else plasmaTowerCooldownTimer = 2f;
+
+                    bonusDamagePlasmaTower = 0f;
                 }
 
                 shootTimer -= attackSpeed;
@@ -882,6 +899,7 @@ public class Tower : MonoBehaviour{
                 partToRotate = partToRotateArr[1];
             }
             else if (upgradeNumber == 1){
+                damage = 0.8f;
 
                 upgrade1Model.SetActive(false);
                 upgrade2Model.SetActive(true);

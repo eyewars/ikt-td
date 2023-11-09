@@ -100,8 +100,9 @@ public class Spawner : MonoBehaviour{
         hasGottenEndOfRoundTokens = false;
         waveIsOver = false;
 
-        int tokenAmount = (int)Math.Round((10 - sendWaveTimer) * 10);
-        StatTracker.instance.changeTokens(tokenAmount);
+        //DETTE ER FOR Å FÅ PENGER NÅR DU TRYKKER NEXT, TROR VI BARE DRITER I DET
+        //int tokenAmount = (int)Math.Round((10 - sendWaveTimer) * 10);
+        //StatTracker.instance.changeTokens(tokenAmount);
 
         StatTracker.instance.increaseWave();
         sendWave(StatTracker.instance.getWave());
