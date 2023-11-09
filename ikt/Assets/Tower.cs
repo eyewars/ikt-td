@@ -529,13 +529,13 @@ public class Tower : MonoBehaviour{
             }
 
             if (totalUpgrades == 4){
-                bonusDamagePlasmaTower = 2f;
+                bonusDamagePlasmaTower = 2.5f;
             }
             else if (totalUpgrades == 3){
-                if (bonusDamagePlasmaTower >= 2f){
-                    bonusDamagePlasmaTower = 2f;
+                if (bonusDamagePlasmaTower >= 2.5f){
+                    bonusDamagePlasmaTower = 2.5f;
                 }
-                else bonusDamagePlasmaTower += 0.1f * Time.deltaTime;
+                else bonusDamagePlasmaTower += 0.15f * Time.deltaTime;
             }
 
             plasmaShooterLineRenderers[totalUpgrades].SetPosition(0, shootPoint.position);
@@ -899,7 +899,7 @@ public class Tower : MonoBehaviour{
                 partToRotate = partToRotateArr[1];
             }
             else if (upgradeNumber == 1){
-                damage = 0.8f;
+                damage = 0.9f;
 
                 upgrade1Model.SetActive(false);
                 upgrade2Model.SetActive(true);
