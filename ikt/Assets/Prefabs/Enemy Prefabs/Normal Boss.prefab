@@ -120,15 +120,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: normalBoss
+  speed: 1
   baseSpeed: 1.1
-  health: 40
+  maxHealth: 30
+  health: 30
   playerDamage: 10
   tokenIncrease: 50
   damageResistance: None
+  ccResistance: 1
   distanceToWaypoint: 0
   cryoCanonUpgrade0Status: 0
   cryoCanonUpgrade2Status: 0
   cryoCanonUpgrade4Status: 0
+  beaconUpgrade0Status: 0
+  beaconUpgrade3Status: 0
+  beaconUpgrade4Status: 0
+  beaconUpgrade4StatusBonusStun: 0
+  beaconUpgrade4StatusBonusStunTimeToActivate: 0
+  lightsabreArmUpgrade3StatusTimer: []
+  lightsabreArmUpgrade3StatusTower: []
   target: {fileID: 0}
 --- !u!54 &-8730800596786017142
 Rigidbody:

@@ -10,10 +10,12 @@ public class Enemy : MonoBehaviour{
 
     [HideInInspector] public float speed = 1f;
     public float baseSpeed = 1f;
+    public float maxHealth = 2f;
     public float health = 2f;
     public int playerDamage = 1;
     public int tokenIncrease = 2;
     public string damageResistance = "Laser";
+    [SerializeField] private float ccResistance = 1f;
 
     public float distanceToWaypoint = 0f;
 
@@ -37,7 +39,8 @@ public class Enemy : MonoBehaviour{
     void Start(){
         target = Waypoints.points[waypointIndex];
 
-        health = (health + (0.1f * StatTracker.instance.getWave())) * (float)Math.Pow(1.03, StatTracker.instance.getWave() - 1);
+        maxHealth = (maxHealth + (0.1f * StatTracker.instance.getWave())) * (float)Math.Pow(1.03, StatTracker.instance.getWave() - 1);
+        health = maxHealth;
 
         if (StatTracker.instance.getWave() >= 60){
             baseSpeed = baseSpeed * (float)Math.Pow(1.02, 75 - 1);
@@ -50,6 +53,10 @@ public class Enemy : MonoBehaviour{
         else tokenIncrease = (int)(tokenIncrease + (0.1f * StatTracker.instance.getWave())) * (int)Math.Pow(1.05, StatTracker.instance.getWave() - 1);
 
         speed = baseSpeed;
+
+        if (damageResistance == "None"){
+            ccResistance = 0.5f;
+        }
     }
 
     void Update(){
@@ -106,9 +113,9 @@ public class Enemy : MonoBehaviour{
         }
 
         if (cryoCanonUpgrade0Status > 0){
-            speed = baseSpeed * 0.66f;
+            speed = baseSpeed * (1 - (0.66f * ccResistance));
 
-            cryoCanonUpgrade0Status -= 1 * Time.deltaTime;
+            cryoCanonUpgrade0Status -= (1 / ccResistance) * Time.deltaTime;
 
             if (cryoCanonUpgrade0Status <= 0){
                 speed = baseSpeed;
@@ -116,9 +123,9 @@ public class Enemy : MonoBehaviour{
         }
 
         if (cryoCanonUpgrade2Status > 0){
-            speed = baseSpeed * 0.5f;
+            speed = baseSpeed * (1 - (0.5f * ccResistance));
 
-            cryoCanonUpgrade2Status -= 1 * Time.deltaTime;
+            cryoCanonUpgrade2Status -= (1 / ccResistance) * Time.deltaTime;
 
             if (cryoCanonUpgrade2Status <= 0){
                 speed = baseSpeed;
@@ -128,7 +135,7 @@ public class Enemy : MonoBehaviour{
         if (cryoCanonUpgrade4Status > 0){
             speed = 0f;
 
-            cryoCanonUpgrade4Status -= 1 * Time.deltaTime;
+            cryoCanonUpgrade4Status -= (1 / ccResistance) * Time.deltaTime;
 
             if (cryoCanonUpgrade4Status <= 0){
                 cryoCanonUpgrade2StatusAdd();
@@ -138,7 +145,7 @@ public class Enemy : MonoBehaviour{
         if (beaconUpgrade0Status > 0){
             speed = 0f;
 
-            beaconUpgrade0Status -= 1 * Time.deltaTime;
+            beaconUpgrade0Status -= (1 / ccResistance) * Time.deltaTime;
 
             if (beaconUpgrade0Status <= 0){
                 speed = baseSpeed;
@@ -148,7 +155,7 @@ public class Enemy : MonoBehaviour{
         if (beaconUpgrade3Status > 0){
             speed = 0f;
 
-            beaconUpgrade3Status -= 1 * Time.deltaTime;
+            beaconUpgrade3Status -= (1 / ccResistance) * Time.deltaTime;
 
             if (beaconUpgrade3Status <= 0){
                 speed = baseSpeed;
@@ -158,7 +165,7 @@ public class Enemy : MonoBehaviour{
         if (beaconUpgrade4Status > 0){
             speed = 0f;
 
-            beaconUpgrade4Status -= 1 * Time.deltaTime;
+            beaconUpgrade4Status -= (1 / ccResistance) * Time.deltaTime;
 
             if (beaconUpgrade4Status <= 0){
                 speed = baseSpeed;
@@ -167,7 +174,7 @@ public class Enemy : MonoBehaviour{
         }
 
         if (beaconUpgrade4StatusBonusStunTimeToActivate > 0){
-            beaconUpgrade4StatusBonusStunTimeToActivate -= 1 * Time.deltaTime;
+            beaconUpgrade4StatusBonusStunTimeToActivate -= (1 / ccResistance) * Time.deltaTime;
 
             if (beaconUpgrade4StatusBonusStunTimeToActivate <= 0){
                 beaconUpgrade4StatusBonusStun = 0.5f;
@@ -177,7 +184,7 @@ public class Enemy : MonoBehaviour{
         if (beaconUpgrade4StatusBonusStun > 0){
             speed = 0f;
 
-            beaconUpgrade4StatusBonusStun -= 1 * Time.deltaTime;
+            beaconUpgrade4StatusBonusStun -= (1 / ccResistance) * Time.deltaTime;
 
             if (beaconUpgrade4StatusBonusStun <= 0){
                 speed = baseSpeed;

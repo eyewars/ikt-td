@@ -120,8 +120,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: normalSlow
+  speed: 1
   baseSpeed: 0.8
   health: 6
+  maxHealth: 6
   playerDamage: 3
   tokenIncrease: 3
   damageResistance: None
@@ -129,6 +131,13 @@ MonoBehaviour:
   cryoCanonUpgrade0Status: 0
   cryoCanonUpgrade2Status: 0
   cryoCanonUpgrade4Status: 0
+  beaconUpgrade0Status: 0
+  beaconUpgrade3Status: 0
+  beaconUpgrade4Status: 0
+  beaconUpgrade4StatusBonusStun: 0
+  beaconUpgrade4StatusBonusStunTimeToActivate: 0
+  lightsabreArmUpgrade3StatusTimer: []
+  lightsabreArmUpgrade3StatusTower: []
   target: {fileID: 0}
 --- !u!54 &-8730800596786017142
 Rigidbody:

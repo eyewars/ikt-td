@@ -365,8 +365,13 @@ public class Tower : MonoBehaviour{
                     enemyNearestEnd = enemies[i];
                     nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
                 }
+
+                if (tempWaypointNum > System.Array.IndexOf(Waypoints.points, enemyNearestEnd.GetComponent<Enemy>().target)){
+                    enemyNearestEnd = enemies[i];
+                    nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
+                }
                 
-                if ((tempWaypointNum >= System.Array.IndexOf(Waypoints.points, enemyNearestEnd.GetComponent<Enemy>().target)) && (enemies[i].GetComponent<Enemy>().distanceToWaypoint < nearestWaypoint)){
+                if ((tempWaypointNum == System.Array.IndexOf(Waypoints.points, enemyNearestEnd.GetComponent<Enemy>().target)) && (enemies[i].GetComponent<Enemy>().distanceToWaypoint < nearestWaypoint)){
                     enemyNearestEnd = enemies[i];
                     nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
                 }
@@ -378,10 +383,76 @@ public class Tower : MonoBehaviour{
             }
         }
         else if (currentTargetingIndex == 1){
+            GameObject enemyNearestEnd = null;
+            float nearestWaypoint = Mathf.Infinity;
+            float mostMaxHealth = 0f;
 
+            for (int i = 0; i < enemies.Length; i++){
+                Transform targetOfEnemy = enemies[i].GetComponent<Enemy>().target;
+                int tempWaypointNum = System.Array.IndexOf(Waypoints.points, targetOfEnemy);
+                float tempMaxHealth = enemies[i].GetComponent<Enemy>().maxHealth;
+
+                float distanceToEnemy = (enemies[i].transform.position - transform.position).magnitude;
+
+                if (distanceToEnemy > range){
+                    continue;
+                }
+
+                if (enemyNearestEnd == null){
+                    enemyNearestEnd = enemies[i];
+                    nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
+                }
+
+                if (tempMaxHealth > mostMaxHealth){
+                    enemyNearestEnd = enemies[i];
+                    nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
+                    mostMaxHealth = tempMaxHealth;
+                }
+
+                if ((tempMaxHealth == mostMaxHealth) && (tempWaypointNum > System.Array.IndexOf(Waypoints.points, enemyNearestEnd.GetComponent<Enemy>().target))){
+                    enemyNearestEnd = enemies[i];
+                    nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
+                    mostMaxHealth = tempMaxHealth;
+                }
+                
+                if ((tempMaxHealth == mostMaxHealth) && (tempWaypointNum == System.Array.IndexOf(Waypoints.points, enemyNearestEnd.GetComponent<Enemy>().target)) && (enemies[i].GetComponent<Enemy>().distanceToWaypoint < nearestWaypoint)){
+                    enemyNearestEnd = enemies[i];
+                    nearestWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
+                    mostMaxHealth = tempMaxHealth;
+                }
+            }
+
+            enemyTarget = null;
+            if (enemyNearestEnd != null){
+                enemyTarget = enemyNearestEnd.transform;
+            }
         }
         else if (currentTargetingIndex == 2){
-            
+            GameObject enemyNearestTower = null;
+            float nearestTower = Mathf.Infinity;
+
+            for (int i = 0; i < enemies.Length; i++){
+                float distanceToEnemy = (enemies[i].transform.position - transform.position).magnitude;
+
+                if (distanceToEnemy > range){
+                    continue;
+                }
+
+                if (enemyNearestTower == null){
+                    enemyNearestTower = enemies[i];
+                    nearestTower = distanceToEnemy;
+                }
+
+                if (distanceToEnemy < nearestTower){
+                    enemyNearestTower = enemies[i];
+                    nearestTower = distanceToEnemy;
+                }
+            }
+
+            enemyTarget = null;
+            if (enemyNearestTower != null){
+                enemyTarget = enemyNearestTower.transform;
+            }
         }
         else if (currentTargetingIndex == 3){
             GameObject enemyNearestStart = null;
@@ -401,8 +472,13 @@ public class Tower : MonoBehaviour{
                     enemyNearestStart = enemies[i];
                     furthestFromWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
                 }
+
+                if (tempWaypointNum < System.Array.IndexOf(Waypoints.points, enemyNearestStart.GetComponent<Enemy>().target)){
+                    enemyNearestStart = enemies[i];
+                    furthestFromWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
+                }
                 
-                if ((tempWaypointNum <= System.Array.IndexOf(Waypoints.points, enemyNearestStart.GetComponent<Enemy>().target)) && (enemies[i].GetComponent<Enemy>().distanceToWaypoint > furthestFromWaypoint)){
+                if ((tempWaypointNum == System.Array.IndexOf(Waypoints.points, enemyNearestStart.GetComponent<Enemy>().target)) && (enemies[i].GetComponent<Enemy>().distanceToWaypoint > furthestFromWaypoint)){
                     enemyNearestStart = enemies[i];
                     furthestFromWaypoint = enemies[i].GetComponent<Enemy>().distanceToWaypoint;
                 }
