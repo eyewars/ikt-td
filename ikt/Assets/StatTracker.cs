@@ -88,14 +88,14 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] int[] upgradeCostsEG = {200, 300, 400, 500};
     [SerializeField] string[] upgradeDescriptionsEG = {"Generates more energy.", "Generate a large amount of energy at the end of the round.", "Generates energy faster.", "Generates more energy based on how much energy you already have.", "Fully upgraded."};
 
-    [SerializeField] float damageST = 0f;
-    [SerializeField] float rangeST = 2.2f;
-    [SerializeField] float attackSpeedST = 1.8f;
-    [SerializeField] float projectileSpeedST = 0f;
-    [SerializeField] float explosionRadiusST = 0f;
-    [SerializeField] int costST = 250;
-    [SerializeField] int[] upgradeCostsST = {250, 450, 600, 900};
-    [SerializeField] string[] upgradeDescriptionsST = {"Increase damage of nearby towers.", "Increase attack speed of nearby towers.", "Nearby enemies take bonus damage.", "Nearby enemies do not resist damage based on damage type.", "Fully upgraded."};
+    [SerializeField] float damageHT = 0f;
+    [SerializeField] float rangeHT = 2.2f;
+    [SerializeField] float attackSpeedHT = 1.8f;
+    [SerializeField] float projectileSpeedHT = 0f;
+    [SerializeField] float explosionRadiusHT = 0f;
+    [SerializeField] int costHT = 250;
+    [SerializeField] int[] upgradeCostsHT = {250, 450, 600, 900};
+    [SerializeField] string[] upgradeDescriptionsHT = {"If an enemy is killed while hacked, they will generate more energy.", "There is a low chance on hit for enemies to move backwards.", "Hacked enemies do not have any resistances.", "All hacking effects are stronger, and duration is longer.", "Fully upgraded."};
 
     [SerializeField] List<string> normalTargeting = new List<string>(){"First", "Strong", "Close", "Last"};
     [SerializeField] List<string> armTargeting = new List<string>(){"Up", "Right", "Down", "Left"};
@@ -160,7 +160,7 @@ public class StatTracker : MonoBehaviour{
             case 6: 
                 return damageEG;
             case 7: 
-                return damageST;
+                return damageHT;
             default: 
                 return damageLS;
         }
@@ -183,7 +183,7 @@ public class StatTracker : MonoBehaviour{
             case 6: 
                 return rangeEG;
             case 7: 
-                return rangeST;
+                return rangeHT;
             default: 
                 return rangeLS;
         }
@@ -206,7 +206,7 @@ public class StatTracker : MonoBehaviour{
             case 6: 
                 return attackSpeedEG;
             case 7: 
-                return attackSpeedST;
+                return attackSpeedHT;
             default: 
                 return attackSpeedLS;
         }
@@ -229,7 +229,7 @@ public class StatTracker : MonoBehaviour{
             case 6: 
                 return projectileSpeedEG;
             case 7: 
-                return projectileSpeedST;
+                return projectileSpeedHT;
             default: 
                 return projectileSpeedLS;
         }
@@ -252,7 +252,7 @@ public class StatTracker : MonoBehaviour{
             case 6: 
                 return costEG;
             case 7: 
-                return costST;
+                return costHT;
             default: 
                 return costLS;
         }
@@ -275,7 +275,7 @@ public class StatTracker : MonoBehaviour{
             case 6: 
                 return "Generates energy.";
             case 7: 
-                return "Increases attack speed of nearby towers.";
+                return "Hackes nearby enemies, making them take more damage.";
             default: 
                 return "DEFAULT, DU ADDA IKKE INDEX";
         }
@@ -298,7 +298,7 @@ public class StatTracker : MonoBehaviour{
             case 6: 
                 return upgradeCostsEG;
             case 7: 
-                return upgradeCostsST;
+                return upgradeCostsHT;
             default: 
                 return upgradeCostsLS;
         }
@@ -321,7 +321,7 @@ public class StatTracker : MonoBehaviour{
             case 6: 
                 return upgradeDescriptionsEG;
             case 7: 
-                return upgradeDescriptionsST;
+                return upgradeDescriptionsHT;
             default: 
                 return upgradeDescriptionsLS;
         }
@@ -344,7 +344,7 @@ public class StatTracker : MonoBehaviour{
             case 6: 
                 return explosionRadiusEG;
             case 7: 
-                return explosionRadiusST;
+                return explosionRadiusHT;
             default: 
                 return explosionRadiusLS;
         }

@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4851586601331314165
 MeshFilter:
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 01763e922b5e513488035713bf5870d6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,3 +119,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverColor: {r: 0.32800817, g: 0.3473552, b: 0.3679245, a: 0}
+  tower: {fileID: 0}

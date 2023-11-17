@@ -86,16 +86,12 @@ public class Tower : MonoBehaviour{
     public bool beaconUpgrade0 = false;
     public bool beaconUpgrade3 = false;
     public bool beaconUpgrade4 = false;
-    public bool supportUpgrade0 = false;
-    public bool supportUpgrade1 = false;
-    public bool supportUpgrade2 = false;
-    public bool supportUpgrade3 = false;
-    public bool supportUpgrade4 = false;
+    public bool hackingUpgrade0 = false;
+    public bool hackingUpgrade1 = false;
+    public bool hackingUpgrade2 = false;
+    public bool hackingUpgrade3 = false;
+    public bool hackingUpgrade4 = false;
 
-    // Statuses
-    public bool supportUpgrade0Status = false;
-    public bool supportUpgrade1Status = false;
-    public bool supportUpgrade2Status = false;
 
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
     // panel er instancen (som blir lagd senere)
@@ -223,7 +219,7 @@ public class Tower : MonoBehaviour{
 
             targetingOptions = StatTracker.instance.getTargetingOptions(6);
         }
-         else if (type == "Support Tower"){
+         else if (type == "Hacking Tower"){
             damage = StatTracker.instance.getDamage(7);
             range = StatTracker.instance.getRange(7);
             attackSpeed = StatTracker.instance.getAttackSpeed(7);
@@ -238,7 +234,7 @@ public class Tower : MonoBehaviour{
 
             targetingOptions = StatTracker.instance.getTargetingOptions(7);
 
-            supportUpgrade0 = true;
+            hackingUpgrade0 = true;
         }
         shootTimer = attackSpeed;
     }
@@ -296,17 +292,11 @@ public class Tower : MonoBehaviour{
         // FJERN DENNE LINJA NÅR DU FÅR MODELL SHITTET TIL Å FUNGERE ELLER NOE SÅNN !!!!!!!!!!!!!!!!!!!!!!!!!! 
         // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        if (type != "Support Tower"){
-            transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-        }
-
+        transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+      
         partToRotatePositionTemp = partToRotate.transform.position;
 
         CreatePoints(100);
-
-        if (type == "Support Tower"){
-            line.transform.Rotate(90, 0, 0);
-        }
     }
     
     // INSTANTIATES BULLETS AND ADDS TO LIST
@@ -492,7 +482,7 @@ public class Tower : MonoBehaviour{
     }
 
     void Update(){
-        if ((type != "Energy Generator") && (type != "Support Tower") && (type != "Lightsabre Arm") && (type != "Beacon") && (type != "Plasma Tower")){
+        if ((type != "Energy Generator") && (type != "Hacking Tower") && (type != "Lightsabre Arm") && (type != "Beacon") && (type != "Plasma Tower")){
             findEnemy();
 
             if ((type == "Plasma Canon") && plasmaCanonUpgrade3){
@@ -583,6 +573,64 @@ public class Tower : MonoBehaviour{
                 shootTimer -= attackSpeed;
             }
             shootTimer += 1 * Time.deltaTime;
+        }
+        else if (type == "Hacking Tower"){
+            if (shootTimer >= attackSpeed){
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, range);
+                List<Collider> enemiesHit = new List<Collider>();
+                foreach (var hitCollider in hitColliders){
+                    if (hitCollider.tag == "Enemy"){
+                        enemiesHit.Add(hitCollider);
+                    }
+                }  
+
+                for (int i = 0; i < enemiesHit.Count; i++){
+                    //Tårnet gjør ingen damage, men om det skulle gjort, så er det denne du ville brukt (bare uncomment den)
+                    //enemiesHit[i].GetComponent<Enemy>().health -= dealDamage(enemiesHit[i].GetComponent<Enemy>().damageResistance, 0);
+
+                    if (hackingUpgrade4){
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade3StatusAdd(true);
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade2StatusAdd(true); 
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade1StatusAdd(true);
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade0StatusAdd(true); 
+                    }
+                    else if(hackingUpgrade3){
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade3StatusAdd(false);
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade2StatusAdd(false); 
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade1StatusAdd(false);
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade0StatusAdd(false); 
+                    }
+                    else if(hackingUpgrade2){
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade2StatusAdd(false); 
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade1StatusAdd(false);
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade0StatusAdd(false); 
+                    }
+                    else if(hackingUpgrade1){
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade1StatusAdd(false);
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade0StatusAdd(false); 
+                    }
+                    else if(hackingUpgrade0){
+                        enemiesHit[i].GetComponent<Enemy>().hackingUpgrade0StatusAdd(false); 
+                    }
+
+                    //Hvis den skal gjøre damage, må den sjekke om de blir drept her
+                    /*    
+                    if (enemiesHit[i].GetComponent<Enemy>().health <= 0){
+                        StatTracker.instance.changeTokens(enemiesHit[i].GetComponent<Enemy>().tokenIncrease);
+                        Destroy(enemiesHit[i].gameObject);
+                        Spawner.enemies.Remove(enemiesHit[i].gameObject);
+                        StatTracker.instance.updateText();
+
+                        //enemiesToRemoveFromList.Add(i);
+                    }
+                    */
+                }
+
+                shootTimer -= attackSpeed;
+            }
+            shootTimer += 1 * Time.deltaTime;
+            
+            partToRotate.transform.Rotate(0f, 0f, 80 * Time.deltaTime);
         }
         else if (type == "Plasma Tower"){
             findEnemy();
@@ -1146,26 +1194,34 @@ public class Tower : MonoBehaviour{
                 panel.transform.Find("UpgradeCostImg").GetComponent<Image>().enabled = false;
             }
         }
-        else if (towerType == "Support Tower"){
+        else if (towerType == "Hacking Tower"){
             if (upgradeNumber == 0){
+                hackingUpgrade1 = true;
+                hackingUpgrade0 = false;
 
                 upgrade0Model.SetActive(false);
                 upgrade1Model.SetActive(true);
                 partToRotate = partToRotateArr[1];
             }
             else if (upgradeNumber == 1){
+                hackingUpgrade2 = true;
+                hackingUpgrade1 = false;
 
                 upgrade1Model.SetActive(false);
                 upgrade2Model.SetActive(true);
                 partToRotate = partToRotateArr[2];
             }
             else if (upgradeNumber == 2){
+                hackingUpgrade3 = true;
+                hackingUpgrade2 = false;
 
                 upgrade2Model.SetActive(false);
                 upgrade3Model.SetActive(true);
                 partToRotate = partToRotateArr[3];
             }
             else if (upgradeNumber == 3){
+                hackingUpgrade4 = true;
+                hackingUpgrade3 = false;
 
                 upgrade3Model.SetActive(false);
                 upgrade4Model.SetActive(true);

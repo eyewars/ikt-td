@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour{
     
@@ -16,8 +17,10 @@ public class Enemy : MonoBehaviour{
     public int tokenIncrease = 2;
     public string damageResistance = "Laser";
     [SerializeField] private float ccResistance = 1f;
+    private GameObject wheel;
 
     public float distanceToWaypoint = 0f;
+    public float distanceToLastWaypoint = 10f;
 
     // Status conditions
     public List<float[]> laserShooterUpgrade3Status = new List<float[]>();
@@ -32,11 +35,20 @@ public class Enemy : MonoBehaviour{
     public float beaconUpgrade4StatusBonusStunTimeToActivate = 0;
     public List<float> lightsabreArmUpgrade3StatusTimer = new List<float>();
     public List<GameObject> lightsabreArmUpgrade3StatusTower = new List<GameObject>();
+    public float hackingUpgrade0Status = 0;
+    public float hackingUpgrade1Status = 0;
+    public float hackingUpgrade2Status = 0;
+    public float hackingUpgrade3Status = 0;
 
     public Transform target;
     private int waypointIndex = 0;
 
     void Start(){
+        //transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+
+        //wheel = GameObject.FindGameObjectWithTag("EnemyWheel");
+        //wheel.tag = "Untagged";
+
         target = Waypoints.points[waypointIndex];
 
         maxHealth = (maxHealth + (0.1f * StatTracker.instance.getWave())) * (float)Math.Pow(1.03, StatTracker.instance.getWave() - 1);
@@ -61,12 +73,31 @@ public class Enemy : MonoBehaviour{
 
     void Update(){
         Vector3 movement = target.position - transform.position;
-        transform.Translate(movement.normalized * speed * Time.deltaTime, Space.World);
+        Vector3 movement2 = new Vector3(-100, 0, 1);
+        if (waypointIndex > 0){
+            movement2 = Waypoints.points[waypointIndex-1].position - transform.position;
+        }
+
+        if (hackingUpgrade2Status <= 0){
+            transform.Translate(movement.normalized * speed * Time.deltaTime, Space.World);
+        }
+        else transform.Translate(movement2.normalized * speed * Time.deltaTime, Space.World);
 
         distanceToWaypoint = Vector3.Distance(transform.position, target.position);
+        if (waypointIndex > 0){
+            distanceToLastWaypoint = Vector3.Distance(transform.position, Waypoints.points[waypointIndex-1].position);
+        }
+
+        //wheel.transform.Rotate(180 * Time.deltaTime, 0f, 0f);
+
+        //Vector3 direction = target.position - transform.position;
+        //Quaternion turnDirection = Quaternion.LookRotation(direction);
+        //Vector3 turnRotation = turnDirection.eulerAngles;
+            
+        //transform.rotation = Quaternion.Euler(90f, turnRotation.y, 0f);
 
         // Var originalt på 0.01, men det stuttera en del av og til da
-        if (distanceToWaypoint < 0.1){
+        if ((distanceToWaypoint < 0.1) && (hackingUpgrade2Status <= 0)){
             if (waypointIndex >= Waypoints.points.Length - 1){
                 Destroy(gameObject);
                 StatTracker.instance.takeDamage(playerDamage);
@@ -75,6 +106,13 @@ public class Enemy : MonoBehaviour{
             }
 
             waypointIndex++;
+            target = Waypoints.points[waypointIndex];
+        }
+
+        if ((distanceToLastWaypoint < 0.1) && (hackingUpgrade2Status > 0)){
+            if (waypointIndex != 0){
+                waypointIndex--;
+            }
             target = Waypoints.points[waypointIndex];
         }
 
@@ -191,6 +229,30 @@ public class Enemy : MonoBehaviour{
             }
         }
 
+        if (hackingUpgrade0Status > 0){
+            hackingUpgrade0Status -= (1 / ccResistance) * Time.deltaTime;
+        }
+
+        if (hackingUpgrade1Status > 0){
+            hackingUpgrade1Status -= (1 / ccResistance) * Time.deltaTime;
+        }
+
+        if (hackingUpgrade2Status > 0){
+            hackingUpgrade2Status -= (1 / ccResistance) * Time.deltaTime;
+        }
+
+        if (hackingUpgrade3Status > 0){
+            ccResistance = 1f;
+
+            hackingUpgrade3Status -= (1 / ccResistance) * Time.deltaTime;
+
+            if (hackingUpgrade3Status <= 0){
+                if (type == "None"){
+                    ccResistance = 0.5f;
+                }
+            }
+        }
+
         for (int i = 0; i < lightsabreArmUpgrade3StatusTimer.Count; i++){
             lightsabreArmUpgrade3StatusTimer[i] += 1 * Time.deltaTime;
         }
@@ -228,6 +290,46 @@ public class Enemy : MonoBehaviour{
 
     public void beaconUpgrade4StatusAdd(){
         beaconUpgrade4Status = 0.8f;
+    }
+
+    public void hackingUpgrade0StatusAdd(){
+        beaconUpgrade4Status = 0.8f;
+    }
+
+    public void hackingUpgrade0StatusAdd(bool hasUpgrade4){
+        if (hasUpgrade4){
+            hackingUpgrade0Status = 2f;
+        }
+        else hackingUpgrade0Status = 1.0f;
+    }
+
+    public void hackingUpgrade1StatusAdd(bool hasUpgrade4){
+        if (hasUpgrade4){
+            hackingUpgrade1Status = 2f;
+        }
+        else hackingUpgrade1Status = 1.2f;
+    }
+
+    public void hackingUpgrade2StatusAdd(bool hasUpgrade4){
+        int tempRandom = Random.Range(1, 101);
+
+        if (hasUpgrade4){
+            if (tempRandom <= 200){
+                hackingUpgrade2Status = 1f;
+            }
+        }
+        else {
+            if (tempRandom <= 15){
+                hackingUpgrade2Status = 0.5f;
+            }
+        }
+    }
+
+    public void hackingUpgrade3StatusAdd(bool hasUpgrade4){
+        if (hasUpgrade4){
+            hackingUpgrade3Status = 2f;
+        }
+        else hackingUpgrade3Status = 1.3f;
     }
 
     public void lightsabreArmUpgrade3StatusAdd(GameObject myTower){

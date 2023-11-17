@@ -52,10 +52,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTile: {fileID: 0}
+  shootPoint: {fileID: 0}
   bullet: {fileID: 3097568633870670902, guid: 6decb57c60d19dd46b8f461b9b3b6440, type: 3}
   mine: {fileID: 0}
   shootTimer: 0
   mineTimer: 0
+  plasmaTowerCooldownTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
   upgrade0Model: {fileID: 1511027408789990503}
@@ -64,7 +66,7 @@ MonoBehaviour:
   upgrade3Model: {fileID: 8892858006713825771}
   upgrade4Model: {fileID: 1935137003157991304}
   lightsabreEnemies: []
-  type: Support Tower
+  type: Hacking Tower
   damageType: Neutral
   targetingOptions: []
   currentTargetingIndex: 0
