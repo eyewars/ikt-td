@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour{
     public int tokenIncrease = 2;
     public string damageResistance = "Laser";
     [SerializeField] private float ccResistance = 1f;
+    private float ccResistanceScaling = 1f;
+    private float ccResistanceBase = 1f;
     private GameObject wheel;
 
     public float distanceToWaypoint = 0f;
@@ -38,6 +40,7 @@ public class Enemy : MonoBehaviour{
     public float hackingUpgrade0Status = 0;
     public float hackingUpgrade1Status = 0;
     public float hackingUpgrade2Status = 0;
+    public float hackingUpgrade2StatusDowntime = 0;
     public float hackingUpgrade3Status = 0;
 
     public Transform target;
@@ -51,7 +54,16 @@ public class Enemy : MonoBehaviour{
 
         target = Waypoints.points[waypointIndex];
 
-        maxHealth = (maxHealth + (0.1f * StatTracker.instance.getWave())) * (float)Math.Pow(1.03, StatTracker.instance.getWave() - 1);
+        float extraScalingBoss = StatTracker.instance.getWave() / 1000;
+        float extraScalingNormal = StatTracker.instance.getWave() / 2000;
+
+        if ((type == "normalBoss") || (type == "laserBoss") || (type == "plasmaBoss")){
+            maxHealth = (maxHealth + (0.1f * StatTracker.instance.getWave())) * (float)Math.Pow(1.05 + extraScalingBoss, StatTracker.instance.getWave() - 1);
+        }
+        else{
+            maxHealth = (maxHealth + (0.1f * StatTracker.instance.getWave())) * (float)Math.Pow(1.03 + extraScalingNormal, StatTracker.instance.getWave() - 1);
+        }
+
         health = maxHealth;
 
         if (StatTracker.instance.getWave() >= 60){
@@ -59,16 +71,24 @@ public class Enemy : MonoBehaviour{
         }
         else baseSpeed = baseSpeed * (float)Math.Pow(1.02, StatTracker.instance.getWave() - 1);
 
-        if (StatTracker.instance.getWave() >= 25){
-            tokenIncrease = (int)(tokenIncrease + (0.1f * 25)) * (int)Math.Pow(1.05, 25 - 1);
+        int maxTokenWave = 20;
+        if (StatTracker.instance.getWave() >= maxTokenWave){
+            tokenIncrease = (int)(tokenIncrease + (0.1f * maxTokenWave)) * (int)Math.Pow(1.05, maxTokenWave - 1);
         }
         else tokenIncrease = (int)(tokenIncrease + (0.1f * StatTracker.instance.getWave())) * (int)Math.Pow(1.05, StatTracker.instance.getWave() - 1);
 
         speed = baseSpeed;
 
         if (damageResistance == "None"){
-            ccResistance = 0.5f;
+            ccResistanceBase = 0.5f;
         }
+
+        if (StatTracker.instance.getWave() <= 80){
+            ccResistanceScaling = 1 - (StatTracker.instance.getWave() * 0.01f);
+        }
+        else ccResistanceScaling = 0.2f;
+
+        ccResistance = ccResistanceBase * ccResistanceScaling;
     }
 
     void Update(){
@@ -239,16 +259,25 @@ public class Enemy : MonoBehaviour{
 
         if (hackingUpgrade2Status > 0){
             hackingUpgrade2Status -= (1 / ccResistance) * Time.deltaTime;
+
+            if (hackingUpgrade2Status <= 0){
+                hackingUpgrade2StatusDowntime = 1.2f;
+            }
+        }
+
+        if (hackingUpgrade2StatusDowntime > 0){
+            hackingUpgrade2StatusDowntime -= (1 / ccResistance) * Time.deltaTime;
         }
 
         if (hackingUpgrade3Status > 0){
-            ccResistance = 1f;
+            //Gjør sånn at den innebygde resisten blir resatt og enemien sin resist kun er det de får over tid
+            ccResistance = ccResistanceScaling;
 
             hackingUpgrade3Status -= (1 / ccResistance) * Time.deltaTime;
 
             if (hackingUpgrade3Status <= 0){
                 if (type == "None"){
-                    ccResistance = 0.5f;
+                    ccResistance = ccResistanceBase * ccResistanceScaling;
                 }
             }
         }
@@ -292,35 +321,39 @@ public class Enemy : MonoBehaviour{
         beaconUpgrade4Status = 0.8f;
     }
 
-    public void hackingUpgrade0StatusAdd(){
-        beaconUpgrade4Status = 0.8f;
-    }
-
     public void hackingUpgrade0StatusAdd(bool hasUpgrade4){
         if (hasUpgrade4){
             hackingUpgrade0Status = 2f;
         }
-        else hackingUpgrade0Status = 1.0f;
+        else if (hackingUpgrade0Status <= 1f){
+            hackingUpgrade0Status = 1f;
+        } 
     }
 
     public void hackingUpgrade1StatusAdd(bool hasUpgrade4){
         if (hasUpgrade4){
             hackingUpgrade1Status = 2f;
         }
-        else hackingUpgrade1Status = 1.2f;
+        else if (hackingUpgrade1Status <= 1.2f){
+            hackingUpgrade1Status = 1.2f;
+        } 
     }
 
     public void hackingUpgrade2StatusAdd(bool hasUpgrade4){
+        if (hackingUpgrade2StatusDowntime > 0) return;
+
         int tempRandom = Random.Range(1, 101);
 
         if (hasUpgrade4){
-            if (tempRandom <= 200){
-                hackingUpgrade2Status = 1f;
+            if (tempRandom <= 35){
+                hackingUpgrade2Status = 0.8f;
             }
         }
         else {
-            if (tempRandom <= 15){
-                hackingUpgrade2Status = 0.5f;
+            if (tempRandom <= 25){
+                if (hackingUpgrade2Status <= 0.5f){
+                    hackingUpgrade2Status = 0.5f;
+                } 
             }
         }
     }
@@ -329,7 +362,9 @@ public class Enemy : MonoBehaviour{
         if (hasUpgrade4){
             hackingUpgrade3Status = 2f;
         }
-        else hackingUpgrade3Status = 1.3f;
+        else if (hackingUpgrade3Status <= 1.3f){
+            hackingUpgrade3Status = 1.3f;
+        } 
     }
 
     public void lightsabreArmUpgrade3StatusAdd(GameObject myTower){
@@ -342,7 +377,7 @@ public class Enemy : MonoBehaviour{
     public void checkIfDead(){
         int enemyIndex = Spawner.enemies.IndexOf(this.gameObject);
         if (health <= 0){
-            StatTracker.instance.changeTokens(tokenIncrease);
+            StatTracker.instance.changeTokens(tokenIncrease, Spawner.enemies[enemyIndex].GetComponent<Enemy>().hackingUpgrade1Status);
             Destroy(Spawner.enemies[enemyIndex]);
             Spawner.enemies.Remove(Spawner.enemies[enemyIndex]);
             StatTracker.instance.updateText();

@@ -95,7 +95,7 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] float explosionRadiusHT = 0f;
     [SerializeField] int costHT = 250;
     [SerializeField] int[] upgradeCostsHT = {250, 450, 600, 900};
-    [SerializeField] string[] upgradeDescriptionsHT = {"If an enemy is killed while hacked, they will generate more energy.", "There is a low chance on hit for enemies to move backwards.", "Hacked enemies do not have any resistances.", "All hacking effects are stronger, and duration is longer.", "Fully upgraded."};
+    [SerializeField] string[] upgradeDescriptionsHT = {"If an enemy is killed while hacked, they will generate more energy.", "There is a low chance when hacked for enemies to move backwards.", "Hacked enemies do not have any resistances.", "All hacking effects are stronger, and duration is longer.", "Fully upgraded."};
 
     [SerializeField] List<string> normalTargeting = new List<string>(){"First", "Strong", "Close", "Last"};
     [SerializeField] List<string> armTargeting = new List<string>(){"Up", "Right", "Down", "Left"};
@@ -123,8 +123,14 @@ public class StatTracker : MonoBehaviour{
         wave++;
     }
 
-    public void changeTokens(int value){
-        tokens += value;
+    public void changeTokens(int value, float hackingUpgrade1){
+        float tokenMultiplier = 1;
+
+        if (hackingUpgrade1 > 0) {
+            tokenMultiplier = 1.5f;
+        }
+
+        tokens = tokens + (int)(value * tokenMultiplier);
     }
 
     public int getTokens(){
@@ -275,7 +281,7 @@ public class StatTracker : MonoBehaviour{
             case 6: 
                 return "Generates energy.";
             case 7: 
-                return "Hackes nearby enemies, making them take more damage.";
+                return "Hackes nearby enemies, making them more vulnerable to damage.";
             default: 
                 return "DEFAULT, DU ADDA IKKE INDEX";
         }

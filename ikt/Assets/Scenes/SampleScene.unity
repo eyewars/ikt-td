@@ -23757,7 +23757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ff6a02e7e235245bb1411d9280ebd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tokens: 30000
+  tokens: 300
   playerHealth: 100
   score: 0
   wave: 0
@@ -23769,7 +23769,7 @@ MonoBehaviour:
   attackSpeedLS: 0.8
   projectileSpeedLS: 32
   explosionRadiusLS: 0
-  costLS: 150
+  costLS: 125
   upgradeCostsLS: af000000e1000000f4010000e8030000
   upgradeDescriptionsLS:
   - Increase damage per shot.
@@ -23849,7 +23849,7 @@ MonoBehaviour:
   attackSpeedEG: 4
   projectileSpeedEG: 0
   explosionRadiusEG: 0
-  costEG: 450
+  costEG: 400
   upgradeCostsEG: 5e010000f401000026020000e8030000
   upgradeDescriptionsEG:
   - Generate a large amount of energy at the end of the round.
@@ -23858,15 +23858,15 @@ MonoBehaviour:
   - Generates more energy based on how much energy you already have.
   - Fully upgraded.
   damageHT: 0
-  rangeHT: 2.2
+  rangeHT: 2.5
   attackSpeedHT: 2
   projectileSpeedHT: 0
   explosionRadiusHT: 0
   costHT: 250
-  upgradeCostsHT: fa000000c20100005802000084030000
+  upgradeCostsHT: fa00000090010000f4010000ee020000
   upgradeDescriptionsHT:
   - If an enemy is killed while hacked, they will generate more energy.
-  - There is a low chance on hit for enemies to move backwards.
+  - There is a low chance when hacked for enemies to move backwards.
   - Hacked enemies do not have any resistances.
   - All hacking effects are stronger, and duration is longer.
   - Fully upgraded.

@@ -67,7 +67,7 @@ public class Tower : MonoBehaviour{
     public int sellValue = 0;
     public int totalUpgrades = 0;
 
-    public int tokensPerPump = 5;
+    public int tokensPerPump = 3;
 
     float bonusDamagePlasmaTower = 0f;
 
@@ -521,13 +521,13 @@ public class Tower : MonoBehaviour{
 
             if (shootTimer >= attackSpeed){
                 if (energyGeneratorUpgrade4){
-                    if (StatTracker.instance.getTokens() > 5000){
-                        StatTracker.instance.changeTokens((int)(tokensPerPump + (5000 * 0.01)));
+                    if (StatTracker.instance.getTokens() > 2000){
+                        StatTracker.instance.changeTokens((int)(tokensPerPump + (2000 * 0.005)), 0);
                     }
-                    else StatTracker.instance.changeTokens((int)(tokensPerPump + (StatTracker.instance.getTokens() * 0.01)));
+                    else StatTracker.instance.changeTokens((int)(tokensPerPump + (StatTracker.instance.getTokens() * 0.005)), 0);
                 }
                 else {
-                    StatTracker.instance.changeTokens(tokensPerPump);
+                    StatTracker.instance.changeTokens(tokensPerPump, 0);
                 }
                 StatTracker.instance.updateText();
                 shootTimer -= attackSpeed;
@@ -548,7 +548,7 @@ public class Tower : MonoBehaviour{
                 }  
 
                 for (int i = 0; i < enemiesHit.Count; i++){
-                    enemiesHit[i].GetComponent<Enemy>().health -= dealDamage(enemiesHit[i].GetComponent<Enemy>().damageResistance, 0);
+                    enemiesHit[i].GetComponent<Enemy>().health -= dealDamage(enemiesHit[i].GetComponent<Enemy>(), 0);
 
                     if (beaconUpgrade4){
                         enemiesHit[i].GetComponent<Enemy>().beaconUpgrade4StatusAdd(); 
@@ -561,7 +561,7 @@ public class Tower : MonoBehaviour{
                     }
                             
                     if (enemiesHit[i].GetComponent<Enemy>().health <= 0){
-                        StatTracker.instance.changeTokens(enemiesHit[i].GetComponent<Enemy>().tokenIncrease);
+                        StatTracker.instance.changeTokens(enemiesHit[i].GetComponent<Enemy>().tokenIncrease, enemiesHit[i].GetComponent<Enemy>().hackingUpgrade1Status);
                         Destroy(enemiesHit[i].gameObject);
                         Spawner.enemies.Remove(enemiesHit[i].gameObject);
                         StatTracker.instance.updateText();
@@ -616,7 +616,7 @@ public class Tower : MonoBehaviour{
                     //Hvis den skal gjøre damage, må den sjekke om de blir drept her
                     /*    
                     if (enemiesHit[i].GetComponent<Enemy>().health <= 0){
-                        StatTracker.instance.changeTokens(enemiesHit[i].GetComponent<Enemy>().tokenIncrease);
+                        StatTracker.instance.changeTokens(enemiesHit[i].GetComponent<Enemy>().tokenIncrease, enemiesHit[i].GetComponent<Enemy>().hackingUpgrade1Status);
                         Destroy(enemiesHit[i].gameObject);
                         Spawner.enemies.Remove(enemiesHit[i].gameObject);
                         StatTracker.instance.updateText();
@@ -630,7 +630,8 @@ public class Tower : MonoBehaviour{
             }
             shootTimer += 1 * Time.deltaTime;
             
-            partToRotate.transform.Rotate(0f, 0f, 80 * Time.deltaTime);
+            //partToRotate.transform.Rotate(0f, 0f, 80 * Time.deltaTime);
+            partToRotate.transform.rotation = Quaternion.Euler(90f, 0f, 360 * shootTimer / attackSpeed);
         }
         else if (type == "Plasma Tower"){
             findEnemy();
@@ -672,10 +673,10 @@ public class Tower : MonoBehaviour{
             partToRotate.transform.rotation = Quaternion.Euler(0f, turnRotation.y, 0f);
 
             if (shootTimer >= attackSpeed){
-                enemyTarget.GetComponent<Enemy>().health -= dealDamage(enemyTarget.GetComponent<Enemy>().damageResistance, 0);
+                enemyTarget.GetComponent<Enemy>().health -= dealDamage(enemyTarget.GetComponent<Enemy>(), 0);
 
                 if (enemyTarget.GetComponent<Enemy>().health <= 0){
-                    StatTracker.instance.changeTokens(enemyTarget.GetComponent<Enemy>().tokenIncrease);
+                    StatTracker.instance.changeTokens(enemyTarget.GetComponent<Enemy>().tokenIncrease, enemyTarget.GetComponent<Enemy>().hackingUpgrade1Status);
                     Destroy(enemyTarget.gameObject);
                     Spawner.enemies.Remove(enemyTarget.gameObject);
                     StatTracker.instance.updateText();
@@ -719,16 +720,16 @@ public class Tower : MonoBehaviour{
                     }
 
                     if (lightsabreArmUpgrade4){
-                        if (theEnemy.GetComponent<Enemy>().speed != theEnemy.GetComponent<Enemy>().baseSpeed){
+                        if ((theEnemy.GetComponent<Enemy>().speed != theEnemy.GetComponent<Enemy>().baseSpeed) || (theEnemy.GetComponent<Enemy>().hackingUpgrade2Status > 0)){
                             bonusDamage += 0.5f;
                         }
                     }
 
-                    theEnemy.GetComponent<Enemy>().health -= dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>().damageResistance, bonusDamage);
+                    theEnemy.GetComponent<Enemy>().health -= dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>(), bonusDamage);
                     // KAN HENDE AT DETTE SYSTEMET BARE STRAIGHT UP IKKE FUNKER, HUSK Å TEST DET NÅR DU KAN ROTERE OG SJEKKE ORDENTLIG HVILKEN ENEMY SOM ENTERA FØRST
 
                     if (theEnemy.GetComponent<Enemy>().health <= 0){
-                        StatTracker.instance.changeTokens(theEnemy.GetComponent<Enemy>().tokenIncrease);
+                        StatTracker.instance.changeTokens(theEnemy.GetComponent<Enemy>().tokenIncrease, theEnemy.GetComponent<Enemy>().hackingUpgrade1Status);
                         Destroy(theEnemy);
                         Spawner.enemies.Remove(theEnemy);
                         StatTracker.instance.updateText();
@@ -752,11 +753,19 @@ public class Tower : MonoBehaviour{
         }
     }
 
-    public float dealDamage(string enemyResistance, float bonusDamage){
-        if (damageType == enemyResistance){
-            return (damage + bonusDamage) / 2;
+    public float dealDamage(Enemy enemy, float bonusDamage){
+        float damageResist = 1;
+        float damageMultiplier = 1;
+
+        if ((damageType == enemy.damageResistance) && (enemy.hackingUpgrade3Status <= 0)){
+            damageResist = 2;
         }
-        else return damage + bonusDamage;
+        
+        if (enemy.hackingUpgrade0Status > 0){
+            damageMultiplier = 1.5f;
+        }
+        
+        return ((damage + bonusDamage) / damageResist) * damageMultiplier;
     }
 
     public float getDamage(){
@@ -812,7 +821,7 @@ public class Tower : MonoBehaviour{
 
         upgradeType(type, totalUpgrades);
 
-        StatTracker.instance.changeTokens(-upgradeCosts[totalUpgrades]);
+        StatTracker.instance.changeTokens(-upgradeCosts[totalUpgrades], 0);
         StatTracker.instance.updateText();
 
         totalMoneySpent += upgradeCosts[totalUpgrades];
@@ -1142,6 +1151,7 @@ public class Tower : MonoBehaviour{
                 beaconUpgrade0 = false;
                 damage = 0.8f;
                 range = 2.8f;
+                CreatePoints(100);
 
                 upgrade2Model.SetActive(false);
                 upgrade3Model.SetActive(true);
@@ -1152,6 +1162,7 @@ public class Tower : MonoBehaviour{
                 beaconUpgrade3 = false;
                 damage = 1f;
                 range = 3f;
+                CreatePoints(100);
 
                 upgrade3Model.SetActive(false);
                 upgrade4Model.SetActive(true);
@@ -1170,7 +1181,7 @@ public class Tower : MonoBehaviour{
                 partToRotate = partToRotateArr[1];
             }
             else if (upgradeNumber == 1){
-                tokensPerPump = 10;
+                tokensPerPump = 8;
 
                 upgrade1Model.SetActive(false);
                 upgrade2Model.SetActive(true);
@@ -1220,6 +1231,9 @@ public class Tower : MonoBehaviour{
                 partToRotate = partToRotateArr[3];
             }
             else if (upgradeNumber == 3){
+                range = 3f;
+                CreatePoints(100);
+                
                 hackingUpgrade4 = true;
                 hackingUpgrade3 = false;
 

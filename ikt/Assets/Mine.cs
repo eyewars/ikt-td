@@ -41,7 +41,7 @@ public class Mine : MonoBehaviour{
 
     void deleteEnemy(GameObject theEnemy){
         if (theEnemy.GetComponent<Enemy>().health <= 0){
-            StatTracker.instance.changeTokens(theEnemy.GetComponent<Enemy>().tokenIncrease);
+            StatTracker.instance.changeTokens(theEnemy.GetComponent<Enemy>().tokenIncrease, theEnemy.GetComponent<Enemy>().hackingUpgrade1Status);
             Destroy(theEnemy);
             Spawner.enemies.Remove(theEnemy);
             StatTracker.instance.updateText(); 

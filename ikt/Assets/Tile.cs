@@ -33,7 +33,7 @@ public class Tile : MonoBehaviour{
             return;
         }   
 
-        StatTracker.instance.changeTokens(-tower.GetComponent<Tower>().getCost());
+        StatTracker.instance.changeTokens(-tower.GetComponent<Tower>().getCost(), 0);
     
         tower.GetComponent<Tower>().totalMoneySpent += tower.GetComponent<Tower>().getCost();
         tower.GetComponent<Tower>().updateSellValue();
@@ -43,7 +43,7 @@ public class Tile : MonoBehaviour{
 
     public void sellTower(){
         int value = tower.GetComponent<Tower>().sellValue;
-        StatTracker.instance.changeTokens(value);
+        StatTracker.instance.changeTokens(value, 0);
         StatTracker.instance.updateText();
 
         Destroy(tower);

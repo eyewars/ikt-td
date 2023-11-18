@@ -122,12 +122,14 @@ MonoBehaviour:
   type: plasmaBoss
   speed: 1
   baseSpeed: 1
-  health: 45
-  maxHealth: 45
+  maxHealth: 40
+  health: 40
   playerDamage: 10
   tokenIncrease: 50
   damageResistance: Plasma
+  ccResistance: 1
   distanceToWaypoint: 0
+  distanceToLastWaypoint: 10
   cryoCanonUpgrade0Status: 0
   cryoCanonUpgrade2Status: 0
   cryoCanonUpgrade4Status: 0
@@ -138,6 +140,11 @@ MonoBehaviour:
   beaconUpgrade4StatusBonusStunTimeToActivate: 0
   lightsabreArmUpgrade3StatusTimer: []
   lightsabreArmUpgrade3StatusTower: []
+  hackingUpgrade0Status: 0
+  hackingUpgrade1Status: 0
+  hackingUpgrade2Status: 0
+  hackingUpgrade2StatusDowntime: 0
+  hackingUpgrade3Status: 0
   target: {fileID: 0}
 --- !u!54 &-8730800596786017142
 Rigidbody:

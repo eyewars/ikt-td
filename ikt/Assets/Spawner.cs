@@ -111,9 +111,13 @@ public class Spawner : MonoBehaviour{
 
     void Start(){
         for (int i = 0; i < 501; i++){
-            //float tempPowerLevel = 5 * (((float)i / 2) + 1);
-            //int powerLevel = (int)tempPowerLevel;
-            int powerLevel = 5 + i;
+            //Powerlevel går ikke høyere enn det den er på wave 25, sånn at de ikke blir alt for lange
+            int powerLevel;
+            if (i < 24){
+                powerLevel = 5 + i;
+            }
+            else powerLevel = 5 + 24;
+            
             //Debug.Log(powerLevel);
             int maxPerEnemy = powerLevel;
             int numberOfEnemyTypes = Random.Range(1, (int)Math.Sqrt(powerLevel + 1) + 1);
@@ -255,12 +259,12 @@ public class Spawner : MonoBehaviour{
 
                     for (int i = 0; i < energyGeneratorsHit.Count; i++){
                         if (energyGeneratorsHit[i].GetComponent<Tower>().energyGeneratorUpgrade1){
-                            StatTracker.instance.changeTokens(30);
+                            StatTracker.instance.changeTokens(30, 0);
                         }
                     }
 
                     // Du får litt penger på slutten av runden uansett
-                    StatTracker.instance.changeTokens(50);
+                    StatTracker.instance.changeTokens(50, 0);
 
                     StatTracker.instance.updateText();
 
