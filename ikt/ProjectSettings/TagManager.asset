@@ -12,6 +12,7 @@ TagManager:
   - LightsabreRotate
   - LaserLineRenderer
   - ShootPoint
+  - TowerPicker
   layers:
   - Default
   - TransparentFX

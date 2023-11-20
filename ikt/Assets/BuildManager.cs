@@ -27,6 +27,10 @@ public class BuildManager : MonoBehaviour{
 
     public GameObject upgradePanel;
 
+    public Sprite tempImage;
+
+    public string selectedTower = null;
+
     public void setTowerToBuild(int index){
         switch (index){
             case 0:
@@ -56,13 +60,20 @@ public class BuildManager : MonoBehaviour{
         }
     }
 
-    void Start(){
-        towerToBuild = laserShooterPrefab;
-    }
-
     public GameObject GetTowerToBuild(){
         return towerToBuild;
     }
 
+    public void resetTowerToBuild(){
+        towerToBuild = null;
+    }
+
     public Tile currentTileHoldingTowerUI;
+
+    public void setSelectedTower(string type, Sprite img){
+        if (selectedTower == null){
+            selectedTower = type;
+            tempImage = img;
+        }
+    }
 }
