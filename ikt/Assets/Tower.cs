@@ -911,7 +911,10 @@ public class Tower : MonoBehaviour{
         descriptionPanel.SetActive(false);
 
         towerNameText = panel.transform.Find("TowerName").GetComponent<TextMeshProUGUI>();
-        towerNameText.text = type;
+        if (type != "Plasma Canon"){
+            towerNameText.text = type;
+        }
+        else towerNameText.text = "Plasma Cannon";
 
         upgradeImageUI = panel.transform.Find("TowerImage").GetComponent<Image>();
 
