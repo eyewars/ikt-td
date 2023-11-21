@@ -47,10 +47,10 @@ public class Enemy : MonoBehaviour{
     private int waypointIndex = 0;
 
     void Start(){
-        //transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 
-        //wheel = GameObject.FindGameObjectWithTag("EnemyWheel");
-        //wheel.tag = "Untagged";
+        wheel = GameObject.FindGameObjectWithTag("EnemyWheel");
+        wheel.tag = "Untagged";
 
         target = Waypoints.points[waypointIndex];
 
@@ -108,13 +108,13 @@ public class Enemy : MonoBehaviour{
             distanceToLastWaypoint = Vector3.Distance(transform.position, Waypoints.points[waypointIndex-1].position);
         }
 
-        //wheel.transform.Rotate(180 * Time.deltaTime, 0f, 0f);
+        wheel.transform.Rotate(180 * Time.deltaTime, 0f, 0f);
 
-        //Vector3 direction = target.position - transform.position;
-        //Quaternion turnDirection = Quaternion.LookRotation(direction);
-        //Vector3 turnRotation = turnDirection.eulerAngles;
+        Vector3 direction = target.position - transform.position;
+        Quaternion turnDirection = Quaternion.LookRotation(direction);
+        Vector3 turnRotation = turnDirection.eulerAngles;
             
-        //transform.rotation = Quaternion.Euler(90f, turnRotation.y, 0f);
+        transform.rotation = Quaternion.Euler(90f, turnRotation.y, 0f);
 
         // Var originalt på 0.01, men det stuttera en del av og til da
         if ((distanceToWaypoint < 0.1) && (hackingUpgrade2Status <= 0)){
