@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour{
     private int waypointIndex = 0;
 
     void Start(){
-        transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        //transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 
         wheel = GameObject.FindGameObjectWithTag("EnemyWheel");
         wheel.tag = "Untagged";
@@ -114,7 +114,8 @@ public class Enemy : MonoBehaviour{
         Quaternion turnDirection = Quaternion.LookRotation(direction);
         Vector3 turnRotation = turnDirection.eulerAngles;
             
-        transform.rotation = Quaternion.Euler(90f, turnRotation.y, 0f);
+        //transform.rotation = Quaternion.Euler(90f, turnRotation.y, 0f);
+        transform.rotation = Quaternion.Euler(0f, turnRotation.y, 0f);
 
         // Var originalt på 0.01, men det stuttera en del av og til da
         if ((distanceToWaypoint < 0.1) && (hackingUpgrade2Status <= 0)){
