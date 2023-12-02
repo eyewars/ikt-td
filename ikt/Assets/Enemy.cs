@@ -378,6 +378,7 @@ public class Enemy : MonoBehaviour{
     public void checkIfDead(){
         int enemyIndex = Spawner.enemies.IndexOf(this.gameObject);
         if (health <= 0){
+            SFXMaster.instance.playDeathSFX();
             StatTracker.instance.changeTokens(tokenIncrease, Spawner.enemies[enemyIndex].GetComponent<Enemy>().hackingUpgrade1Status);
             Destroy(Spawner.enemies[enemyIndex]);
             Spawner.enemies.Remove(Spawner.enemies[enemyIndex]);

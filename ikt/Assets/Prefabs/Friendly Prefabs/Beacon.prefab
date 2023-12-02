@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 967591575864381394}
   - component: {fileID: 3925160454474912541}
   - component: {fileID: 8583656824675391790}
+  - component: {fileID: 8741434340413166409}
   m_Layer: 0
   m_Name: Beacon
   m_TagString: Untagged
@@ -52,10 +53,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTile: {fileID: 0}
+  shootPoint: {fileID: 0}
   bullet: {fileID: 3097568633870670902, guid: 6decb57c60d19dd46b8f461b9b3b6440, type: 3}
   mine: {fileID: 0}
   shootTimer: 0
   mineTimer: 0
+  plasmaTowerCooldownTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
   upgrade0Model: {fileID: 2646405881225445857}
@@ -94,14 +97,11 @@ MonoBehaviour:
   beaconUpgrade0: 0
   beaconUpgrade3: 0
   beaconUpgrade4: 0
-  supportUpgrade0: 0
-  supportUpgrade1: 0
-  supportUpgrade2: 0
-  supportUpgrade3: 0
-  supportUpgrade4: 0
-  supportUpgrade0Status: 0
-  supportUpgrade1Status: 0
-  supportUpgrade2Status: 0
+  hackingUpgrade0: 0
+  hackingUpgrade1: 0
+  hackingUpgrade2: 0
+  hackingUpgrade3: 0
+  hackingUpgrade4: 0
   panel: {fileID: 0}
   upgradeImageUIArray:
   - {fileID: 21300000, guid: 1f93d1bc40bd3cc439034910fe9d79a3, type: 3}
@@ -109,6 +109,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1ba62943085ab1841a3342ac713393bb, type: 3}
   - {fileID: 21300000, guid: 8a952bf700d42c948a7558882c0ecea0, type: 3}
   - {fileID: 21300000, guid: 255d31f2abcf775469f082b7263bfa58, type: 3}
+  hackingSFX: {fileID: 0}
+  beaconSFX: {fileID: 8741434340413166409}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}
   line: {fileID: 3925160454474912541}
@@ -239,6 +241,102 @@ CapsuleCollider:
   m_Height: 1.04
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -0.47}
+--- !u!82 &8741434340413166409
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4900030948108446074}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 844479235756109893, guid: b462958abe134284f911812a33ec2e53, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 632fff4205c97184bb347930d193929b, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &2933674342174532
 PrefabInstance:
   m_ObjectHideFlags: 0

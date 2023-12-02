@@ -92,7 +92,6 @@ public class Tower : MonoBehaviour{
     public bool hackingUpgrade3 = false;
     public bool hackingUpgrade4 = false;
 
-
     // upgradePanel er en UI Prefab vi dro inn i Unity editoren
     // panel er instancen (som blir lagd senere)
     private GameObject upgradePanel;
@@ -108,6 +107,9 @@ public class Tower : MonoBehaviour{
     public Sprite[] upgradeImageUIArray;
 
     private string descriptionText;
+
+    public AudioSource hackingSFX;
+    public AudioSource beaconSFX;
 
     void Awake(){
         if (type == "Laser Shooter"){
@@ -561,6 +563,7 @@ public class Tower : MonoBehaviour{
                     }
                             
                     if (enemiesHit[i].GetComponent<Enemy>().health <= 0){
+                        SFXMaster.instance.playDeathSFX();
                         StatTracker.instance.changeTokens(enemiesHit[i].GetComponent<Enemy>().tokenIncrease, enemiesHit[i].GetComponent<Enemy>().hackingUpgrade1Status);
                         Destroy(enemiesHit[i].gameObject);
                         Spawner.enemies.Remove(enemiesHit[i].gameObject);
@@ -568,6 +571,11 @@ public class Tower : MonoBehaviour{
 
                         //enemiesToRemoveFromList.Add(i);
                     }
+                }
+
+                if (enemiesHit.Count > 0){
+                    //SFXMaster.instance.beaconSFX.Play();
+                    beaconSFX.Play();
                 }
 
                 shootTimer -= attackSpeed;
@@ -626,6 +634,11 @@ public class Tower : MonoBehaviour{
                     */
                 }
 
+                if (enemiesHit.Count > 0){
+                    //SFXMaster.instance.hackingSFX.Play();
+                    hackingSFX.Play();
+                }
+
                 shootTimer -= attackSpeed;
             }
             shootTimer += 1 * Time.deltaTime;
@@ -676,6 +689,7 @@ public class Tower : MonoBehaviour{
                 enemyTarget.GetComponent<Enemy>().health -= dealDamage(enemyTarget.GetComponent<Enemy>(), 0);
 
                 if (enemyTarget.GetComponent<Enemy>().health <= 0){
+                    SFXMaster.instance.playDeathSFX();
                     StatTracker.instance.changeTokens(enemyTarget.GetComponent<Enemy>().tokenIncrease, enemyTarget.GetComponent<Enemy>().hackingUpgrade1Status);
                     Destroy(enemyTarget.gameObject);
                     Spawner.enemies.Remove(enemyTarget.gameObject);
@@ -729,6 +743,7 @@ public class Tower : MonoBehaviour{
                     // KAN HENDE AT DETTE SYSTEMET BARE STRAIGHT UP IKKE FUNKER, HUSK Å TEST DET NÅR DU KAN ROTERE OG SJEKKE ORDENTLIG HVILKEN ENEMY SOM ENTERA FØRST
 
                     if (theEnemy.GetComponent<Enemy>().health <= 0){
+                        SFXMaster.instance.playDeathSFX();
                         StatTracker.instance.changeTokens(theEnemy.GetComponent<Enemy>().tokenIncrease, theEnemy.GetComponent<Enemy>().hackingUpgrade1Status);
                         Destroy(theEnemy);
                         Spawner.enemies.Remove(theEnemy);

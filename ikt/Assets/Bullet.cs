@@ -36,6 +36,7 @@ public class Bullet : MonoBehaviour{
 
         if (enemyIndex >= 0){
             Destroy(gameObject);
+            SFXMaster.instance.playImpactSFX();
 
             if (myTower.type == "Laser Shooter"){
                 Spawner.enemies[enemyIndex].GetComponent<Enemy>().health -= myTower.dealDamage(Spawner.enemies[enemyIndex].GetComponent<Enemy>(), 0);
@@ -108,10 +109,11 @@ public class Bullet : MonoBehaviour{
 
     void deleteEnemy(GameObject theEnemy){
         if (theEnemy.GetComponent<Enemy>().health <= 0){
+            SFXMaster.instance.playDeathSFX();
             StatTracker.instance.changeTokens(theEnemy.GetComponent<Enemy>().tokenIncrease, theEnemy.GetComponent<Enemy>().hackingUpgrade1Status);
             Destroy(theEnemy);
             Spawner.enemies.Remove(theEnemy);
-            StatTracker.instance.updateText(); 
+            StatTracker.instance.updateText();
         }
     }
 }

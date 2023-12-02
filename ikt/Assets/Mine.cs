@@ -36,11 +36,14 @@ public class Mine : MonoBehaviour{
             }
         }
 
+        SFXMaster.instance.mineSFX.Play();
+
         Destroy(gameObject);
     }
 
     void deleteEnemy(GameObject theEnemy){
         if (theEnemy.GetComponent<Enemy>().health <= 0){
+            SFXMaster.instance.playDeathSFX();
             StatTracker.instance.changeTokens(theEnemy.GetComponent<Enemy>().tokenIncrease, theEnemy.GetComponent<Enemy>().hackingUpgrade1Status);
             Destroy(theEnemy);
             Spawner.enemies.Remove(theEnemy);
