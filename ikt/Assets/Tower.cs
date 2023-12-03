@@ -108,7 +108,6 @@ public class Tower : MonoBehaviour{
 
     private string descriptionText;
 
-    public AudioSource hackingSFX;
     public AudioSource beaconSFX;
 
     void Awake(){
@@ -632,11 +631,6 @@ public class Tower : MonoBehaviour{
                         //enemiesToRemoveFromList.Add(i);
                     }
                     */
-                }
-
-                if (enemiesHit.Count > 0){
-                    //SFXMaster.instance.hackingSFX.Play();
-                    hackingSFX.Play();
                 }
 
                 shootTimer -= attackSpeed;

@@ -352,12 +352,16 @@ public class Enemy : MonoBehaviour{
         if (hasUpgrade4){
             if (tempRandom <= 35){
                 hackingUpgrade2Status = 0.8f;
+
+                SFXMaster.instance.hackingSFX.Play();
             }
         }
         else {
             if (tempRandom <= 25){
                 if (hackingUpgrade2Status <= 0.5f){
                     hackingUpgrade2Status = 0.5f;
+
+                    SFXMaster.instance.hackingSFX.Play();
                 } 
             }
         }

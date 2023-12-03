@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 public class StatTracker : MonoBehaviour{
 
@@ -18,7 +19,7 @@ public class StatTracker : MonoBehaviour{
     
     [SerializeField] private int tokens = 100;
     [SerializeField] private int playerHealth = 100;
-    public static int score = 0;
+    public static float score = 0;
     [SerializeField] private static int wave = 0;
 
     [SerializeField] TextMeshProUGUI tokenText;
@@ -141,7 +142,7 @@ public class StatTracker : MonoBehaviour{
         return playerHealth;
     }
 
-    public int getScore(){
+    public float getScore(){
         return score;
     }
 
@@ -154,7 +155,7 @@ public class StatTracker : MonoBehaviour{
     }
 
     public static void updateScore(){
-        score = wave * 10;
+        score = 1 * (float)Math.Pow(1.1, wave);
     }
 
     public float getDamage(int index){
