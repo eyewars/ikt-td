@@ -18,8 +18,8 @@ public class StatTracker : MonoBehaviour{
     
     [SerializeField] private int tokens = 100;
     [SerializeField] private int playerHealth = 100;
-    [SerializeField] private int score = 0;
-    [SerializeField] private int wave = 0;
+    public static int score = 0;
+    [SerializeField] private static int wave = 0;
 
     [SerializeField] TextMeshProUGUI tokenText;
     [SerializeField] TextMeshProUGUI healthText;
@@ -147,6 +147,14 @@ public class StatTracker : MonoBehaviour{
 
     public int getWave(){
         return wave;
+    }
+
+    public static void resetWave(){
+        wave = 0;
+    }
+
+    public static void updateScore(){
+        score = wave * 10;
     }
 
     public float getDamage(int index){

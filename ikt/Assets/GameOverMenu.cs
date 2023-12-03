@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour{
     public void playAgain() {
+        StatTracker.resetWave();
         SceneManager.LoadScene(1);
     }
 
