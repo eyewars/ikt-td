@@ -16,6 +16,16 @@ TagManager:
   - EnemyWheel
   - TopPropeller
   - BotPropeller
+  - Rotate0
+  - Rotate1
+  - Rotate2
+  - Rotate3
+  - Rotate4
+  - Line0
+  - Line1
+  - Line2
+  - Line3
+  - Line4
   layers:
   - Default
   - TransparentFX

@@ -36,16 +36,22 @@ public class Tower : MonoBehaviour{
     public GameObject upgrade2Model;
     public GameObject upgrade3Model;
     public GameObject upgrade4Model;
-    private GameObject[] partToRotateArr;
+    private List<GameObject> partToRotateArr = new List<GameObject>();
     private GameObject partToRotate;
 
     private Vector3 partToRotatePositionTemp;
+
+    private GameObject rotate0;
+    private GameObject rotate1;
+    private GameObject rotate2;
+    private GameObject rotate3;
+    private GameObject rotate4;
 
     public List<GameObject> lightsabreEnemies = new List<GameObject>();
     GameObject[] lightsabreArmsToRotateAll;
     List<GameObject> lightsabreArmsToRotate = new List<GameObject>();
 
-    GameObject[] plasmaShooterLineRenderersGameObject;
+    List<GameObject> plasmaShooterLineRenderersGameObject = new List<GameObject>();
     List<LineRenderer> plasmaShooterLineRenderers = new List<LineRenderer>();
 
     public string type = "Laser Shooter";
@@ -257,9 +263,13 @@ public class Tower : MonoBehaviour{
         }
 
         if (type == "Plasma Tower"){
-            plasmaShooterLineRenderersGameObject = GameObject.FindGameObjectsWithTag("LaserLineRenderer");
+            //plasmaShooterLineRenderersGameObject = GameObject.FindGameObjectsWithTag("LaserLineRenderer");
 
-            for (int i = 0; i < plasmaShooterLineRenderersGameObject.Length; i++){
+            for (int i = 0; i < 5; i++){
+               plasmaShooterLineRenderersGameObject.Add(GameObject.FindGameObjectWithTag("Line" + i)); 
+            }
+            Debug.Log(plasmaShooterLineRenderersGameObject.Count);
+            for (int i = 0; i < plasmaShooterLineRenderersGameObject.Count; i++){
                 plasmaShooterLineRenderersGameObject[i].tag = "Untagged";
                 plasmaShooterLineRenderers.Add(plasmaShooterLineRenderersGameObject[i].GetComponent<LineRenderer>());
             }
@@ -277,21 +287,16 @@ public class Tower : MonoBehaviour{
             shootPoint = shootPointArr[0].transform;
         }
 
-        partToRotateArr = GameObject.FindGameObjectsWithTag("Rotate");
+        for (int i = 0; i < 5; i++){
+            partToRotateArr.Add(GameObject.FindGameObjectWithTag("Rotate" + i));
+            partToRotateArr[i].tag = "Untagged";
+        }
+
         partToRotate = partToRotateArr[0];
         upgrade1Model.SetActive(false);
         upgrade2Model.SetActive(false);
         upgrade3Model.SetActive(false);
         upgrade4Model.SetActive(false);
-
-        // Fjerner "Rotate" taggen sånn at ikke de blir funnet på nytt av neste tårn
-        for (int i = 0; i < partToRotateArr.Length; i++){
-            partToRotateArr[i].tag = "Untagged";
-        }
-
-        // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // FJERN DENNE LINJA NÅR DU FÅR MODELL SHITTET TIL Å FUNGERE ELLER NOE SÅNN !!!!!!!!!!!!!!!!!!!!!!!!!! 
-        // KANSKJE IDK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         transform.rotation = Quaternion.Euler(90f, 0f, 0f);
       

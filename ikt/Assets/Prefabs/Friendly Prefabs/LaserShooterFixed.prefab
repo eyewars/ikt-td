@@ -468,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1171469175893821496, guid: 819ad16c7ccef0c4aaefd430be0bffd2, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate2
       objectReference: {fileID: 0}
     - target: {fileID: 8089062573417005363, guid: 819ad16c7ccef0c4aaefd430be0bffd2, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -571,7 +571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1171469175893821496, guid: 1f90d1a274fe1fc499c49e7443ca7d70, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate3
       objectReference: {fileID: 0}
     - target: {fileID: 8089062573417005363, guid: 1f90d1a274fe1fc499c49e7443ca7d70, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -674,7 +674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1171469175893821496, guid: 33c420637872ed841bdb8741c78576d2, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate4
       objectReference: {fileID: 0}
     - target: {fileID: 8089062573417005363, guid: 33c420637872ed841bdb8741c78576d2, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -777,7 +777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1171469175893821496, guid: e3008a43f1a4f624698bdc85c6fe4e45, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate1
       objectReference: {fileID: 0}
     - target: {fileID: 8089062573417005363, guid: e3008a43f1a4f624698bdc85c6fe4e45, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -884,7 +884,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1171469175893821496, guid: e50c910de55f7fd4285f8658a51c6455, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate0
       objectReference: {fileID: 0}
     - target: {fileID: 2800250516343163423, guid: e50c910de55f7fd4285f8658a51c6455, type: 3}
       propertyPath: m_TagString
