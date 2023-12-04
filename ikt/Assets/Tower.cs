@@ -263,12 +263,10 @@ public class Tower : MonoBehaviour{
         }
 
         if (type == "Plasma Tower"){
-            //plasmaShooterLineRenderersGameObject = GameObject.FindGameObjectsWithTag("LaserLineRenderer");
-
             for (int i = 0; i < 5; i++){
                plasmaShooterLineRenderersGameObject.Add(GameObject.FindGameObjectWithTag("Line" + i)); 
             }
-            Debug.Log(plasmaShooterLineRenderersGameObject.Count);
+
             for (int i = 0; i < plasmaShooterLineRenderersGameObject.Count; i++){
                 plasmaShooterLineRenderersGameObject[i].tag = "Untagged";
                 plasmaShooterLineRenderers.Add(plasmaShooterLineRenderersGameObject[i].GetComponent<LineRenderer>());
