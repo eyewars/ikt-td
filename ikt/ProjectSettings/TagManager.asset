@@ -13,6 +13,9 @@ TagManager:
   - LaserLineRenderer
   - ShootPoint
   - TowerPicker
+  - EnemyWheel
+  - TopPropeller
+  - BotPropeller
   layers:
   - Default
   - TransparentFX

@@ -263,6 +263,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 526b286b76e6b9c43a08c11a86e2db37, type: 3}
   - {fileID: 21300000, guid: be42d7fb81a747f4ea0dd09d92926c0e, type: 3}
   - {fileID: 21300000, guid: c1623f5f7f30006448d16e3443922c65, type: 3}
+  beaconSFX: {fileID: 0}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}
   line: {fileID: -5059612708651570653}
@@ -469,6 +470,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Rotate
       objectReference: {fileID: 0}
+    - target: {fileID: 8089062573417005363, guid: 819ad16c7ccef0c4aaefd430be0bffd2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f467d9b2f2999e7459e6de38f4baa1e5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -568,6 +573,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Rotate
       objectReference: {fileID: 0}
+    - target: {fileID: 8089062573417005363, guid: 1f90d1a274fe1fc499c49e7443ca7d70, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f467d9b2f2999e7459e6de38f4baa1e5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -667,6 +676,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Rotate
       objectReference: {fileID: 0}
+    - target: {fileID: 8089062573417005363, guid: 33c420637872ed841bdb8741c78576d2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f467d9b2f2999e7459e6de38f4baa1e5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -766,6 +779,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Rotate
       objectReference: {fileID: 0}
+    - target: {fileID: 8089062573417005363, guid: e3008a43f1a4f624698bdc85c6fe4e45, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f467d9b2f2999e7459e6de38f4baa1e5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -857,6 +874,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5382411330323619658, guid: e50c910de55f7fd4285f8658a51c6455, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2781410738928257789, guid: 9d7cf9f24ea93da4f812dc075c96c8dd, type: 3}
     - target: {fileID: 919132149155446097, guid: e50c910de55f7fd4285f8658a51c6455, type: 3}
       propertyPath: m_Name
       value: LaserShooterFixed
@@ -865,6 +886,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Rotate
       objectReference: {fileID: 0}
+    - target: {fileID: 2800250516343163423, guid: e50c910de55f7fd4285f8658a51c6455, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089062573417005363, guid: e50c910de55f7fd4285f8658a51c6455, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f467d9b2f2999e7459e6de38f4baa1e5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

@@ -155,7 +155,7 @@ public class StatTracker : MonoBehaviour{
     }
 
     public static void updateScore(){
-        score = 1 * (float)Math.Pow(1.1, wave);
+        score = wave * (float)Math.Floor(Math.Pow(1.1, wave));
     }
 
     public float getDamage(int index){

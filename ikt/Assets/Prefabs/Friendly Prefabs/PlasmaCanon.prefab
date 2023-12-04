@@ -57,6 +57,7 @@ MonoBehaviour:
   mine: {fileID: 3979323479500235530, guid: 6187acec730c75d46acc99bbfa2364b3, type: 3}
   shootTimer: 0
   mineTimer: 0
+  plasmaTowerCooldownTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
   upgrade0Model: {fileID: 8651319606306145469}
@@ -95,14 +96,11 @@ MonoBehaviour:
   beaconUpgrade0: 0
   beaconUpgrade3: 0
   beaconUpgrade4: 0
-  supportUpgrade0: 0
-  supportUpgrade1: 0
-  supportUpgrade2: 0
-  supportUpgrade3: 0
-  supportUpgrade4: 0
-  supportUpgrade0Status: 0
-  supportUpgrade1Status: 0
-  supportUpgrade2Status: 0
+  hackingUpgrade0: 0
+  hackingUpgrade1: 0
+  hackingUpgrade2: 0
+  hackingUpgrade3: 0
+  hackingUpgrade4: 0
   panel: {fileID: 0}
   upgradeImageUIArray:
   - {fileID: 21300000, guid: 1d48b4d031c95754d9d48391ad7a016a, type: 3}
@@ -110,6 +108,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5c557d7b74185704893e868d2a46f417, type: 3}
   - {fileID: 21300000, guid: a33e72b8095fa3041a64b3c2d0c40f9e, type: 3}
   - {fileID: 21300000, guid: ce7d0a4d71174ff4fb9df8d6cf5ea675, type: 3}
+  beaconSFX: {fileID: 0}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}
   line: {fileID: 8473242483354992821}
@@ -471,6 +470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlasmaCanon2
       objectReference: {fileID: 0}
+    - target: {fileID: 7482503382739228859, guid: dad88c79bd6b11148b67cf49e0c3f4bb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e7fe1c7659bb7904c811a8f2010b140c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -562,6 +565,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3310058475453006080, guid: 10949fbbdc3ae8e48a5eb1228cabc764, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e7fe1c7659bb7904c811a8f2010b140c, type: 2}
     - target: {fileID: 919132149155446097, guid: 10949fbbdc3ae8e48a5eb1228cabc764, type: 3}
       propertyPath: m_Name
       value: PlasmaCanon3
@@ -669,6 +676,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlasmaCanon1
       objectReference: {fileID: 0}
+    - target: {fileID: 7482503382739228859, guid: 334e948bef7a6824f9da2fa87bdc2a6a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e7fe1c7659bb7904c811a8f2010b140c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -768,6 +779,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlasmaCanon0
       objectReference: {fileID: 0}
+    - target: {fileID: 7482503382739228859, guid: bc0621ad2cfe65f4aa7ed3419d4420a4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7482503382739228859, guid: bc0621ad2cfe65f4aa7ed3419d4420a4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e7fe1c7659bb7904c811a8f2010b140c, type: 2}
+    - target: {fileID: 7482503382739228859, guid: bc0621ad2cfe65f4aa7ed3419d4420a4, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e7fe1c7659bb7904c811a8f2010b140c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -863,10 +886,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Rotate
       objectReference: {fileID: 0}
+    - target: {fileID: -2838008033163634234, guid: 7b7348c76c210b54393b3f4b1d59d77e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e7fe1c7659bb7904c811a8f2010b140c, type: 2}
     - target: {fileID: 919132149155446097, guid: 7b7348c76c210b54393b3f4b1d59d77e, type: 3}
       propertyPath: m_Name
       value: PlasmaCanon4
       objectReference: {fileID: 0}
+    - target: {fileID: 7482503382739228859, guid: 7b7348c76c210b54393b3f4b1d59d77e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e7fe1c7659bb7904c811a8f2010b140c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour{
     private float ccResistanceScaling = 1f;
     private float ccResistanceBase = 1f;
     private GameObject wheel;
+    private GameObject topPropeller;
+    private GameObject botPropeller;
 
     public float distanceToWaypoint = 0f;
     public float distanceToLastWaypoint = 10f;
@@ -52,6 +54,13 @@ public class Enemy : MonoBehaviour{
         if (!type.Contains("Fast")){
             wheel = GameObject.FindGameObjectWithTag("EnemyWheel");
             wheel.tag = "Untagged";
+        }
+        else{
+            topPropeller = GameObject.FindGameObjectWithTag("TopPropeller");
+            topPropeller.tag = "Untagged";
+
+            botPropeller = GameObject.FindGameObjectWithTag("BotPropeller");
+            botPropeller.tag = "Untagged";
         }
 
         target = Waypoints.points[waypointIndex];
@@ -112,6 +121,10 @@ public class Enemy : MonoBehaviour{
 
         if (!type.Contains("Fast")){
             wheel.transform.Rotate(180 * Time.deltaTime, 0f, 0f);
+        }
+        else{
+            topPropeller.transform.Rotate(0f, 450 * Time.deltaTime, 0f);
+            botPropeller.transform.Rotate(720 * Time.deltaTime, 0f, 0f);
         }
 
         Vector3 direction = target.position - transform.position;

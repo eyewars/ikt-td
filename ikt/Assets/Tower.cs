@@ -501,7 +501,7 @@ public class Tower : MonoBehaviour{
             Vector3 direction = enemyTarget.position - transform.position;
             Quaternion turnDirection = Quaternion.LookRotation(direction);
             Vector3 turnRotation = turnDirection.eulerAngles;
-            
+
             partToRotate.transform.rotation = Quaternion.Euler(0f, turnRotation.y, 0f);
 
             if (shootTimer >= attackSpeed){
