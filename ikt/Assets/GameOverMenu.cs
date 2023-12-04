@@ -14,7 +14,7 @@ public class GameOverMenu : MonoBehaviour{
     }
 
     public void quitGame() {
-        Debug.Log("nå sluttet spillet NWWEEEEIE");
+        Debug.Log("Game is closing");
         Application.Quit();
     }
 }
