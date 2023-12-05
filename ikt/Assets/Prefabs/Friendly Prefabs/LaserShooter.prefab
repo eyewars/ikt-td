@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2485207040732707172}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4423290514137920332}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 3009604447666965856}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot4
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 6445864583610178046}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -181,6 +181,7 @@ MonoBehaviour:
   mine: {fileID: 0}
   shootTimer: 0
   mineTimer: 0
+  plasmaTowerCooldownTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
   upgrade0Model: {fileID: 8894339355360532556}
@@ -219,14 +220,11 @@ MonoBehaviour:
   beaconUpgrade0: 0
   beaconUpgrade3: 0
   beaconUpgrade4: 0
-  supportUpgrade0: 0
-  supportUpgrade1: 0
-  supportUpgrade2: 0
-  supportUpgrade3: 0
-  supportUpgrade4: 0
-  supportUpgrade0Status: 0
-  supportUpgrade1Status: 0
-  supportUpgrade2Status: 0
+  hackingUpgrade0: 0
+  hackingUpgrade1: 0
+  hackingUpgrade2: 0
+  hackingUpgrade3: 0
+  hackingUpgrade4: 0
   panel: {fileID: 0}
   upgradeImageUIArray:
   - {fileID: 21300000, guid: 4331d6bc1d97f3a4d8c4e3a02004abc8, type: 3}
@@ -234,6 +232,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 526b286b76e6b9c43a08c11a86e2db37, type: 3}
   - {fileID: 21300000, guid: be42d7fb81a747f4ea0dd09d92926c0e, type: 3}
   - {fileID: 21300000, guid: c1623f5f7f30006448d16e3443922c65, type: 3}
+  beaconSFX: {fileID: 0}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}
   line: {fileID: 7097074002649084440}
@@ -375,7 +374,7 @@ GameObject:
   - component: {fileID: 3349579527441771633}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

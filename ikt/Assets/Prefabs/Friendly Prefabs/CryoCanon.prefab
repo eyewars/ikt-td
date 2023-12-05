@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8803690644731003908}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot4
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,6 +88,7 @@ MonoBehaviour:
   mine: {fileID: 0}
   shootTimer: 0
   mineTimer: 0
+  plasmaTowerCooldownTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
   upgrade0Model: {fileID: 4202051432780577763}
@@ -126,14 +127,11 @@ MonoBehaviour:
   beaconUpgrade0: 0
   beaconUpgrade3: 0
   beaconUpgrade4: 0
-  supportUpgrade0: 0
-  supportUpgrade1: 0
-  supportUpgrade2: 0
-  supportUpgrade3: 0
-  supportUpgrade4: 0
-  supportUpgrade0Status: 0
-  supportUpgrade1Status: 0
-  supportUpgrade2Status: 0
+  hackingUpgrade0: 0
+  hackingUpgrade1: 0
+  hackingUpgrade2: 0
+  hackingUpgrade3: 0
+  hackingUpgrade4: 0
   panel: {fileID: 0}
   upgradeImageUIArray:
   - {fileID: 21300000, guid: e7c2507aefbe1cb449e424ff3c9f69a7, type: 3}
@@ -141,6 +139,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 591474755b88d694d972ef7d4c7cc359, type: 3}
   - {fileID: 21300000, guid: 8bca8a878cdd11849881234473935e32, type: 3}
   - {fileID: 21300000, guid: f804c18d501c29b48adc24739a4043c9, type: 3}
+  beaconSFX: {fileID: 0}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}
   line: {fileID: 7489377999245041994}
@@ -282,7 +281,7 @@ GameObject:
   - component: {fileID: 8418291385210592910}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -313,7 +312,7 @@ GameObject:
   - component: {fileID: 5933120282844383451}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -344,7 +343,7 @@ GameObject:
   - component: {fileID: 1444410839372698414}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -375,7 +374,7 @@ GameObject:
   - component: {fileID: 5175994341544389020}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -469,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: 5a6dac6442fb7eb449508696010299d8, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -568,7 +567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: 4b81b51e44ab7214da3e9b8f40d9cc5f, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -667,7 +666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: 0ba76ae63e417f74ca9c907d48540083, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -766,7 +765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: 789270786aa528d4a97a1ae146a590db, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -865,7 +864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: f134b9839ffa2a54ab4fbd99474a322b, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

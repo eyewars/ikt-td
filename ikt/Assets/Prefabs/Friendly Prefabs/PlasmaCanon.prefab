@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 644835876688443921}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 5122161010994511840}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot4
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 8620208937397430564}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 7578927864225419607}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 4246007577431636131}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: ShootPoint
+  m_TagString: Shoot1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -464,7 +464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8380157826906577798, guid: dad88c79bd6b11148b67cf49e0c3f4bb, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dad88c79bd6b11148b67cf49e0c3f4bb, type: 3}
       propertyPath: m_Name
@@ -575,7 +575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5431018313575694322, guid: 10949fbbdc3ae8e48a5eb1228cabc764, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -670,7 +670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8380157826906577798, guid: 334e948bef7a6824f9da2fa87bdc2a6a, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 334e948bef7a6824f9da2fa87bdc2a6a, type: 3}
       propertyPath: m_Name
@@ -773,7 +773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8380157826906577798, guid: bc0621ad2cfe65f4aa7ed3419d4420a4, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bc0621ad2cfe65f4aa7ed3419d4420a4, type: 3}
       propertyPath: m_Name
@@ -884,7 +884,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8380157826906577798, guid: 7b7348c76c210b54393b3f4b1d59d77e, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate4
       objectReference: {fileID: 0}
     - target: {fileID: -2838008033163634234, guid: 7b7348c76c210b54393b3f4b1d59d77e, type: 3}
       propertyPath: m_Materials.Array.data[0]

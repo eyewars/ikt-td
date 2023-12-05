@@ -14,7 +14,7 @@ public class Tower : MonoBehaviour{
     public Tile myTile;
 
     // TYPE OF BULLET TO SHOOT
-    private GameObject[] shootPointArr;
+    private List<GameObject> shootPointArr = new List<GameObject>();
     public Transform shootPoint;
     public GameObject bullet;
     public GameObject mine;
@@ -48,7 +48,7 @@ public class Tower : MonoBehaviour{
     private GameObject rotate4;
 
     public List<GameObject> lightsabreEnemies = new List<GameObject>();
-    GameObject[] lightsabreArmsToRotateAll;
+    List<GameObject> lightsabreArmsToRotateAll = new List<GameObject>();
     List<GameObject> lightsabreArmsToRotate = new List<GameObject>();
 
     List<GameObject> plasmaShooterLineRenderersGameObject = new List<GameObject>();
@@ -254,12 +254,12 @@ public class Tower : MonoBehaviour{
         mineHolder = GameObject.Find("Mines");
 
         if (type == "Lightsabre Arm"){
-            lightsabreArmsToRotateAll = GameObject.FindGameObjectsWithTag("LightsabreRotate");
-            lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[0]);
-
-            for (int i = 0; i < lightsabreArmsToRotateAll.Length; i++){
+            for (int i = 0; i < 7; i++){
+                lightsabreArmsToRotateAll.Add(GameObject.FindGameObjectWithTag("Sabre" + i));
                 lightsabreArmsToRotateAll[i].tag = "Untagged";
             }
+
+            lightsabreArmsToRotate.Add(lightsabreArmsToRotateAll[0]);
         }
 
         if (type == "Plasma Tower"){
@@ -276,9 +276,9 @@ public class Tower : MonoBehaviour{
         }
 
         if ((type == "Laser Shooter") || (type == "Plasma Canon") || (type == "Plasma Tower") || (type == "Cryo Canon")){
-            shootPointArr = GameObject.FindGameObjectsWithTag("ShootPoint");
 
-            for (int i = 0; i < shootPointArr.Length; i++){
+            for (int i = 0; i < 5; i++){
+                shootPointArr.Add(GameObject.FindGameObjectWithTag("Shoot" + i));
                 shootPointArr[i].tag = "Untagged";
             }
 

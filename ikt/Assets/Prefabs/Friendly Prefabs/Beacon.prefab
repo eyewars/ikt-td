@@ -109,7 +109,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1ba62943085ab1841a3342ac713393bb, type: 3}
   - {fileID: 21300000, guid: 8a952bf700d42c948a7558882c0ecea0, type: 3}
   - {fileID: 21300000, guid: 255d31f2abcf775469f082b7263bfa58, type: 3}
-  hackingSFX: {fileID: 0}
   beaconSFX: {fileID: 8741434340413166409}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}
@@ -407,7 +406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5568371526223589888, guid: 27b31b04fcc38c5439639c7ba1a0399c, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate4
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 27b31b04fcc38c5439639c7ba1a0399c, type: 3}
       propertyPath: m_Name
@@ -498,7 +497,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5568371526223589888, guid: fc27ceaa16a75fc45b4012d62e87c13f, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fc27ceaa16a75fc45b4012d62e87c13f, type: 3}
       propertyPath: m_Name
@@ -589,7 +588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5568371526223589888, guid: bcc5f3b50dc2ae5448c36bdd2c4dc29f, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bcc5f3b50dc2ae5448c36bdd2c4dc29f, type: 3}
       propertyPath: m_Name
@@ -680,7 +679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5568371526223589888, guid: 2a546a12a34616249adf62274f3f6b73, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2a546a12a34616249adf62274f3f6b73, type: 3}
       propertyPath: m_Name
@@ -771,7 +770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5568371526223589888, guid: c82a0f2d3beb0384cb2bdad5e2efa969, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c82a0f2d3beb0384cb2bdad5e2efa969, type: 3}
       propertyPath: m_Name

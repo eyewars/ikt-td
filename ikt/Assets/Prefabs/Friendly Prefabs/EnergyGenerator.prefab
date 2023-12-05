@@ -52,10 +52,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTile: {fileID: 0}
+  shootPoint: {fileID: 0}
   bullet: {fileID: 3097568633870670902, guid: 6decb57c60d19dd46b8f461b9b3b6440, type: 3}
   mine: {fileID: 0}
   shootTimer: 0
   mineTimer: 0
+  plasmaTowerCooldownTimer: 0
   enemyTag: Enemy
   enemyTarget: {fileID: 0}
   upgrade0Model: {fileID: 5732698588056640736}
@@ -91,6 +93,14 @@ MonoBehaviour:
   energyGeneratorUpgrade4: 0
   lightsabreArmUpgrade3: 0
   lightsabreArmUpgrade4: 0
+  beaconUpgrade0: 0
+  beaconUpgrade3: 0
+  beaconUpgrade4: 0
+  hackingUpgrade0: 0
+  hackingUpgrade1: 0
+  hackingUpgrade2: 0
+  hackingUpgrade3: 0
+  hackingUpgrade4: 0
   panel: {fileID: 0}
   upgradeImageUIArray:
   - {fileID: 21300000, guid: 7676d58473331154383659f9fe614814, type: 3}
@@ -98,6 +108,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8b3e1812d18fe5f43ae79f66ff422e46, type: 3}
   - {fileID: 21300000, guid: 7f39c8e2964096c40862af500a2e3f23, type: 3}
   - {fileID: 21300000, guid: ff2e12a153ba74944b4be4c18cd9c866, type: 3}
+  beaconSFX: {fileID: 0}
   bulletHolder: {fileID: 0}
   mineHolder: {fileID: 0}
   line: {fileID: 4366997930437412060}
@@ -302,7 +313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: fab68d8ba511cb348b49d2baca79254a, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -393,7 +404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: 7b0822052f056e04393a887212aa1775, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -484,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: 6b094e4a762216f4db6bd7ec3403aecc, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -575,7 +586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: 7ec555fb286be1f409b7759ffd941850, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -666,7 +677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: 4ffd6bf6f3559164587524fc581d2354, type: 3}
       propertyPath: m_TagString
-      value: Rotate
+      value: Rotate3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
