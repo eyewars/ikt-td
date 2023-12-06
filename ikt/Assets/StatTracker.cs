@@ -20,7 +20,7 @@ public class StatTracker : MonoBehaviour{
     [SerializeField] private int tokens = 100;
     [SerializeField] private int playerHealth = 100;
     public static float score = 0;
-    [SerializeField] private static int wave = 9;
+    [SerializeField] private static int wave = 0;
 
     [SerializeField] TextMeshProUGUI tokenText;
     [SerializeField] TextMeshProUGUI healthText;
