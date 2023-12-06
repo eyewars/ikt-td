@@ -112,19 +112,18 @@ public class Spawner : MonoBehaviour{
     void Start(){
         for (int i = 0; i < 501; i++){
             //Powerlevel går ikke høyere enn det den er på wave 25, sånn at de ikke blir alt for lange
+            //De gror heller i stats mer etter da
             int powerLevel;
             if (i < 24){
                 powerLevel = 5 + i;
             }
             else powerLevel = 5 + 24;
             
-            //Debug.Log(powerLevel);
             int maxPerEnemy = powerLevel;
             int numberOfEnemyTypes = Random.Range(1, (int)Math.Sqrt(powerLevel + 1) + 1);
             string[] enemyTypesToUse = new string[numberOfEnemyTypes];
             for (int enemyTypeIndex = 0; enemyTypeIndex < numberOfEnemyTypes; enemyTypeIndex++){
                 enemyTypesToUse[enemyTypeIndex] = enemyTypes[Random.Range(0, enemyTypes.Length)];
-                //Debug.Log(enemyTypesToUse[enemyTypeIndex]);
             }
 
             void getRandomEnemies(int max, int total, int len){
