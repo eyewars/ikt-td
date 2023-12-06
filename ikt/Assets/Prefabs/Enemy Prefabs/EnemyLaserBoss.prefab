@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 2875406500643656136}
   m_Layer: 0
   m_Name: Wheel
-  m_TagString: Rotate
+  m_TagString: EnemyWheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
